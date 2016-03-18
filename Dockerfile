@@ -1,2 +1,2 @@
 FROM daocloud.io/nginx
-COPY public /usr/share/nginx/html
+COPY ./ /usr/share/nginx/html
