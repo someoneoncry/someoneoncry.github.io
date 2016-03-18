@@ -32,7 +32,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="/favicon.png" class="js-avatar">
+			<img lazy-src="/assets/img/logo-circle.png" class="js-avatar">
 			
 		</a>
 
@@ -94,9 +94,11 @@
 						
 							<li><a href="/">主页</a></li>
 				        
-							<li><a href="/archives">所有文章</a></li>
+							<li><a href="/archives">归档</a></li>
 				        
 							<li><a href="/instagram">相册</a></li>
+				        
+							<li><a href="/about">关于</a></li>
 				        
 						</ul>
 					</nav>
@@ -137,7 +139,7 @@
 				
 				<section class="switch-part switch-part4">
 				
-					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+					<div id="js-aboutme">折腾爱好者 &amp;&amp; 伪文艺青年 &amp;&amp; 中二病患者 &amp;&amp; 代码搬运工、胶水匠 &amp;&amp; 单身汪</div>
 				</section>
 				
 			</div>
@@ -156,7 +158,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 			
-				<img lazy-src="/favicon.png" class="js-avatar">
+				<img lazy-src="/assets/img/logo-circle.png" class="js-avatar">
 			
 			</div>
 			<hgroup>
@@ -170,9 +172,11 @@
 				
 					<li><a href="/">主页</a></li>
 		        
-					<li><a href="/archives">所有文章</a></li>
+					<li><a href="/archives">归档</a></li>
 		        
 					<li><a href="/instagram">相册</a></li>
+		        
+					<li><a href="/about">关于</a></li>
 		        
 		        <div class="clearfix"></div>
 				</ul>
@@ -281,7 +285,6 @@
 <script src="/js/main.js"></script>
 
 
-
 <!-- Google Analytics -->
 <script type="text/javascript">
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -318,6 +321,24 @@ MathJax.Hub.Queue(function() {
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+
+<!-- instantclick 已知bug比较多，慎用 -->
+<script src="/js/instantclick.min.js" data-no-instant></script>
+<script data-no-instant>
+InstantClick.on('change', function(isInitialLoad) {
+  if (isInitialLoad === false) {
+    if (typeof MathJax !== 'undefined') // support MathJax
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    if (typeof prettyPrint !== 'undefined') // support google code prettify
+      prettyPrint();
+    if (typeof _hmt !== 'undefined')  // support 百度统计
+      _hmt.push(['_trackPageview', location.pathname + location.search]);
+    if (typeof ga !== 'undefined')  // support google analytics
+        ga('send', 'pageview', location.pathname + location.search);
+  }
+});
+InstantClick.init();
+</script>
 
   </div>
 </body>
