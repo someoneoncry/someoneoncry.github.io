@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-03-19T12:56:15.000Z</updated>
+  <updated>2016-03-19T12:58:08.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hexo折腾记(全自动部署篇)</title>
+    <title>Hexo 折腾记(全自动部署篇)</title>
     <link href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html"/>
     <id>https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html</id>
     <published>2016-03-19T09:22:53.000Z</published>
-    <updated>2016-03-19T12:56:15.000Z</updated>
+    <updated>2016-03-19T12:58:08.000Z</updated>
     
     <content type="html">&lt;p&gt;###目标: &lt;/p&gt;
 &lt;p&gt;写完一键上传并部署。(一个命令完成)&lt;/p&gt;
@@ -71,11 +71,11 @@
   </entry>
   
   <entry>
-    <title>Hexo折腾记(性能优化篇)</title>
+    <title>Hexo折腾记性能优化篇</title>
     <link href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html"/>
     <id>https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html</id>
     <published>2016-03-19T09:22:22.000Z</published>
-    <updated>2016-03-19T12:56:05.000Z</updated>
+    <updated>2016-03-19T12:58:30.000Z</updated>
     
     <content type="html">&lt;p&gt;折腾Hexo的本来目的就是为了学习把性能优化到极致，由于水平有限，这里牵涉到的所谓的性能优化仅仅只是一些表面工夫，并不牵涉非常细节的前端性能。&lt;/p&gt;
 &lt;p&gt;另外，由于我朝特殊的网络环境，我使用的谷歌分析，以及Disqus 均会导致出现因时因地因运营商而异的发抽状况，故而所有速度测试均在排除这些干扰下进行的。&lt;/p&gt;
