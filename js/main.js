@@ -115,7 +115,7 @@ if($(".photos").length) {
     });
 }
 
-$("#相册").attr("data-no-instant",'');
+// $("#相册").attr("data-no-instant",'');
 // document.getElementById('相册').onclick = function(e){
 // 	location.href = document.getElementById('相册').href+'#';
 // }

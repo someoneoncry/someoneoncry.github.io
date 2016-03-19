@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Joway's Blog">
 <meta property="og:description" content="折腾Hexo的本来目的就是为了学习把性能优化到极致，由于水平有限，这里牵涉到的所谓的性能优化仅仅只是一些表面工夫，并不牵涉非常细节的前端性能。
 另外，由于我朝特殊的网络环境，我使用的谷歌分析，以及Disqus 均会导致出现因时因地因运营商而异的发抽状况，故而所有速度测试均在排除这些干扰下进行的。">
-<meta property="og:updated_time" content="2016-03-19T12:58:30.000Z">
+<meta property="og:updated_time" content="2016-03-19T14:32:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo折腾记性能优化篇">
 <meta name="twitter:description" content="折腾Hexo的本来目的就是为了学习把性能优化到极致，由于水平有限，这里牵涉到的所谓的性能优化仅仅只是一些表面工夫，并不牵涉非常细节的前端性能。
@@ -249,7 +249,7 @@
         
         	   <div id="toc" class="toc-article">
                <strong class="toc-title">文章目录</strong>
-               <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态文件压缩"><span class="toc-number">1.</span> <span class="toc-text">静态文件压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN-接入"><span class="toc-number">2.</span> <span class="toc-text">CDN 接入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InstantClick-黑科技"><span class="toc-number">3.</span> <span class="toc-text">InstantClick 黑科技</span></a></li></ol>
+               <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#静态文件压缩"><span class="toc-number">1.</span> <span class="toc-text">静态文件压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN-接入"><span class="toc-number">2.</span> <span class="toc-text">CDN 接入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InstantClick-黑科技"><span class="toc-number">3.</span> <span class="toc-text">InstantClick 黑科技</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx-优化配置"><span class="toc-number">4.</span> <span class="toc-text">Nginx 优化配置</span></a></li></ol>
         	   </div>
           
 
@@ -295,6 +295,8 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$("#相册").attr("data-no-instant",'');</span><br></pre></td></tr></table></figure>
 <p>有些时候这种加黑名单的方法也没用，那么就用最后一招，强制刷新（自己调试出来的，略土。。） :</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'相册'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"> 	location.href = <span class="built_in">document</span>.getElementById(<span class="string">'相册'</span>).href;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Nginx-优化配置"><a href="#Nginx-优化配置" class="headerlink" title="Nginx 优化配置"></a>Nginx 优化配置</h3><p>Gzip压缩:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    gzip               on;</span><br><span class="line">    gzip_vary          on;</span><br><span class="line"></span><br><span class="line">    gzip_comp_level    6;</span><br><span class="line">    gzip_buffers       16 8k;</span><br><span class="line"></span><br><span class="line">    gzip_min_length    1000;</span><br><span class="line">    gzip_proxied       any;</span><br><span class="line">    gzip_disable       &quot;msie6&quot;;</span><br><span class="line"></span><br><span class="line">    gzip_http_version  1.0;</span><br><span class="line"></span><br><span class="line">    gzip_types         text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;</span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -376,7 +378,7 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 
 
@@ -418,7 +420,7 @@ MathJax.Hub.Queue(function() {
 
 
 <!-- instantclick 已知bug比较多，慎用 -->
-<script src="/js/instantclick.min.js" data-no-instant></script>
+<!-- <script src="/js/instantclick.min.js" data-no-instant></script>
 <script data-no-instant>
 InstantClick.on('change', function(isInitialLoad) {
   if (isInitialLoad === false) {
@@ -433,7 +435,7 @@ InstantClick.on('change', function(isInitialLoad) {
   }
 });
 InstantClick.init();
-</script>
+</script> -->
 
   </div>
 </body>
