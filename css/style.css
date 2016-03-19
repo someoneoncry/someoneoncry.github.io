@@ -426,7 +426,7 @@ a {
   #container #page-nav .extend {
     opacity: 1;
   }
-  #container .instagram .open-ins {
+  #container .photos .open-ins {
     left: 2px;
     top: -30px;
     color: #aaa;
@@ -850,6 +850,28 @@ a {
   max-width: 83px;
   padding-left: 8px;
   font-size: 12px;
+}
+.toc-article {
+  background: #eee;
+  margin: 2em 0 0 0.5em;
+  padding: 1em;
+}
+.toc-article strong {
+  padding: 0.3em 0;
+}
+#toc {
+  line-height: 1.5em;
+  font-size: 1em;
+  float: right;
+}
+#toc .toc {
+  padding: 0;
+}
+#toc .toc li {
+  list-style-type: none;
+}
+#toc .toc-child {
+  padding-left: 0.7em;
 }
 .body-wrap {
   margin-bottom: 80px;
@@ -1461,6 +1483,28 @@ a {
   padding-left: 8px;
   font-size: 12px;
 }
+.toc-article {
+  background: #eee;
+  margin: 2em 0 0 0.5em;
+  padding: 1em;
+}
+.toc-article strong {
+  padding: 0.3em 0;
+}
+#toc {
+  line-height: 1.5em;
+  font-size: 1em;
+  float: right;
+}
+#toc .toc {
+  padding: 0;
+}
+#toc .toc li {
+  list-style-type: none;
+}
+#toc .toc-child {
+  padding-left: 0.7em;
+}
 .article-entry pre,
 .article-entry .highlight {
   background: #272822;
@@ -1696,17 +1740,17 @@ pre .css ~ * .id {
 #page-nav:hover .extend {
   opacity: 1;
 }
-#post-instagram {
+#post-photos {
   padding: 30px;
 }
-#post-instagram .article-entry {
+#post-photos .article-entry {
   padding-right: 0;
 }
-.instagram {
+.photos {
   position: relative;
   min-height: 500px;
 }
-.instagram .open-ins {
+.photos .open-ins {
   display: block;
   padding: 10px 0;
   position: absolute;
@@ -1714,33 +1758,33 @@ pre .css ~ * .id {
   top: -75px;
   color: #333;
 }
-.instagram .open-ins:hover {
+.photos .open-ins:hover {
   color: #657b83;
 }
-.instagram .year {
+.photos .year {
   display: inline;
 }
-.instagram .album h1 em {
+.photos .album h1 em {
   font-style: normal;
   font-size: 14px;
   margin-left: 10px;
 }
-.instagram .album ul {
+.photos .album ul {
   min-height: 149px;
   padding-top: 17px;
   border-bottom: 1px solid #ddd;
   list-style: none;
 }
-.instagram .album li {
+.photos .album li {
   position: relative;
   display: inline-block;
   min-width: 157px;
   margin: 0;
 }
-.instagram .album li:before {
+.photos .album li:before {
   display: none;
 }
-.instagram .album div.img-box {
+.photos .album div.img-box {
   position: relative;
   margin: 0 20px 10px;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
@@ -1748,7 +1792,7 @@ pre .css ~ * .id {
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
   box-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 1px 0 1px rgba(255,255,255,0.1);
 }
-.instagram .album div.img-box .img-bg {
+.photos .album div.img-box .img-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -1772,24 +1816,24 @@ pre .css ~ * .id {
   cursor: pointer;
   display: block;
 }
-.instagram .album div.img-box .img-bg:hover {
+.photos .album div.img-box .img-bg:hover {
   opacity: 0;
 }
-.instagram .album div.img-box img {
+.photos .album div.img-box img {
   width: 100%;
   height: auto;
   display: block;
 }
 @media screen and (max-width: 600px) {
-  .instagram .album ul {
+  .photos .album ul {
     margin-left: 0;
     padding: 0;
     text-align: center;
   }
-  .instagram .album li {
+  .photos .album li {
     max-width: 300px;
   }
-  .instagram .album div.img-box {
+  .photos .album div.img-box {
     margin: 0;
   }
 }

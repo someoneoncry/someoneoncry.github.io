@@ -4,9 +4,8 @@ define([], function () {
         offset: 20,
         init: function () {
             var that = this;
-            $.getJSON("/photo/output.json", function (data) {
+            $.getJSON("/photos/output.json", function (data) {
                 that.render(that.page, data);
-
                 that.scroll(data);
             });
         },
@@ -18,7 +17,7 @@ define([], function () {
             var html, li = "";
             for (var i = begin; i < end && i < data.length; i++) {
                 li += '<li><div class="img-box">' +
-                    '<a class="img-bg" rel="example_group" href="https://o48qtc2r4.qnssl.com/' + data[i] + '"></a>' +
+                    '<a class="img-bg" rel="example_group" href="https://o48qtc2r4.qnssl.com/' + data[i] + '?imageView2/1/w/200/h/200/interlace/1"></a>' +
                     '<img lazy-src="https://o48qtc2r4.qnssl.com/' + data[i] + '?imageView2/1/w/200/h/200/interlace/1" />' +
                     '</li>';
             }
@@ -35,7 +34,7 @@ define([], function () {
                 var windowPageYOffsetAddHeight = windowPageYOffset + window.innerHeight;
                 var sensitivity = 0;
 
-                var offsetTop = $(".instagram").offset().top + $(".instagram").height();
+                var offsetTop = $(".photos").offset().top + $(".photos").height();
 
                 if (offsetTop >= windowPageYOffset && offsetTop < windowPageYOffsetAddHeight + sensitivity) {
                     that.render(++that.page, data);

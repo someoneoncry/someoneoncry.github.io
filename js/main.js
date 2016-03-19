@@ -109,8 +109,12 @@ require([], function (){
 
 });
 
-if($(".instagram").length) {
+if($(".photos").length) {
     require(['/js/photo.js', '/fancybox/jquery.fancybox.js', '/js/jquery.lazyload.js'], function(obj) {
         obj.init();
     });
+}
+
+document.getElementById('相册').onclick = function(e){
+	location.href = document.getElementById('相册').href;
 }

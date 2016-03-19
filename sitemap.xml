@@ -2,51 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://joway.wang/photo/output.json</loc>
+    <loc>https://joway.wang/posts/programming/2016-03-18-hello-world.html</loc>
     
-    <lastmod>2016-03-19T04:41:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/photo/photo-tool.js</loc>
-    
-    <lastmod>2016-03-19T04:23:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/about/index.html</loc>
-    
-    <lastmod>2016-03-19T03:20:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/photo/index.html</loc>
-    
-    <lastmod>2016-03-19T02:28:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/instagram/index.html</loc>
-    
-    <lastmod>2016-03-19T02:25:46.000Z</lastmod>
+    <lastmod>2016-03-19T08:14:08.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://joway.wang/categories/index.html</loc>
     
-    <lastmod>2016-03-18T14:57:52.000Z</lastmod>
+    <lastmod>2016-03-19T08:10:29.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://joway.wang/posts/programming/2016-03-18-hello-world.html</loc>
+    <loc>https://joway.wang/about/index.html</loc>
     
-    <lastmod>2016-03-18T14:53:20.000Z</lastmod>
+    <lastmod>2016-03-19T08:09:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://joway.wang/photos/index.html</loc>
+    
+    <lastmod>2016-03-19T07:37:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://joway.wang/photos/output.json</loc>
+    
+    <lastmod>2016-03-19T04:41:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://joway.wang/photos/photo-tool.js</loc>
+    
+    <lastmod>2016-03-19T04:23:20.000Z</lastmod>
     
   </url>
   
