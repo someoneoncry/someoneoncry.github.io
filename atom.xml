@@ -75,7 +75,7 @@
     <link href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html"/>
     <id>https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html</id>
     <published>2016-03-19T09:22:22.000Z</published>
-    <updated>2016-03-19T12:38:40.000Z</updated>
+    <updated>2016-03-19T12:53:32.000Z</updated>
     
     <content type="html">&lt;p&gt;折腾Hexo的本来目的就是为了学习把性能优化到极致，由于水平有限，这里牵涉到的所谓的性能优化仅仅只是一些表面工夫，并不牵涉非常细节的前端性能。&lt;/p&gt;
 &lt;p&gt;另外，由于我朝特殊的网络环境，我使用的谷歌分析，以及Disqus 均会导致出现因时因地因运营商而异的发抽状况，故而所有速度测试均在排除这些干扰下进行的。&lt;/p&gt;
