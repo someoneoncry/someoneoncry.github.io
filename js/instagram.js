@@ -119,16 +119,16 @@ var Instagram = (function(){
 
 	return {
 		init:function(){
-			//getList("https://api.instagram.com/v1/users/438522285/media/recent/?access_token=438522285.2082eef.ead70f432f444a2e8b1b341617637bf6&count=100");
-			var insid = $(".instagram").attr("data-client-id");
-            var userId = $(".instagram").attr("data-user-id");
-
-			if(!insid){
-				alert("Didn't set your instagram client_id.\nPlease see the info on the console of your brower.");
-				console.log("Please open 'http://instagram.com/developer/clients/manage/' to get your client-id.");
-				return;
-			}
-			getList("https://api.instagram.com/v1/users/"+ userId +"/media/recent/?client_id="+insid+"&count=100");
+			getList("https://api.instagram.com/v1/users/1519923458/media/recent/?access_token=1519923458.0358e63.1ec8132c77d54f24b901480bd0e881bd&count=100");
+			// var insid = $(".instagram").attr("data-client-id");
+      //       var userId = $(".instagram").attr("data-user-id");
+			//
+			// if(!insid){
+			// 	alert("Didn't set your instagram client_id.\nPlease see the info on the console of your brower.");
+			// 	console.log("Please open 'http://instagram.com/developer/clients/manage/' to get your client-id.");
+			// 	return;
+			// }
+			// getList("https://api.instagram.com/v1/users/"+ userId +"/media/recent/?client_id="+insid+"&count=100");
 			bind();
 		}
 	}
