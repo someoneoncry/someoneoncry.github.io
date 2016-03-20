@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-03-20T03:15:24.000Z</updated>
+  <updated>2016-03-20T03:21:54.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html"/>
     <id>https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html</id>
     <published>2016-03-19T09:22:53.000Z</published>
-    <updated>2016-03-20T03:15:24.000Z</updated>
+    <updated>2016-03-20T03:21:54.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;目标&quot;&gt;&lt;a href=&quot;#目标&quot; class=&quot;headerlink&quot; title=&quot;目标:&quot;&gt;&lt;/a&gt;目标:&lt;/h3&gt;&lt;p&gt;写完一键上传并部署。(一个命令完成)&lt;/p&gt;
 &lt;h3 id=&quot;详细流程&quot;&gt;&lt;a href=&quot;#详细流程&quot; class=&quot;headerlink&quot; title=&quot;详细流程:&quot;&gt;&lt;/a&gt;详细流程:&lt;/h3&gt;&lt;p&gt;上传图片至七牛，上传 deploy 文件至Github公开库 以及 博客源代码 至Github 私有库，Daocloud 检测到commit 自动构建镜像并自动更新应用。&lt;/p&gt;
