@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/search/index.html</loc>
+    
+    <lastmod>2016-03-20T07:09:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html</loc>
     
     <lastmod>2016-03-20T05:53:16.000Z</lastmod>
