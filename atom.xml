@@ -197,9 +197,9 @@
     <link href="https://joway.wang/posts/Hexo/2016-03-18-hexo-base.html"/>
     <id>https://joway.wang/posts/Hexo/2016-03-18-hexo-base.html</id>
     <published>2016-03-18T05:57:30.000Z</published>
-    <updated>2016-03-20T03:18:35.000Z</updated>
+    <updated>2016-03-25T12:37:22.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能原生支持Jekyll，所以我只需要下载些别人的源文件，自己随便修改下，传到Github就能在线调试和运行了。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能原生支持Jekyll，所以我只需要下载些别人的源文件，自己随便修改下，传到Github就能在线调试和运行了。&lt;/p&gt;
 &lt;p&gt;这次尝试Hexo的另一个原因是，想重头学习下这些工具的原理和逻辑，另外再添加些可以将性能发挥到极致的黑科技(下文会有介绍)。&lt;/p&gt;
 &lt;p&gt;至于Hexo如何安装配置，网上有太多教程了，可以直接按照文档操作 。 这里只作为进阶，列举一些进阶配置以及踩过的坑。&lt;/p&gt;
 &lt;p&gt;PS ： 我用的Hexo 版本是3.2, 主题是 &lt;a href=&quot;https://github.com/litten/hexo-theme-yilia&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yilia&lt;/a&gt;&lt;/p&gt;
@@ -250,7 +250,7 @@ toc: true
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能原生支持Jekyll，所以我只需要下载些别人的源文件，自己随便修改下，传到Github就能在线调试和运行了。&lt;br&gt;
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。
     
     </summary>
     
