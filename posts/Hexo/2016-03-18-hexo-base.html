@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Hexo折腾记——基本配置篇 | Joway&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hexo折腾记——基本配置篇">
-<meta property="og:url" content="https://joway.wang/posts/Hexo/2016-03-18-hexo-base.html">
-<meta property="og:site_name" content="Joway's Blog">
-<meta property="og:description" content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能">
-<meta property="og:updated_time" content="2016-03-20T03:18:35.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo折腾记——基本配置篇">
-<meta name="twitter:description" content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能">
-  
-    <link rel="alternative" href="/atom.xml" title="Joway&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
-
-  <script type='text/javascript'>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>Hexo折腾记——基本配置篇 | Joway&#39;s Blog</title><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1"><meta name=description content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能"><meta property=og:type content=article><meta property=og:title content=Hexo折腾记——基本配置篇><meta property=og:url content=https://joway.wang/posts/Hexo/2016-03-18-hexo-base.html><meta property=og:site_name content="Joway's Blog"><meta property=og:description content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能"><meta property=og:updated_time content=2016-03-20T03:18:35.000Z><meta name=twitter:card content=summary><meta name=twitter:title content=Hexo折腾记——基本配置篇><meta name=twitter:description content="前言人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能"><link rel=alternative href=/atom.xml title="Joway&#39;s Blog" type=application/atom+xml><link rel=icon href=/favicon.png><link rel=stylesheet href=/css/style.css><script type=text/javascript>
       var _vds = _vds || [];
       window._vds = _vds;
       (function(){
@@ -38,326 +12,27 @@
           s.parentNode.insertBefore(vds, s);
         })();
       })();
-  </script>
-</head>
-
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="/assets/img/logo.jpg" class="js-avatar">
-			
-		</a>
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Joway</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">以物喜，以己悲 .</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						<li>友情链接</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/" id="主页" >主页</a></li>
-				        
-							<li><a href="/archives/" id="归档" >归档</a></li>
-				        
-							<li><a href="/photos/" id="相册" >相册</a></li>
-				        
-							<li><a href="/life/" id="生活" >生活</a></li>
-				        
-							<li><a href="/about/" id="关于" >关于</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/joway" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="http://weibo.com/670425438" title="weibo">weibo</a>
-					        
-								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Joway" title="zhihu">zhihu</a>
-					        
-								<a class="twitter" target="_blank" href="https://twitter.com/JowayW" title="twitter">twitter</a>
-					        
-						</div>
-					</nav>
-				</section>
-
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/blog/" style="font-size: 20px;">blog</a> <a href="/tags/github/" style="font-size: 20px;">github</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a> <a href="/tags/随感/" style="font-size: 15px;">随感</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a>
-					</div>
-				</section>
-				
-
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://joway.wang">My Tech Blog</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.joway.wang">My Life Blog</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://wiki.joway.wang">Wiki</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-				
-				<section class="switch-part switch-part4">
-				
-					<div id="js-aboutme">折腾爱好者 &amp;&amp; 伪文艺青年 &amp;&amp; 中二病患者 &amp;&amp; 代码搬运工、胶水匠 &amp;&amp; 单身汪</div>
-				</section>
-				
-			</div>
-		</div>
-
-	</header>
-
-
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Joway</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="/assets/img/logo.jpg" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Joway</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">以物喜，以己悲 .</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/" id="主页">主页</a></li>
-		        
-					<li><a href="/archives/" id="归档">归档</a></li>
-		        
-					<li><a href="/photos/" id="相册">相册</a></li>
-		        
-					<li><a href="/life/" id="生活">生活</a></li>
-		        
-					<li><a href="/about/" id="关于">关于</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/joway" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/670425438" title="weibo">weibo</a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Joway" title="zhihu">zhihu</a>
-			        
-						<a class="twitter" target="_blank" href="https://twitter.com/JowayW" title="twitter">twitter</a>
-			        
-				</div>
-			</nav>
-		</header>
-	</div>
-</nav>
-
-      <div class="body-wrap"><article id="post-hexo-base" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/posts/Hexo/2016-03-18-hexo-base.html" class="article-date">
-  	<time datetime="2016-03-18T05:57:30.000Z" itemprop="datePublished">2016-03-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Hexo折腾记——基本配置篇
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-	</div>
-
-        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Hexo/">Hexo</a>
-	</div>
-
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-        
-        	   <div id="toc" class="toc-article">
-               <strong class="toc-title">文章目录</strong>
-               <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章永久链接"><span class="toc-number">2.</span> <span class="toc-text">文章永久链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启目录支持"><span class="toc-number">3.</span> <span class="toc-text">开启目录支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章目录"><span class="toc-number">4.</span> <span class="toc-text">文章目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相册"><span class="toc-number">5.</span> <span class="toc-text">相册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一键部署"><span class="toc-number">6.</span> <span class="toc-text">一键部署</span></a></li></ol>
-        	   </div>
-          
-
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能原生支持Jekyll，所以我只需要下载些别人的源文件，自己随便修改下，传到Github就能在线调试和运行了。<br><a id="more"></a></p>
-<p>这次尝试Hexo的另一个原因是，想重头学习下这些工具的原理和逻辑，另外再添加些可以将性能发挥到极致的黑科技(下文会有介绍)。</p>
-<p>至于Hexo如何安装配置，网上有太多教程了，可以直接按照文档操作 。 这里只作为进阶，列举一些进阶配置以及踩过的坑。</p>
-<p>PS ： 我用的Hexo 版本是3.2, 主题是 <a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia</a></p>
-<p>以下功能可能需要插件支持，我的package.json为:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"hexo-site"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.0"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"hexo"</span>: &#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"3.2.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"gulp"</span>: <span class="string">"^3.9.1"</span>,</span><br><span class="line">    <span class="attr">"gulp-htmlclean"</span>: <span class="string">"^2.7.6"</span>,</span><br><span class="line">    <span class="attr">"gulp-htmlmin"</span>: <span class="string">"^1.3.0"</span>,</span><br><span class="line">    <span class="attr">"gulp-imagemin"</span>: <span class="string">"^2.4.0"</span>,</span><br><span class="line">    <span class="attr">"gulp-minify-css"</span>: <span class="string">"^1.2.4"</span>,</span><br><span class="line">    <span class="attr">"gulp-uglify"</span>: <span class="string">"^1.5.3"</span>,</span><br><span class="line">    <span class="attr">"hexo"</span>: <span class="string">"^3.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-deployer-git"</span>: <span class="string">"0.0.4"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-archive"</span>: <span class="string">"^0.1.4"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-category"</span>: <span class="string">"^0.1.3"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-feed"</span>: <span class="string">"^1.0.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-index"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-sitemap"</span>: <span class="string">"^1.1.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-tag"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-migrator-rss"</span>: <span class="string">"^0.1.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-ejs"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-marked"</span>: <span class="string">"^0.2.10"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-stylus"</span>: <span class="string">"^0.3.1"</span>,</span><br><span class="line">    <span class="attr">"hexo-server"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"jgallery"</span>: <span class="string">"^1.5.4"</span>,</span><br><span class="line">    <span class="attr">"qiniu"</span>: <span class="string">"^6.1.9"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="文章永久链接"><a href="#文章永久链接" class="headerlink" title="文章永久链接"></a>文章永久链接</h3><p>默认文章链结是以: <a href="http://xxx.com/2015/07/06/your-title/" target="_blank" rel="external">http://xxx.com/2015/07/06/your-title/</a> 的格式的， 个人不是很喜欢这样的格式，而且末尾没有.html结尾有点动态页面的感觉，对搜索引擎是否友好也有疑问(如果你知道答案，请告诉我)，于是，我改成了 <a href="http://xxx.com/posts/programming/2016-03-18-hello-world.html" target="_blank" rel="external">http://xxx.com/posts/programming/2016-03-18-hello-world.html</a> 这样的格式，具体方法是在 根目录下的 _config.yml 文件里:</p>
-<pre><code>permalink: posts/:category/:year-:month-:day-:title.html
-</code></pre><h3 id="开启目录支持"><a href="#开启目录支持" class="headerlink" title="开启目录支持"></a>开启目录支持</h3><p>我本人并不是很喜欢以tag来分类文章的方式，但是hexo默认是以tag来分类的，于是我另外给它加了一个种类(Category)的选项，方法是在_config.yml 下:</p>
-<pre><code>default_category: uncategorized
+  </script></head><body><div id=container><div class=left-col><div class=overlay></div><div class=intrude-less><header id=header class=inner><a href="/" class=profilepic><img lazy-src=/assets/img/logo.jpg class=js-avatar></a><hgroup><h1 class=header-author><a href="/">Joway</a></h1></hgroup><p class=header-subtitle>以物喜，以己悲 .</p><div class=switch-btn><div class=icon><div class=icon-ctn><div class="icon-wrap icon-house" data-idx=0><div class=birdhouse></div><div class=birdhouse_holes></div></div><div class="icon-wrap icon-ribbon hide" data-idx=1><div class=ribbon></div></div><div class="icon-wrap icon-link hide" data-idx=2><div class=loopback_l></div><div class=loopback_r></div></div><div class="icon-wrap icon-me hide" data-idx=3><div class=user></div><div class=shoulder></div></div></div></div><div class="tips-box hide"><div class=tips-arrow></div><ul class=tips-inner><li>菜单</li><li>标签</li><li>友情链接</li><li>关于我</li></ul></div></div><div class=switch-area><div class=switch-wrap><section class="switch-part switch-part1"><nav class=header-menu><ul><li><a href="/" id=主页>主页</a></li><li><a href="/archives/" id=归档>归档</a></li><li><a href="/photos/" id=相册>相册</a></li><li><a href="/life/" id=生活>生活</a></li><li><a href="/about/" id=关于>关于</a></li></ul></nav><nav class=header-nav><div class=social><a class=github target=_blank href=https://github.com/joway title=github>github</a> <a class=weibo target=_blank href=http://weibo.com/670425438 title=weibo>weibo</a> <a class=zhihu target=_blank href=https://www.zhihu.com/people/Joway title=zhihu>zhihu</a> <a class=twitter target=_blank href=https://twitter.com/JowayW title=twitter>twitter</a></div></nav></section><section class="switch-part switch-part2"><div class="widget tagcloud" id=js-tagcloud><a href="/tags/blog/" style="font-size: 20px;">blog</a> <a href="/tags/github/" style="font-size: 20px;">github</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a> <a href="/tags/随感/" style="font-size: 15px;">随感</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a></div></section><section class="switch-part switch-part3"><div id=js-friends><a target=_blank class="main-nav-link switch-friends-link" href=https://joway.wang>My Tech Blog</a> <a target=_blank class="main-nav-link switch-friends-link" href=https://blog.joway.wang>My Life Blog</a> <a target=_blank class="main-nav-link switch-friends-link" href=http://wiki.joway.wang>Wiki</a></div></section><section class="switch-part switch-part4"><div id=js-aboutme>折腾爱好者 &amp;&amp; 伪文艺青年 &amp;&amp; 中二病患者 &amp;&amp; 代码搬运工、胶水匠 &amp;&amp; 单身汪</div></section></div></div></header></div></div><div class=mid-col><nav id=mobile-nav><div class=overlay><div class=slider-trigger></div><h1 class="header-author js-mobile-header hide">Joway</h1></div><div class=intrude-less><header id=header class=inner><div class=profilepic><img lazy-src=/assets/img/logo.jpg class=js-avatar></div><hgroup><h1 class=header-author>Joway</h1></hgroup><p class=header-subtitle>以物喜，以己悲 .</p><nav class=header-menu><ul><li><a href="/" id=主页>主页</a></li><li><a href="/archives/" id=归档>归档</a></li><li><a href="/photos/" id=相册>相册</a></li><li><a href="/life/" id=生活>生活</a></li><li><a href="/about/" id=关于>关于</a></li><div class=clearfix></div></ul></nav><nav class=header-nav><div class=social><a class=github target=_blank href=https://github.com/joway title=github>github</a> <a class=weibo target=_blank href=http://weibo.com/670425438 title=weibo>weibo</a> <a class=zhihu target=_blank href=https://www.zhihu.com/people/Joway title=zhihu>zhihu</a> <a class=twitter target=_blank href=https://twitter.com/JowayW title=twitter>twitter</a></div></nav></header></div></nav><div class=body-wrap><article id=post-hexo-base class="article article-type-post" itemscope itemprop=blogPost><div class=article-meta><a href=/posts/Hexo/2016-03-18-hexo-base.html class=article-date><time datetime=2016-03-18T05:57:30.000Z itemprop=datePublished>2016-03-18</time></a></div><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>Hexo折腾记——基本配置篇</h1></header><div class="article-info article-info-post"><div class="article-tag tagcloud"><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href="/tags/blog/">blog</a></li><li class=article-tag-list-item><a class=article-tag-list-link href="/tags/github/">github</a></li><li class=article-tag-list-item><a class=article-tag-list-link href="/tags/hexo/">hexo</a></li><li class=article-tag-list-item><a class=article-tag-list-link href="/tags/前端/">前端</a></li></ul></div><div class="article-category tagcloud"><a class=article-category-link href="/categories/Hexo/">Hexo</a></div><div class=clearfix></div></div><div class=article-entry itemprop=articleBody><div id=toc class=toc-article><strong class=toc-title>文章目录</strong><ol class=toc><li class="toc-item toc-level-3"><a class=toc-link href=#前言><span class=toc-number>1.</span> <span class=toc-text>前言</span></a></li><li class="toc-item toc-level-3"><a class=toc-link href=#文章永久链接><span class=toc-number>2.</span> <span class=toc-text>文章永久链接</span></a></li><li class="toc-item toc-level-3"><a class=toc-link href=#开启目录支持><span class=toc-number>3.</span> <span class=toc-text>开启目录支持</span></a></li><li class="toc-item toc-level-3"><a class=toc-link href=#文章目录><span class=toc-number>4.</span> <span class=toc-text>文章目录</span></a></li><li class="toc-item toc-level-3"><a class=toc-link href=#相册><span class=toc-number>5.</span> <span class=toc-text>相册</span></a></li><li class="toc-item toc-level-3"><a class=toc-link href=#一键部署><span class=toc-number>6.</span> <span class=toc-text>一键部署</span></a></li></ol></div><h3 id=前言><a href=#前言 class=headerlink title=前言></a>前言</h3><p>人闲起来真是可怕，本来已经折腾过了jekyll和Ghost，静态和动态博客也都尝了遍鲜，然而还是按捺不住寂寞又折腾起来Hexo。话说我最早大概是两年前高考结束的时候知道的Hexo，那时在家里没事干想搭个博客玩，然后看见了jekyll和hexo，无奈那时候就一台windows，啥也不懂啥也不会，这两个博客工具楞是装不上去。而Jekyll的一个好处是可以不用在本地跑，Github 的Pages功能原生支持Jekyll，所以我只需要下载些别人的源文件，自己随便修改下，传到Github就能在线调试和运行了。<br><a id=more></a></p><p>这次尝试Hexo的另一个原因是，想重头学习下这些工具的原理和逻辑，另外再添加些可以将性能发挥到极致的黑科技(下文会有介绍)。</p><p>至于Hexo如何安装配置，网上有太多教程了，可以直接按照文档操作 。 这里只作为进阶，列举一些进阶配置以及踩过的坑。</p><p>PS ： 我用的Hexo 版本是3.2, 主题是 <a href=https://github.com/litten/hexo-theme-yilia target=_blank rel=external>yilia</a></p><p>以下功能可能需要插件支持，我的package.json为:</p><figure class="highlight json"><table><tr><td class=gutter><pre><span class=line>1</span><br><span class=line>2</span><br><span class=line>3</span><br><span class=line>4</span><br><span class=line>5</span><br><span class=line>6</span><br><span class=line>7</span><br><span class=line>8</span><br><span class=line>9</span><br><span class=line>10</span><br><span class=line>11</span><br><span class=line>12</span><br><span class=line>13</span><br><span class=line>14</span><br><span class=line>15</span><br><span class=line>16</span><br><span class=line>17</span><br><span class=line>18</span><br><span class=line>19</span><br><span class=line>20</span><br><span class=line>21</span><br><span class=line>22</span><br><span class=line>23</span><br><span class=line>24</span><br><span class=line>25</span><br><span class=line>26</span><br><span class=line>27</span><br><span class=line>28</span><br><span class=line>29</span><br><span class=line>30</span><br><span class=line>31</span><br></pre></td><td class=code><pre><span class=line>&#123;</span><br><span class=line>  <span class=attr>"name"</span>: <span class=string>"hexo-site"</span>,</span><br><span class=line>  <span class=attr>"version"</span>: <span class=string>"0.0.0"</span>,</span><br><span class=line>  <span class=attr>"private"</span>: <span class=literal>true</span>,</span><br><span class=line>  <span class=attr>"hexo"</span>: &#123;</span><br><span class=line>    <span class=attr>"version"</span>: <span class=string>"3.2.0"</span></span><br><span class=line>  &#125;,</span><br><span class=line>  <span class=attr>"dependencies"</span>: &#123;</span><br><span class=line>    <span class=attr>"gulp"</span>: <span class=string>"^3.9.1"</span>,</span><br><span class=line>    <span class=attr>"gulp-htmlclean"</span>: <span class=string>"^2.7.6"</span>,</span><br><span class=line>    <span class=attr>"gulp-htmlmin"</span>: <span class=string>"^1.3.0"</span>,</span><br><span class=line>    <span class=attr>"gulp-imagemin"</span>: <span class=string>"^2.4.0"</span>,</span><br><span class=line>    <span class=attr>"gulp-minify-css"</span>: <span class=string>"^1.2.4"</span>,</span><br><span class=line>    <span class=attr>"gulp-uglify"</span>: <span class=string>"^1.5.3"</span>,</span><br><span class=line>    <span class=attr>"hexo"</span>: <span class=string>"^3.2.0"</span>,</span><br><span class=line>    <span class=attr>"hexo-deployer-git"</span>: <span class=string>"0.0.4"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-archive"</span>: <span class=string>"^0.1.4"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-category"</span>: <span class=string>"^0.1.3"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-feed"</span>: <span class=string>"^1.0.2"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-index"</span>: <span class=string>"^0.2.0"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-sitemap"</span>: <span class=string>"^1.1.2"</span>,</span><br><span class=line>    <span class=attr>"hexo-generator-tag"</span>: <span class=string>"^0.2.0"</span>,</span><br><span class=line>    <span class=attr>"hexo-migrator-rss"</span>: <span class=string>"^0.1.2"</span>,</span><br><span class=line>    <span class=attr>"hexo-renderer-ejs"</span>: <span class=string>"^0.2.0"</span>,</span><br><span class=line>    <span class=attr>"hexo-renderer-marked"</span>: <span class=string>"^0.2.10"</span>,</span><br><span class=line>    <span class=attr>"hexo-renderer-stylus"</span>: <span class=string>"^0.3.1"</span>,</span><br><span class=line>    <span class=attr>"hexo-server"</span>: <span class=string>"^0.2.0"</span>,</span><br><span class=line>    <span class=attr>"jgallery"</span>: <span class=string>"^1.5.4"</span>,</span><br><span class=line>    <span class=attr>"qiniu"</span>: <span class=string>"^6.1.9"</span></span><br><span class=line>  &#125;</span><br><span class=line>&#125;</span><br></pre></td></tr></table></figure><h3 id=文章永久链接><a href=#文章永久链接 class=headerlink title=文章永久链接></a>文章永久链接</h3><p>默认文章链结是以: <a href="http://xxx.com/2015/07/06/your-title/" target=_blank rel=external>http://xxx.com/2015/07/06/your-title/</a> 的格式的， 个人不是很喜欢这样的格式，而且末尾没有.html结尾有点动态页面的感觉，对搜索引擎是否友好也有疑问(如果你知道答案，请告诉我)，于是，我改成了 <a href=http://xxx.com/posts/programming/2016-03-18-hello-world.html target=_blank rel=external>http://xxx.com/posts/programming/2016-03-18-hello-world.html</a> 这样的格式，具体方法是在 根目录下的 _config.yml 文件里:</p><pre><code>permalink: posts/:category/:year-:month-:day-:title.html
+</code></pre><h3 id=开启目录支持><a href=#开启目录支持 class=headerlink title=开启目录支持></a>开启目录支持</h3><p>我本人并不是很喜欢以tag来分类文章的方式，但是hexo默认是以tag来分类的，于是我另外给它加了一个种类(Category)的选项，方法是在_config.yml 下:</p><pre><code>default_category: uncategorized
 category_map:
     编程: programming
     生活: life
     其他: other
-</code></pre><p>其中, category_map 是为了让url中尽量少出现中文，做的映射。 </p>
-<p>例如:<br>在文章开头，标柱目录为:</p>
-<pre><code>---
+</code></pre><p>其中, category_map 是为了让url中尽量少出现中文，做的映射。</p><p>例如:<br>在文章开头，标柱目录为:</p><pre><code>---
 xxx: xxx
 categories: 编程
 ---
-</code></pre><p>则在url中， 会变成: </p>
-<pre><code>.../posts/programming/xxx.html
-</code></pre><h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><p>默认不开启文章目录，若要开启:</p>
-<pre><code>---
+</code></pre><p>则在url中， 会变成:</p><pre><code>.../posts/programming/xxx.html
+</code></pre><h3 id=文章目录><a href=#文章目录 class=headerlink title=文章目录></a>文章目录</h3><p>默认不开启文章目录，若要开启:</p><pre><code>---
 xxx: xxx
 toc: true
 ---
-</code></pre><p>会自动根据标题权重进行目录生成。显示在最右边。 如需要更改格式， 可去 …/yilia/layout/_partial/archive.ejs 中修改</p>
-<h3 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h3><p>一直很想要一个靠谱，方便，而且快捷的相册功能，以前用Jekyll的时候没弄懂如何动态生成界面，就直接用html写了一个相册界面，然后还用VC++写了一个windows下的把某个文件夹下所有图片名检索并自动生成相应的html相册页面的小工具，后来玩Ghost了， 天真地想把发布图片的功能集成到原生的管理面版上，然后最后还是失败了。</p>
-<p>这次折腾hexo，我下定决心了一定要把相册功能给实现了!(然后我就浪费了一个下午 :( </p>
-<p>一开始贪图方便，使用 yilian 主题 自带的 基于instagram API的相册展示功能，本来还想着如果instagram被墙，试试看反代它的地址来实现功能，后来发现我申请的client_id 死活不能用我也是醉了，最后腾了半天还弄不好我也就放弃了。</p>
-<p>于是想自己造轮子，思路很简单，把照片全部放在本地某个目录下，然后跑个Python或者Node脚本把所有文件上传到某个地方(github/七牛)，并把这些文件名全部保存为output.json 文件，之后相册页面通过get 这个json文件，来得到对应的所有照片url，生成界面。(这个流程参照了网上另一位仁兄的实现，然后我找不到链接了…下次找到了补充上来)</p>
-<p>看了下七牛的Node SDK 文档，发现都不用写多少代码，直接能照着文档用，于是改了改，放在本地一键运行，成功!</p>
-<p>一键上传七牛以及输出文件名json的代码如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="string">"../../photos"</span>;</span><br><span class="line"><span class="keyword">var</span> qiniu = <span class="built_in">require</span>(<span class="string">"qiniu"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//需要填写你的 Access Key 和 Secret Key</span></span><br><span class="line">qiniu.conf.ACCESS_KEY = <span class="string">'xxx'</span>;</span><br><span class="line">qiniu.conf.SECRET_KEY = <span class="string">'xxx'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//要上传的空间</span></span><br><span class="line">bucket = <span class="string">'hexo'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//构建上传策略函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uptoken</span>(<span class="params">bucket, key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> putPolicy = <span class="keyword">new</span> qiniu.rs.PutPolicy(bucket+<span class="string">":"</span>+key);</span><br><span class="line">  <span class="keyword">return</span> putPolicy.token();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//构造上传函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params">uptoken, key, localFile</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> extra = <span class="keyword">new</span> qiniu.io.PutExtra();</span><br><span class="line">    qiniu.io.putFile(uptoken, key, localFile, extra, <span class="function"><span class="keyword">function</span>(<span class="params">err, ret</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!err) &#123;</span><br><span class="line">        <span class="comment">// 上传成功， 处理返回值</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'upload success : '</span>,ret.hash, ret.key);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 上传失败， 处理返回代码</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 读取文件后缀名称，并转化成小写</span><br><span class="line"> * @param file_name</span><br><span class="line"> * @returns</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFilenameSuffix</span>(<span class="params">file_name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(file_name==<span class="string">'.DS_Store'</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'.DS_Store'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">if</span> (file_name == <span class="literal">null</span> || file_name.length == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="regexp">/\.[^\.]+/</span>.exec(file_name);</span><br><span class="line">    <span class="keyword">return</span> result == <span class="literal">null</span> ? <span class="literal">null</span> : (result + <span class="string">""</span>).toLowerCase();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fs.readdir(path, <span class="function"><span class="keyword">function</span> (<span class="params">err, files</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> <span class="title">iterator</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index == files.length) &#123;</span><br><span class="line">            fs.writeFile(<span class="string">"./output.json"</span>, <span class="built_in">JSON</span>.stringify(arr, <span class="literal">null</span>, <span class="string">"\t"</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fs.stat(path + <span class="string">"/"</span> + files[index], <span class="function"><span class="keyword">function</span> (<span class="params">err, stats</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (stats.isFile()) &#123;</span><br><span class="line">              <span class="keyword">var</span> suffix = getFilenameSuffix(files[index]);</span><br><span class="line">              <span class="keyword">if</span>(!(suffix==<span class="string">'.js'</span>|| suffix == <span class="string">'.DS_Store'</span>))&#123;</span><br><span class="line">                <span class="comment">//要上传文件的本地路径</span></span><br><span class="line">                filePath = path+<span class="string">'/'</span>+files[index];</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'抓取到文件: '</span>+files[index]);</span><br><span class="line">                <span class="comment">//上传到七牛后保存的文件名</span></span><br><span class="line">                key = files[index];</span><br><span class="line">                <span class="comment">//生成上传 Token</span></span><br><span class="line">                token = uptoken(bucket, key);</span><br><span class="line">                <span class="comment">// 异步执行</span></span><br><span class="line">                uploadFile(token, key, filePath);</span><br><span class="line">                arr.push(files[index]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">                      &#125;</span><br><span class="line">            iterator(index + <span class="number">1</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;(<span class="number">0</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h3><p>全局 _config.yml 中，设置:</p>
-<pre><code>deploy:
+</code></pre><p>会自动根据标题权重进行目录生成。显示在最右边。 如需要更改格式， 可去 …/yilia/layout/_partial/archive.ejs 中修改</p><h3 id=相册><a href=#相册 class=headerlink title=相册></a>相册</h3><p>一直很想要一个靠谱，方便，而且快捷的相册功能，以前用Jekyll的时候没弄懂如何动态生成界面，就直接用html写了一个相册界面，然后还用VC++写了一个windows下的把某个文件夹下所有图片名检索并自动生成相应的html相册页面的小工具，后来玩Ghost了， 天真地想把发布图片的功能集成到原生的管理面版上，然后最后还是失败了。</p><p>这次折腾hexo，我下定决心了一定要把相册功能给实现了!(然后我就浪费了一个下午 :(</p><p>一开始贪图方便，使用 yilian 主题 自带的 基于instagram API的相册展示功能，本来还想着如果instagram被墙，试试看反代它的地址来实现功能，后来发现我申请的client_id 死活不能用我也是醉了，最后腾了半天还弄不好我也就放弃了。</p><p>于是想自己造轮子，思路很简单，把照片全部放在本地某个目录下，然后跑个Python或者Node脚本把所有文件上传到某个地方(github/七牛)，并把这些文件名全部保存为output.json 文件，之后相册页面通过get 这个json文件，来得到对应的所有照片url，生成界面。(这个流程参照了网上另一位仁兄的实现，然后我找不到链接了…下次找到了补充上来)</p><p>看了下七牛的Node SDK 文档，发现都不用写多少代码，直接能照着文档用，于是改了改，放在本地一键运行，成功!</p><p>一键上传七牛以及输出文件名json的代码如下:</p><figure class="highlight js"><table><tr><td class=gutter><pre><span class=line>1</span><br><span class=line>2</span><br><span class=line>3</span><br><span class=line>4</span><br><span class=line>5</span><br><span class=line>6</span><br><span class=line>7</span><br><span class=line>8</span><br><span class=line>9</span><br><span class=line>10</span><br><span class=line>11</span><br><span class=line>12</span><br><span class=line>13</span><br><span class=line>14</span><br><span class=line>15</span><br><span class=line>16</span><br><span class=line>17</span><br><span class=line>18</span><br><span class=line>19</span><br><span class=line>20</span><br><span class=line>21</span><br><span class=line>22</span><br><span class=line>23</span><br><span class=line>24</span><br><span class=line>25</span><br><span class=line>26</span><br><span class=line>27</span><br><span class=line>28</span><br><span class=line>29</span><br><span class=line>30</span><br><span class=line>31</span><br><span class=line>32</span><br><span class=line>33</span><br><span class=line>34</span><br><span class=line>35</span><br><span class=line>36</span><br><span class=line>37</span><br><span class=line>38</span><br><span class=line>39</span><br><span class=line>40</span><br><span class=line>41</span><br><span class=line>42</span><br><span class=line>43</span><br><span class=line>44</span><br><span class=line>45</span><br><span class=line>46</span><br><span class=line>47</span><br><span class=line>48</span><br><span class=line>49</span><br><span class=line>50</span><br><span class=line>51</span><br><span class=line>52</span><br><span class=line>53</span><br><span class=line>54</span><br><span class=line>55</span><br><span class=line>56</span><br><span class=line>57</span><br><span class=line>58</span><br><span class=line>59</span><br><span class=line>60</span><br><span class=line>61</span><br><span class=line>62</span><br><span class=line>63</span><br><span class=line>64</span><br><span class=line>65</span><br><span class=line>66</span><br><span class=line>67</span><br><span class=line>68</span><br><span class=line>69</span><br><span class=line>70</span><br><span class=line>71</span><br><span class=line>72</span><br><span class=line>73</span><br><span class=line>74</span><br><span class=line>75</span><br><span class=line>76</span><br><span class=line>77</span><br><span class=line>78</span><br><span class=line>79</span><br><span class=line>80</span><br><span class=line>81</span><br><span class=line>82</span><br><span class=line>83</span><br><span class=line>84</span><br><span class=line>85</span><br><span class=line>86</span><br></pre></td><td class=code><pre><span class=line><span class=keyword>const</span> fs = <span class=built_in>require</span>(<span class=string>"fs"</span>);</span><br><span class=line><span class=keyword>const</span> path = <span class=string>"../../photos"</span>;</span><br><span class=line><span class=keyword>var</span> qiniu = <span class=built_in>require</span>(<span class=string>"qiniu"</span>);</span><br><span class=line></span><br><span class=line></span><br><span class=line><span class=comment>//需要填写你的 Access Key 和 Secret Key</span></span><br><span class=line>qiniu.conf.ACCESS_KEY = <span class=string>'xxx'</span>;</span><br><span class=line>qiniu.conf.SECRET_KEY = <span class=string>'xxx'</span>;</span><br><span class=line></span><br><span class=line><span class=comment>//要上传的空间</span></span><br><span class=line>bucket = <span class=string>'hexo'</span>;</span><br><span class=line></span><br><span class=line></span><br><span class=line><span class=comment>//构建上传策略函数</span></span><br><span class=line><span class=function><span class=keyword>function</span> <span class=title>uptoken</span>(<span class=params>bucket, key</span>) </span>&#123;</span><br><span class=line>  <span class=keyword>var</span> putPolicy = <span class=keyword>new</span> qiniu.rs.PutPolicy(bucket+<span class=string>":"</span>+key);</span><br><span class=line>  <span class=keyword>return</span> putPolicy.token();</span><br><span class=line>&#125;</span><br><span class=line></span><br><span class=line></span><br><span class=line></span><br><span class=line><span class=comment>//构造上传函数</span></span><br><span class=line><span class=function><span class=keyword>function</span> <span class=title>uploadFile</span>(<span class=params>uptoken, key, localFile</span>) </span>&#123;</span><br><span class=line>    <span class=keyword>var</span> extra = <span class=keyword>new</span> qiniu.io.PutExtra();</span><br><span class=line>    qiniu.io.putFile(uptoken, key, localFile, extra, <span class=function><span class=keyword>function</span>(<span class=params>err, ret</span>) </span>&#123;</span><br><span class=line>      <span class=keyword>if</span>(!err) &#123;</span><br><span class=line>        <span class=comment>// 上传成功， 处理返回值</span></span><br><span class=line>        <span class=built_in>console</span>.log(<span class=string>'upload success : '</span>,ret.hash, ret.key);</span><br><span class=line>      &#125; <span class=keyword>else</span> &#123;</span><br><span class=line>        <span class=comment>// 上传失败， 处理返回代码</span></span><br><span class=line>        <span class=built_in>console</span>.log(err);</span><br><span class=line>      &#125;</span><br><span class=line>  &#125;);</span><br><span class=line>&#125;</span><br><span class=line></span><br><span class=line><span class=comment>/**</span><br><span class=line> * 读取文件后缀名称，并转化成小写</span><br><span class=line> * @param file_name</span><br><span class=line> * @returns</span><br><span class=line> */</span></span><br><span class=line><span class=function><span class=keyword>function</span> <span class=title>getFilenameSuffix</span>(<span class=params>file_name</span>) </span>&#123;</span><br><span class=line>  <span class=keyword>if</span>(file_name==<span class=string>'.DS_Store'</span>)&#123;</span><br><span class=line>    <span class=keyword>return</span> <span class=string>'.DS_Store'</span>;</span><br><span class=line>  &#125;</span><br><span class=line>    <span class=keyword>if</span> (file_name == <span class=literal>null</span> || file_name.length == <span class=number>0</span>)</span><br><span class=line>        <span class=keyword>return</span> <span class=literal>null</span>;</span><br><span class=line>    <span class=keyword>var</span> result = <span class=regexp>/\.[^\.]+/</span>.exec(file_name);</span><br><span class=line>    <span class=keyword>return</span> result == <span class=literal>null</span> ? <span class=literal>null</span> : (result + <span class=string>""</span>).toLowerCase();</span><br><span class=line>&#125;</span><br><span class=line></span><br><span class=line></span><br><span class=line>fs.readdir(path, <span class=function><span class=keyword>function</span> (<span class=params>err, files</span>) </span>&#123;</span><br><span class=line>    <span class=keyword>if</span> (err) &#123;</span><br><span class=line>        <span class=keyword>return</span>;</span><br><span class=line>    &#125;</span><br><span class=line>    <span class=keyword>var</span> arr = [];</span><br><span class=line>    (<span class=function><span class=keyword>function</span> <span class=title>iterator</span>(<span class=params>index</span>) </span>&#123;</span><br><span class=line>        <span class=keyword>if</span> (index == files.length) &#123;</span><br><span class=line>            fs.writeFile(<span class=string>"./output.json"</span>, <span class=built_in>JSON</span>.stringify(arr, <span class=literal>null</span>, <span class=string>"\t"</span>));</span><br><span class=line>            <span class=keyword>return</span>;</span><br><span class=line>        &#125;</span><br><span class=line></span><br><span class=line>        fs.stat(path + <span class=string>"/"</span> + files[index], <span class=function><span class=keyword>function</span> (<span class=params>err, stats</span>) </span>&#123;</span><br><span class=line>            <span class=keyword>if</span> (err) &#123;</span><br><span class=line>                <span class=keyword>return</span>;</span><br><span class=line>            &#125;</span><br><span class=line>            <span class=keyword>if</span> (stats.isFile()) &#123;</span><br><span class=line>              <span class=keyword>var</span> suffix = getFilenameSuffix(files[index]);</span><br><span class=line>              <span class=keyword>if</span>(!(suffix==<span class=string>'.js'</span>|| suffix == <span class=string>'.DS_Store'</span>))&#123;</span><br><span class=line>                <span class=comment>//要上传文件的本地路径</span></span><br><span class=line>                filePath = path+<span class=string>'/'</span>+files[index];</span><br><span class=line>                <span class=built_in>console</span>.log(<span class=string>'抓取到文件: '</span>+files[index]);</span><br><span class=line>                <span class=comment>//上传到七牛后保存的文件名</span></span><br><span class=line>                key = files[index];</span><br><span class=line>                <span class=comment>//生成上传 Token</span></span><br><span class=line>                token = uptoken(bucket, key);</span><br><span class=line>                <span class=comment>// 异步执行</span></span><br><span class=line>                uploadFile(token, key, filePath);</span><br><span class=line>                arr.push(files[index]);</span><br><span class=line>            &#125;</span><br><span class=line></span><br><span class=line>                      &#125;</span><br><span class=line>            iterator(index + <span class=number>1</span>);</span><br><span class=line>        &#125;)</span><br><span class=line>    &#125;(<span class=number>0</span>));</span><br><span class=line>&#125;);</span><br></pre></td></tr></table></figure><h3 id=一键部署><a href=#一键部署 class=headerlink title=一键部署></a>一键部署</h3><p>全局 _config.yml 中，设置:</p><pre><code>deploy:
   type: git
   repository: https://github.com/joway/hexo-blog.git
   branch: master
-</code></pre><p>执行</p>
-<pre><code>hexo deploy
-</code></pre><p>即可上传至git 仓库</p>
-<hr>
-<p>相关文章:</p>
-<p><a href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html">Hexo折腾记——性能优化篇</a></p>
-<p><a href="https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html">Hexo折腾记——自动部署篇</a></p>
-
-      
-    </div>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/posts/Hexo/2016-03-19-Hexo-optimize.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Hexo折腾记——性能优化篇
-        
-      </div>
-    </a>
-  
-  
-    <a href="/posts/随感/2016-02-01-我的滑板鞋-艺术-其它.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">我的滑板鞋-艺术-其它</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-
-
-
-
-<section id="comments">
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
+</code></pre><p>执行</p><pre><code>hexo deploy
+</code></pre><p>即可上传至git 仓库</p><hr><p>相关文章:</p><p><a href=https://joway.wang/posts/Hexo/2016-03-19-Hexo-optimize.html>Hexo折腾记——性能优化篇</a></p><p><a href=https://joway.wang/posts/Hexo/2016-03-19-Hexo-deploy.html>Hexo折腾记——自动部署篇</a></p></div></div><nav id=article-nav><a href=/posts/Hexo/2016-03-19-Hexo-optimize.html id=article-nav-newer class=article-nav-link-wrap><strong class=article-nav-caption><</strong><div class=article-nav-title>Hexo折腾记——性能优化篇</div></a> <a href=/posts/随感/2016-02-01-我的滑板鞋-艺术-其它.html id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>我的滑板鞋-艺术-其它</div><strong class=article-nav-caption>></strong></a></nav></article><section id=comments><div id=disqus_thread></div><script type=text/javascript>
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'joway'; // required: replace example with your forum shortname
 
@@ -367,28 +42,7 @@ toc: true
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-      <div class="footer-left">
-        &copy;
-        2016
-          Joway
-      </div>
-      <div class="footer-right">
-        <!-- <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten -->
-      </div>
-    </div>
-    </script>
-  </div>
-
-  <!-- daovoice -->
-  <script>
+  </script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></section></div><footer id=footer><div class=outer><div id=footer-info><div class=footer-left>&copy; 2016 Joway</div><div class=footer-right></div></div></div><script>
     (function(i, s, o, g, r, a, m) {
       i["DaoVoiceObject"] = r;
       i[r] = i[r] || function() {
@@ -399,19 +53,12 @@ toc: true
       a.src = g;
       m.parentNode.insertBefore(a, m)
     })(window, document, "script", "//widget.daovoice.io/widget/3982ab3f.js", "daovoice");
-  </script>
-  <script>
+  </script><script>
     daovoice('init', {
       app_id: "3982ab3f",
     });
     daovoice('update');
-  </script>
-</footer>
-
-    </div>
-    
-
-<script>
+  </script></footer></div><script>
 	var yiliaConfig = {
 		fancybox: false,
 		mathjax: false,
@@ -423,12 +70,7 @@ toc: true
 		isCategory: false,
 		open_in_new: false
 	}
-</script>
-<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-<!-- Google Analytics -->
-<script type="text/javascript">
+</script><script src=//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js></script><script src=/js/main.js></script><script type=text/javascript>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -437,14 +79,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-53624533-5', 'auto');
 ga('send', 'pageview');
 
-</script>
-<!-- End Google Analytics -->
-
-
-
-<!-- instantclick 已知bug比较多，慎用 -->
-<script src="/js/instantclick.min.js" data-no-instant></script>
-<script data-no-instant>
+</script><script src=/js/instantclick.min.js data-no-instant></script><script data-no-instant>
 InstantClick.on('change', function(isInitialLoad) {
   if (isInitialLoad === false) {
     if (typeof MathJax !== 'undefined') // support MathJax
@@ -458,8 +93,4 @@ InstantClick.on('change', function(isInitialLoad) {
   }
 });
 InstantClick.init();
-</script>
-
-  </div>
-</body>
-</html>
+</script></div></body></html>
