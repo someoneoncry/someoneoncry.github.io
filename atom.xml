@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-03-25T14:04:11.000Z</updated>
+  <updated>2016-03-28T01:28:55.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次解决Mac扬声器破音问题的神奇经历</title>
+    <link href="https://joway.wang/posts/Mac/2016-03-28-%E8%AE%B0%E4%B8%80%E6%AC%A1%E8%A7%A3%E5%86%B3Mac%E6%89%AC%E5%A3%B0%E5%99%A8%E7%A0%B4%E9%9F%B3%E9%97%AE%E9%A2%98%E7%9A%84%E7%A5%9E%E5%A5%87%E7%BB%8F%E5%8E%86.html"/>
+    <id>https://joway.wang/posts/Mac/2016-03-28-记一次解决Mac扬声器破音问题的神奇经历.html</id>
+    <published>2016-03-28T01:28:55.000Z</published>
+    <updated>2016-03-28T01:28:55.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在我昨天正兴致勃勃地听王健林牛津大学演讲的时候，突然扬声器出现了破音，捣鼓了半天开启了重启大法，又开启了重置NVRAM大法，然而都没有什么卵用，于是便怀疑是更新完 OSX 10.11.4 后的bug(妈的，苹果有几次软件更新是靠谱的吗，然而我还是忍不住会去跟风升级怎么破。。。)。然而 Mac 并不能回退系统，而且这个问题是在使用了11.4几天以后才出现的说明系统原因可能性并不会特别高，另外，我连启动声音都出现了破音，这就让我开始担心是不是硬件出了问题。然而我无非就是听王健林的时候声音开的大了点啊啊啊啊。。。WTF！！！&lt;/p&gt;
+&lt;p&gt;心怀着侥幸，觉得硬件也没可能说坏就坏，又看到我三天前刚好Time Machine 备份过了一下，心一横，决定重新恢复系统啦。然而好不容易拉完屎沐完浴，回来发现还是原来的样子，WTF！！！&lt;/p&gt;
+&lt;p&gt;念着晚上还得补作业，我已经完全放弃折腾了，何况网上所有中文，英文的方法都已经试了遍，心中已经断定是硬件出了问题。&lt;/p&gt;
+&lt;p&gt;码农圈子里有句名言，如果一个bug你当下不能解决，那就去睡一觉，如果还不行，那就睡两觉。今天早上起来，无意中发现了Boom这个音效增强的软件，我完全是抱着软件测试的角度去玩的这个软件，然而当我调动均衡器的时候，神奇的事情发生了。。。破音没有了!!!!!!!!!&lt;/p&gt;
+&lt;p&gt;作为音乐盲的我此刻完全不知道发生了什么，感觉找到了一个新大陆一样。我把均衡器的 125Hz - 500 Hz 的频段全部调到0，然后别的按照它最优的分布，刚好把破音的那个频段给屏蔽了，虽然在音质上会有些失真，然而对于我这种听音乐只是为了屏蔽环境噪音的屌丝来说完全没有分别。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://dn-joway.qbox.me/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-28%2008.42.53.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在网上看到还多人出现了同样的破音问题且无法找到解决方案，如果你能够搜到这篇文章，希望这种靠软件增强来弥补硬件缺失的方法能给你带来帮助。&lt;/p&gt;
+&lt;p&gt;之所以把这个过程写下来，是因为一方面这的确是一种可以惠及他人的解决方案，如果你搜过Mac破音的解决方案，你就会知道有多少人遇到过这个问题而现存可行的方案几乎寥寥无几，而且这些方案只是针对一部分情况的。另一方面，是我在这个过程中的体验，简直像极了平时修bug的过程:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;定位问题，找到是软件问题还是硬件问题，或者两者的可能性大小&lt;/li&gt;
+&lt;li&gt;谷歌解决方案，中文搜尽搜英文，用经验和已有知识对每个方案来个Page Rank，按排序一个个试过去，并做好可回滚的备份&lt;/li&gt;
+&lt;li&gt;无法找到现有方案， 睡一觉&lt;/li&gt;
+&lt;li&gt;起来找灵感，既然无法切实解决问题，就去尽可能伪装解决了问题(打补丁)&lt;/li&gt;
+&lt;li&gt;欧也，虽然有瑕疵，但是好歹领导暂时发现不了这个隐藏问题啦~&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对， 这就是典型的中国特色软件工程。。。 233333&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在我昨天正兴致勃勃地听王健林牛津大学演讲的时候，突然扬声器出现了破音，捣鼓了半天开启了重启大法，又开启了重置NVRAM大法，然而都没有什么卵用，于是便怀疑是更新完 OSX 10.11.4 后的bug(妈的，苹果有几次软件更新是靠谱的吗，然而我还是忍不住会去跟风升级怎么破。。
+    
+    </summary>
+    
+      <category term="Mac" scheme="https://joway.wang/categories/Mac/"/>
+    
+    
+      <category term="bug" scheme="https://joway.wang/tags/bug/"/>
+    
+      <category term="Mac" scheme="https://joway.wang/tags/Mac/"/>
+    
+      <category term="修电脑" scheme="https://joway.wang/tags/%E4%BF%AE%E7%94%B5%E8%84%91/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo折腾记——统计与交互篇</title>
