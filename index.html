@@ -40,6 +40,7 @@
         pointer-events: none;
     }
 </style><canvas id=back-canvas></canvas><script>
+    var time_out = 1000;
     var c = document.getElementsByTagName('canvas')[0],
             x = c.getContext('2d'),
             pr = window.devicePixelRatio || 1,
@@ -61,6 +62,7 @@
         q=[{x:0,y:h*.3+f},{x:0,y:h*.3-f}]
         while(q[1].x<w+f) d(q[0], q[1])
         document.getElementById('body-wrap').style.backgroundImage = 'url("' + document.getElementById('back-canvas').toDataURL() + '")';
+        setTimeout('i()',time_out);
     }
     function d(i,j){
         x.beginPath()
@@ -82,8 +84,8 @@
     }
     document.onclick = i
     document.ontouchstart = i
-    i()
-    setInterval('i()',500);
+    i();
+    // setTimeout('i()',2000);
 </script><link rel=stylesheet href=/fancybox/jquery.fancybox.css><script>
 	var yiliaConfig = {
 		fancybox: true,
