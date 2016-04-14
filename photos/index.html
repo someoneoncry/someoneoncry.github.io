@@ -33,8 +33,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        /*z-index: -1;*/
-        opacity: 0.05;
+        z-index: -1;
+        /*opacity: 0.05;*/
         width: 100%;
         height: 300%;
         pointer-events: none;
@@ -82,9 +82,10 @@
         var t = p + (z()*2-1.1)*f
         return (t>h||t<0) ? y(p) : t
     }
-    document.onclick = i
-    document.ontouchstart = i
-    i();
+    // document.onclick = i
+    // document.ontouchstart = i
+    // i();
+    window.addEventListener('load',i(),false);
     // setTimeout('i()',2000);
 </script><link rel=stylesheet href=/fancybox/jquery.fancybox.css><script>
 	var yiliaConfig = {
