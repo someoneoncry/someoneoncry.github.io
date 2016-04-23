@@ -402,49 +402,49 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
-<!--<link href="//cdn.bootcss.com/semantic-ui/2.1.8/components/search.css" rel="stylesheet">-->
-<!--<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>-->
+<!--&lt;!&ndash;<link href="//cdn.bootcss.com/semantic-ui/2.1.8/components/search.css" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;var content = [];&ndash;&gt;-->
+<!--&lt;!&ndash;$.get("search.json", function (result) {&ndash;&gt;-->
+<!--&lt;!&ndash;for (var i = 0; i < result.length; ++i) {&ndash;&gt;-->
+<!--&lt;!&ndash;content[i] = {title: result[i].title};&ndash;&gt;-->
+<!--&lt;!&ndash;console.log(content[i]);&ndash;&gt;-->
+
+<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;$('.ui.search')&ndash;&gt;-->
+<!--&lt;!&ndash;.search({&ndash;&gt;-->
+<!--&lt;!&ndash;source: content&ndash;&gt;-->
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
 
 <!--<script>-->
-<!--var content = [];-->
-<!--$.get("search.json", function (result) {-->
-<!--for (var i = 0; i < result.length; ++i) {-->
-<!--content[i] = {title: result[i].title};-->
-<!--console.log(content[i]);-->
+    <!--var levenshtein = new Levenshtein();-->
+    <!--var query;-->
 
-<!--}-->
-<!--$('.ui.search')-->
-<!--.search({-->
-<!--source: content-->
-<!--});-->
-<!--});-->
+<!--//    window.onload = function () {-->
+<!--//        var list = new Array();-->
+<!--//        $.get("../search.json", function (result) {-->
+<!--//            for (var i = 0; i < result.length; ++i) {-->
+<!--//                list[result[i].title] = new Levenshtein(query, result[i].content).valueOf();-->
+<!--//            }-->
+<!--//            var sorted_list = new Array();-->
+<!--//            var cur = 0;-->
+<!--//            for (var key  in list) {-->
+<!--//                for (var t = 0; t <= cur; ++t) {-->
+<!--//                    if(list[key])-->
+<!--//                }-->
+<!--//-->
+<!--//                alert(key);-->
+<!--//            }-->
+<!--//-->
+<!--//        });-->
+<!--//    }-->
+
+<!--//    需要建立一个数据结构, 把json数据排序后展现出来-->
 <!--</script>-->
-
-<script>
-    var levenshtein = new Levenshtein();
-    var query;
-
-//    window.onload = function () {
-//        var list = new Array();
-//        $.get("../search.json", function (result) {
-//            for (var i = 0; i < result.length; ++i) {
-//                list[result[i].title] = new Levenshtein(query, result[i].content).valueOf();
-//            }
-//            var sorted_list = new Array();
-//            var cur = 0;
-//            for (var key  in list) {
-//                for (var t = 0; t <= cur; ++t) {
-//                    if(list[key])
-//                }
-//
-//                alert(key);
-//            }
-//
-//        });
-//    }
-
-//    需要建立一个数据结构, 把json数据排序后展现出来
-</script>
 
 
 
@@ -546,6 +546,32 @@ MathJax.Hub.Queue(function() {
         }
     });
 </script>
+
+
+
+<!-- oneapm -->
+<script type='text/javascript'>window.BWEUM||(BWEUM={});BWEUM.info = {"stand":true,"agentType":"browser","agent":"bi-collector.oneapm.com/static/js/bw-send-411.4.5.js","beaconUrl":"bi-collector.oneapm.com/beacon","licenseKey":"zzmij~vUvzviiYZR","applicationID":2279993};</script><script type="text/javascript" src="//bi-collector.oneapm.com/static/js/bw-loader-411.4.5.js"></script>
+
+
+
+<!-- Growing -->
+<script type='text/javascript'>
+    var _vds = _vds || [];
+    window._vds = _vds;
+    (function(){
+        _vds.push(['setAccountId', '91eb9485533b17e2']);
+        (function() {
+            var vds = document.createElement('script');
+            vds.type='text/javascript';
+            vds.async = true;
+            vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(vds, s);
+        })();
+    })();
+</script>
+
+
 
   </div>
 </body>
