@@ -11,10 +11,16 @@ function getParameterByName(name, url) {
 function calcScore(key, tokenize) {
     var score = 0;
     for (var x = 0; x < tokenize.length; ++x) {
+        if (tokenize[x] == null) {
+            break;
+        }
         for (var i = 0; i < key.length; ++i) {
-            if (tokenize[x] == i) {
-                score++;
+            for (var t = 0; t < tokenize[x].length; ++t) {
+                if (tokenize[x][t] == key[i]) {
+                    score++;
+                }
             }
+
         }
     }
     return score;
@@ -22,7 +28,8 @@ function calcScore(key, tokenize) {
 
 function addCountToJson(key, json) {
     for (var i = 0; i < json.length; ++i) {
-        json[i]['score'] = calcScore(key, json[i].tokenize);
+        // 题目匹配权重100 , 内容匹配权重1 , 匹配算法: 单字匹配 (待优化)
+        json[i]['score'] = calcScore(key, json[i].content_tokenize) + calcScore(key, json[i].title_tokenize) * 100;
     }
 }
 
