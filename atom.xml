@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-04-23T07:05:34.000Z</updated>
+  <updated>2016-04-23T07:09:05.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html"/>
     <id>https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html</id>
     <published>2016-04-23T06:23:14.000Z</published>
-    <updated>2016-04-23T07:05:34.000Z</updated>
+    <updated>2016-04-23T07:09:05.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;对于静态博客一直有两大心病，其中一个是缺乏靠谱的评论插件, 的确有许多好的评论插件，但要么是要收费要么是大陆访问非常慢， 剩下的国内的也就多说了，然而这家伙不稳定不说，还不支持https，而且目前似乎也无人在维护了。另一块心病就是站内搜索。搜索技术虽然很复杂很麻烦，但说时候对于一个小博客网站而言，其实仅仅只是需要一个全站数据的json文件 ，一个靠谱算法，完全不需要任何后端技术就能够实现一个基本能用的搜索了。网上找了一圈，发现都没有人在做这个。只好自己动手了。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -34,7 +34,7 @@
 &lt;li&gt;匹配排序&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;实践&quot;&gt;&lt;a href=&quot;#实践&quot; class=&quot;headerlink&quot; title=&quot;实践&quot;&gt;&lt;/a&gt;实践&lt;/h2&gt;&lt;h3 id=&quot;数据抓取&quot;&gt;&lt;a href=&quot;#数据抓取&quot; class=&quot;headerlink&quot; title=&quot;数据抓取&quot;&gt;&lt;/a&gt;数据抓取&lt;/h3&gt;&lt;p&gt;对于自己的网站，事实上根本无所谓抓取，尤其是对于诸如Hexo之类的静态站点，可以查阅相关文档，自己编写插件使其在编译静态文件阶段就把文章数据导入到json中，当然，也可以自己写一个python/js 的脚本，把 markdown 源文件给解析出来生成单个json文件。&lt;/p&gt;
-&lt;p&gt;我这里找到了 hexo-search 插件，但是这个插件只能把数据给拿出来，并不具备数据处理功能，后来我自己在它的基础上，魔改出一个了一个 (hexo-tokenize-search)[&lt;a href=&quot;https://github.com/joway/hexo-tokenize-search&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/joway/hexo-tokenize-search&lt;/a&gt;] 版本。&lt;/p&gt;
+&lt;p&gt;我这里找到了 hexo-search 插件，但是这个插件只能把数据给拿出来，并不具备数据处理功能，后来我自己在它的基础上，魔改出一个了一个 &lt;a href=&quot;https://github.com/joway/hexo-tokenize-search&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo-tokenize-search&lt;/a&gt; 版本。&lt;/p&gt;
 &lt;h3 id=&quot;数据净化与分词&quot;&gt;&lt;a href=&quot;#数据净化与分词&quot; class=&quot;headerlink&quot; title=&quot;数据净化与分词&quot;&gt;&lt;/a&gt;数据净化与分词&lt;/h3&gt;&lt;p&gt;在 我的 hexo-tokenize-search 插件中， 我添加了最基本的数据处理功能:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;利用正则表达式把html tags全部清除&lt;/li&gt;

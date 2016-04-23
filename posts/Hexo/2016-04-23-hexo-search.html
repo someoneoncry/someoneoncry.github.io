@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html">
 <meta property="og:site_name" content="Joway's Blog">
 <meta property="og:description" content="前言对于静态博客一直有两大心病，其中一个是缺乏靠谱的评论插件, 的确有许多好的评论插件，但要么是要收费要么是大陆访问非常慢， 剩下的国内的也就多说了，然而这家伙不稳定不说，还不支持https，而且目前似乎也无人在维护了。另一块心病就是站内搜索。搜索技术虽然很复杂很麻烦，但说时候对于一个小博客网站而言，其实仅仅只是需要一个全站数据的json文件 ，一个靠谱算法，完全不需要任何后端技术就能够实现一个基">
-<meta property="og:updated_time" content="2016-04-23T07:05:34.000Z">
+<meta property="og:updated_time" content="2016-04-23T07:09:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo折腾记——静态站点搜索">
 <meta name="twitter:description" content="前言对于静态博客一直有两大心病，其中一个是缺乏靠谱的评论插件, 的确有许多好的评论插件，但要么是要收费要么是大陆访问非常慢， 剩下的国内的也就多说了，然而这家伙不稳定不说，还不支持https，而且目前似乎也无人在维护了。另一块心病就是站内搜索。搜索技术虽然很复杂很麻烦，但说时候对于一个小博客网站而言，其实仅仅只是需要一个全站数据的json文件 ，一个靠谱算法，完全不需要任何后端技术就能够实现一个基">
@@ -269,7 +269,7 @@
 <li>匹配排序</li>
 </ul>
 <h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h3 id="数据抓取"><a href="#数据抓取" class="headerlink" title="数据抓取"></a>数据抓取</h3><p>对于自己的网站，事实上根本无所谓抓取，尤其是对于诸如Hexo之类的静态站点，可以查阅相关文档，自己编写插件使其在编译静态文件阶段就把文章数据导入到json中，当然，也可以自己写一个python/js 的脚本，把 markdown 源文件给解析出来生成单个json文件。</p>
-<p>我这里找到了 hexo-search 插件，但是这个插件只能把数据给拿出来，并不具备数据处理功能，后来我自己在它的基础上，魔改出一个了一个 (hexo-tokenize-search)[<a href="https://github.com/joway/hexo-tokenize-search" target="_blank" rel="external">https://github.com/joway/hexo-tokenize-search</a>] 版本。</p>
+<p>我这里找到了 hexo-search 插件，但是这个插件只能把数据给拿出来，并不具备数据处理功能，后来我自己在它的基础上，魔改出一个了一个 <a href="https://github.com/joway/hexo-tokenize-search" target="_blank" rel="external">hexo-tokenize-search</a> 版本。</p>
 <h3 id="数据净化与分词"><a href="#数据净化与分词" class="headerlink" title="数据净化与分词"></a>数据净化与分词</h3><p>在 我的 hexo-tokenize-search 插件中， 我添加了最基本的数据处理功能:</p>
 <ul>
 <li>利用正则表达式把html tags全部清除</li>
@@ -303,7 +303,7 @@
         <p><span>本文标题:</span><a href="/posts/Hexo/2016-04-23-hexo-search.html">Hexo折腾记——静态站点搜索</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Joway 的个人博客">Joway</a></p>
         <p><span>发布时间:</span>2016年04月23日 - 14时23分</p>
-        <p><span>最后更新:</span>2016年04月23日 - 15时05分</p>
+        <p><span>最后更新:</span>2016年04月23日 - 15时09分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/posts/Hexo/2016-04-23-hexo-search.html" title="Hexo折腾记——静态站点搜索">https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html</a>
             <span class="copy-path" data-clipboard-text="原文: https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html　　作者: Joway" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
