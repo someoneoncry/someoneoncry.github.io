@@ -66,8 +66,10 @@
         <p class="header-subtitle">以物喜，以己悲 .</p>
         
         
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            <form action="/search" method="get">
+                <input type="text" class="st-default-search-input search" id="search"
+                       placeholder=" Search..." name="query">
+                <div id="search_content"></div>
             </form>
         
         
@@ -89,7 +91,7 @@
                         </div>
                         
                     </div>
-                    
+
                 </div>
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
@@ -137,7 +139,7 @@
                         </ul>
                     </nav>
                 </section>
-                
+
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
@@ -145,7 +147,7 @@
                     </div>
                 </section>
                 
-                
+
                 
 
                 
@@ -157,7 +159,7 @@
                 
             </div>
         </div>
-    </header>                
+    </header>
 </div>
     </div>
     <div class="mid-col">
@@ -409,9 +411,6 @@
 
 
 
-
-
-
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     tex2jax: {
@@ -429,9 +428,8 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-
 
 
 <div class="scroll" id="scroll">
@@ -448,7 +446,7 @@ MathJax.Hub.Queue(function() {
 </script>
 
     <button class="hide-labels">TAG 开关</button>
-    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
     </script>
     <script>
         $(document).ready(function() {
@@ -459,7 +457,7 @@ MathJax.Hub.Queue(function() {
     </script>
 
 
-  <script language="javascript">
+<script language="javascript">
     $(function() {
         $("a[title]").each(function() {
             var a = $(this);
@@ -486,23 +484,49 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+<!--<link href="//cdn.bootcss.com/semantic-ui/2.1.8/components/search.css" rel="stylesheet">-->
+<!--<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>-->
 
-    <script type="text/javascript">
-      window.onload = function(){
-        document.getElementById("search").onclick = function(){
-            console.log("search")
-            search();
-        }
-      }
-      function search(){
-        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+<!--<script>-->
+<!--var content = [];-->
+<!--$.get("search.json", function (result) {-->
+<!--for (var i = 0; i < result.length; ++i) {-->
+<!--content[i] = {title: result[i].title};-->
+<!--console.log(content[i]);-->
 
-        _st('install','1tzUhjnC_kCthuxas3Gp','2.0.0');
-      }
-    </script>
+<!--}-->
+<!--$('.ui.search')-->
+<!--.search({-->
+<!--source: content-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+
+<script>
+    var levenshtein = new Levenshtein();
+    var query;
+
+//    window.onload = function () {
+//        var list = new Array();
+//        $.get("../search.json", function (result) {
+//            for (var i = 0; i < result.length; ++i) {
+//                list[result[i].title] = new Levenshtein(query, result[i].content).valueOf();
+//            }
+//            var sorted_list = new Array();
+//            var cur = 0;
+//            for (var key  in list) {
+//                for (var t = 0; t <= cur; ++t) {
+//                    if(list[key])
+//                }
+//
+//                alert(key);
+//            }
+//
+//        });
+//    }
+
+//    需要建立一个数据结构, 把json数据排序后展现出来
+</script>
 
 
 
