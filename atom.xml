@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Joway&#39;s Blog</title>
+  <title>城西随笔</title>
   <subtitle>以物喜，以己悲 .</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -264,45 +264,6 @@
       <category term="Hacked" scheme="https://joway.wang/tags/Hacked/"/>
     
       <category term="js" scheme="https://joway.wang/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>清明前后言</title>
-    <link href="https://joway.wang/posts/%E9%9A%8F%E6%84%9F/2016-04-02-2016-04-01.html"/>
-    <id>https://joway.wang/posts/随感/2016-04-02-2016-04-01.html</id>
-    <published>2016-04-02T14:26:54.000Z</published>
-    <updated>2016-04-02T14:31:19.000Z</updated>
-    
-    <content type="html">&lt;p&gt;假日。&lt;/p&gt;
-&lt;p&gt;发现生活变得索然无味。知道这是自己的原因，可桎梏就是如此，难以逃脱。&lt;/p&gt;
-&lt;p&gt;开始想，一日为何要有三餐的必要，一生为何要漫长变老。一切也就是闲时的多想，忙碌与逼迫能够打消这一切的苦恼。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;生活在进步，每天都比昨天前进一点一滴，却依旧不知道要去向哪里。总以为，前进就是最大的正确，而生活似乎不在乎正确。&lt;/p&gt;
-&lt;p&gt;大可以参加参加社会活动，刷刷微博讨论下民间恶俗，闲了去朋友圈投个票，热爱国家热爱中医，不是一切事物都需要做出价值判断，不是一切结果都以是非论断。&lt;/p&gt;
-&lt;p&gt;前几天在手机里听到一段之前误按录下的语音，那时候正半睡半醒，那个刹那的确有种往日时光蹦到你眼前的错觉。每次回忆起旧日时光，脑中总会浮现出史铁生坐着轮椅在天坛里转悠的模样。我也不知道为什么会产生这样的联想，或者是我们都认为过去的时光过去之后，我们都像成了个残废。&lt;/p&gt;
-&lt;p&gt;好在我们都能够选择，做出对个人利益最大化的选择。然而即便所有的选择明朗地摆在我的面前，我却依然无法下定拿起的决心。我开始相信，资本主义那套论调只是在统计上成立，而分立到每一个具体的人身上，都是一个个鲜活的灵魂实例。人的尊严也只有作为个体的时候，才如此的明显。&lt;/p&gt;
-&lt;p&gt;我笑言自己是一个披着理性外衣的感性动物，我所谓的理性只是不想对这个世界无保留的浪费感性。我不聪明，但也不甘愚蠢。&lt;/p&gt;
-&lt;p&gt;对世界进行价值判断和道德判断是解决个人危机最迅捷的途经，我从朦胧中二的岁月走到如今不朦胧却依旧中二的岁月里，靠着所谓的判断一次次解救自己也陷害了自己。即便一切都很明朗，即便我知道我需要怎么做才能利益最大化，只是我并未做好这些准备。&lt;/p&gt;
-&lt;p&gt;时常怀疑这个世界是否会变好，很遗憾我看到的大部分人并没有在为这个世界变好而努力，甚至相当一部分做着变坏的努力。但转念一想,  所谓的好坏又是无从说起。或许对大部分人而言，灯红酒绿花前月下才算是真正的好。&lt;/p&gt;
-&lt;p&gt;说到底，也只是短暂性状态不佳综合症。小时候养成的写日记的习惯，不说出来，心里难过。长大后，这习惯就变成了装逼。&lt;/p&gt;
-&lt;p&gt;现在装逼完毕，满血复活，继续搬砖  :)   &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;假日。&lt;/p&gt;
-&lt;p&gt;发现生活变得索然无味。知道这是自己的原因，可桎梏就是如此，难以逃脱。&lt;/p&gt;
-&lt;p&gt;开始想，一日为何要有三餐的必要，一生为何要漫长变老。一切也就是闲时的多想，忙碌与逼迫能够打消这一切的苦恼。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="随感" scheme="https://joway.wang/categories/%E9%9A%8F%E6%84%9F/"/>
-    
-    
-      <category term="随感" scheme="https://joway.wang/tags/%E9%9A%8F%E6%84%9F/"/>
-    
-      <category term="吐槽" scheme="https://joway.wang/tags/%E5%90%90%E6%A7%BD/"/>
     
   </entry>
   
@@ -644,7 +605,7 @@ sign0 1
 &lt;li&gt;白名单方式:&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;初始化:&lt;/p&gt;
-&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;instantclick.min.js&quot;&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;data-no-instant&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;script&lt;/span&gt;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;data-no-instant&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;InstantClick.init(&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;);&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;script&lt;/span&gt;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;instantclick.min.js&quot;&lt;/span&gt;&lt;span class=&quot;attr&quot;&gt;data-no-instant&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;script&lt;/span&gt;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;data-no-instant&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;InstantClick.init(&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;);&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;script&lt;/span&gt;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;针对具体每个链接启动:&lt;/p&gt;
 &lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;href&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;/blog/&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;data-instant&lt;/span&gt;&gt;&lt;/span&gt;Blog&lt;span class=&quot;tag&quot;&gt;a&lt;/span&gt;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;ol&gt;
