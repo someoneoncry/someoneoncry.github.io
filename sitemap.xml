@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html</loc>
+    
+    <lastmod>2016-05-11T12:53:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/about/index.html</loc>
     
     <lastmod>2016-05-11T10:31:24.000Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://joway.wang/life/index.html</loc>
     
     <lastmod>2016-05-11T06:05:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/posts/Hexo/2016-04-23-hexo-search.html</loc>
-    
-    <lastmod>2016-04-23T07:09:05.000Z</lastmod>
     
   </url>
   
