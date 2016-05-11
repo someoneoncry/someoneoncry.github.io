@@ -4,7 +4,14 @@
   <url>
     <loc>https://joway.wang/photos/output.json</loc>
     
-    <lastmod>2016-05-11T10:19:18.000Z</lastmod>
+    <lastmod>2016-05-11T10:24:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://joway.wang/photos/photo-tool.js</loc>
+    
+    <lastmod>2016-05-11T10:24:13.000Z</lastmod>
     
   </url>
   
@@ -138,13 +145,6 @@
     <loc>https://joway.wang/photos/index.html</loc>
     
     <lastmod>2016-03-19T16:37:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/photos/photo-tool.js</loc>
-    
-    <lastmod>2016-03-19T11:55:45.000Z</lastmod>
     
   </url>
   
