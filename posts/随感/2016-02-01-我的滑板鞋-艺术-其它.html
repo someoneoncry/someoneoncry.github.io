@@ -46,13 +46,25 @@
         var disqus_shortname = 'joway'; // required: replace example with your forum shortname
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
+        (function () {
+        var el = document.getElementById('disqus_thread')
+        window.addEventListener('scroll', checkPosition)
+        window.addEventListener('load', checkPosition)
+        function checkPosition () {
+            var rect = el.getBoundingClientRect()
+            if (rect.top < window.innerHeight) {
+                window.removeEventListener('scroll', checkPosition)
+                window.removeEventListener('load', checkPosition)
+                loadDisqus()
+            }
+        }
+        function loadDisqus () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }
         })();
+        
     </script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></section><div class=scroll id=post-nav-button><a href=/posts/Hexo/2016-03-18-hexo-base.html title="上一篇: Hexo折腾记——基本配置篇"><i class="fa fa-angle-left"></i></a> <a title=文章列表><i class="fa fa-bars"></i><i class="fa fa-times"></i></a> <a href=/posts/随感/2016-01-16-医生与工程师.html title="下一篇: 医生与工程师"><i class="fa fa-angle-right"></i></a></div><ul class=post-list><li class=post-list-item><a class=post-list-link href=/posts/Hexo/2016-04-23-hexo-search.html>Hexo折腾记——静态站点搜索</a></li><li class=post-list-item><a class=post-list-link href=/posts/摄影/2016-04-10-摄影技巧.html>用编程思想学摄影</a></li><li class=post-list-item><a class=post-list-link href=/posts/Hacked/2016-04-08-chaoxing-hacked.html>超星慕课视频系统破解</a></li><li class=post-list-item><a class=post-list-link href=/posts/Java/2016-04-02-jpbc-show-me-the-code.html>JPBC(Java Pairing Based Cryptography) 库 实例详解</a></li><li class=post-list-item><a class=post-list-link href=/posts/Java/2016-04-02-jpbc-base.html>JPBC(Java Pairing Based Cryptography) 库 使用</a></li><li class=post-list-item><a class=post-list-link href=/posts/Java/2016-04-01-java-io-optimize.html>Java IO 性能优化一个小实例</a></li><li class=post-list-item><a class=post-list-link href=/posts/Mac/2016-03-28-记一次解决Mac扬声器破音问题的神奇经历.html>记一次解决Mac扬声器破音问题的神奇经历</a></li><li class=post-list-item><a class=post-list-link href=/posts/Hexo/2016-03-25-hexo-analysis.html>Hexo折腾记——统计与交互篇</a></li><li class=post-list-item><a class=post-list-link href=/posts/Hexo/2016-03-19-Hexo-deploy.html>Hexo 折腾记——自动部署篇</a></li><li class=post-list-item><a class=post-list-link href=/posts/Hexo/2016-03-19-Hexo-optimize.html>Hexo折腾记——性能优化篇</a></li><li class=post-list-item><a class=post-list-link href=/posts/Hexo/2016-03-18-hexo-base.html>Hexo折腾记——基本配置篇</a></li><li class=post-list-item><a class=post-list-link href=/posts/随感/2016-02-01-我的滑板鞋-艺术-其它.html>我的滑板鞋-艺术-其它</a></li><li class=post-list-item><a class=post-list-link href=/posts/随感/2016-01-16-医生与工程师.html>医生与工程师</a></li></ul><script src=https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js></script><script>
         $(".post-list").addClass("toc-article");
         $(".post-list-item a").attr("target","_blank");
