@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/photos/output.json</loc>
+    
+    <lastmod>2016-05-17T02:43:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/404.html</loc>
     
     <lastmod>2016-05-16T01:15:53.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://joway.wang/posts/Toy/2016-05-14-%E7%94%A8%E5%BE%AE%E4%BF%A1%E4%B8%8EGithub%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A.html</loc>
     
     <lastmod>2016-05-14T03:20:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/photos/output.json</loc>
-    
-    <lastmod>2016-05-14T01:19:10.000Z</lastmod>
     
   </url>
   
