@@ -49,13 +49,13 @@
     
       <category term="hexo" scheme="https://joway.wang/tags/hexo/"/>
     
-      <category term="博客" scheme="https://joway.wang/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
       <category term="优化" scheme="https://joway.wang/tags/%E4%BC%98%E5%8C%96/"/>
     
       <category term="加速" scheme="https://joway.wang/tags/%E5%8A%A0%E9%80%9F/"/>
     
       <category term="性能" scheme="https://joway.wang/tags/%E6%80%A7%E8%83%BD/"/>
+    
+      <category term="博客" scheme="https://joway.wang/tags/%E5%8D%9A%E5%AE%A2/"/>
     
       <category term="压缩" scheme="https://joway.wang/tags/%E5%8E%8B%E7%BC%A9/"/>
     
@@ -106,15 +106,15 @@
     
       <category term="hexo" scheme="https://joway.wang/tags/hexo/"/>
     
+      <category term="Google" scheme="https://joway.wang/tags/Google/"/>
+    
+      <category term="Analytics" scheme="https://joway.wang/tags/Analytics/"/>
+    
       <category term="优化" scheme="https://joway.wang/tags/%E4%BC%98%E5%8C%96/"/>
     
       <category term="加速" scheme="https://joway.wang/tags/%E5%8A%A0%E9%80%9F/"/>
     
       <category term="性能" scheme="https://joway.wang/tags/%E6%80%A7%E8%83%BD/"/>
-    
-      <category term="Google" scheme="https://joway.wang/tags/Google/"/>
-    
-      <category term="Analytics" scheme="https://joway.wang/tags/Analytics/"/>
     
   </entry>
   
