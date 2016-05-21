@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-05-17T05:00:26.000Z</updated>
+  <updated>2016-05-21T07:45:29.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo折腾记——终极加速:全线接入CDN</title>
+    <link href="https://joway.wang/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html"/>
+    <id>https://joway.wang/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html</id>
+    <published>2016-05-21T07:21:46.000Z</published>
+    <updated>2016-05-21T07:45:29.000Z</updated>
+    
+    <content type="html">&lt;p&gt;前段时间一不小心看到了七牛支持HTTPS证书导入，就想去试试把博客全线接入CDN(啊，说好的好好读书不折腾博客了呢 ? 😂)，不过七牛这货也是坑，光是证书录入就花了快一个星期，完了以后我改个源站又是好几天，最后改个缓存策略又要等。严重怀疑七牛纯粹是手动来搞这些东西。。。同样的东西，又拍云就分分钟生效完成。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;上一篇文章里我讲了因为载入的资源太多，我用插件把js,css全部内联了，但是如果接入了CDN后，首先由于缓存的原因，我不能够把html给缓存太长时间，否则我更新一篇文章在客户端生效得等好长时间，这样的话，如果我全部内联，相当于大部分资源都有去缓存，虽然CDN仍旧能够以其速度优势来弥补单个文件过大的缺陷，但显然这种做法还是不够高效。&lt;/p&gt;
+&lt;p&gt;由于我并不是特别清楚全部内联减少请求次数，与减小单个文件体积两种做法之间具体的性能差异，所以我两种方式都部署了一遍，最后从”手感”上判断后一种方法似乎响应更加迅速。之所以说”手感”，是因为有好多次我都发现明明数据很好看，但是实际浏览器访问的时候还是感觉很慢，加载也不流畅。而接入七牛CDN后，虽然数据上不怎么好看，有时候甚至会有10秒以上的加载时间，但是的确响应上流畅多了，目前我还不是特别清楚这种差异是由于什么。&lt;/p&gt;
+&lt;p&gt;接入七牛CDN的过程非常简单，首先，写个脚本每次在构建的时候上传public目录至七牛，然后在七牛那边，配置一个https的证书，由于我只是个博客，并没有太大的安全需求，搞个https纯粹为了防劫持和装逼，所以我很开心地就把私钥上传上去了(😂）. 建议在上传前就做好源站配置和缓存策略，否则，每次更改都需要很长时间等待。&lt;/p&gt;
+&lt;p&gt;关于上传脚本，可以用我写的python 上传脚本，也可以用gulp的一个插件: &lt;a href=&quot;https://github.com/hfcorriez/gulp-qiniu&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gulp-qiniu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;注意，七牛自身不支持目录，而是以文件前缀的形式来指定文件路经，所以在上传的时候要把路径指定好。&lt;/p&gt;
+&lt;p&gt;PS: 七牛HTTPS弄好后，需要把CDN配到七牛上去，然而我用的cloudxns无法让mx记录和cname记录在@下共存。查阅了cloudxns的解释后，才发现之前我一直在dnspod上两个一起设置，是有可能导致我的域名邮箱丢件的。cloudxns为这种情况提供了一种解决方案: 用 www.joway.wang 域名cname 到 七牛上，然后joway.wang 用 link 记录到www.joway.wang 上。这样就解决了问题，虽然我没看懂link记录是个什么鬼。。&lt;/p&gt;
+&lt;p&gt;上传目录的Python 脚本如下: &lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; os&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; sys&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; easy_qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; SevenCow&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;prefix_dir = sys.path[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]+&lt;span class=&quot;string&quot;&gt;&#39;/public&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#可获取文件夹内全部文件名(包括子文件夹)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get_all_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(DirectoryPath)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    filenamesList = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; dirpath, dirnames, filenames &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; os.walk(DirectoryPath):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dirpath：当前遍历文件夹全名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dirnames：当前文件夹内子文件夹名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        filenames：当前文件夹下文件名列表(不包括子文件夹里的文件)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; filename &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; filenames:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            filenamesList.append(dirpath + &lt;span class=&quot;string&quot;&gt;&#39;/&#39;&lt;/span&gt; + filename)&lt;span class=&quot;comment&quot;&gt;#全名&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; filenamesList&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#生成网站根目录形式的文件名&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get_root_filename&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(fullname)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dir_path = sys.path[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; fullname[len(prefix_dir) + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:len(fullname)].replace(&lt;span class=&quot;string&quot;&gt;&#39;\\&#39;&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;/&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#生成{目标文件名:源文件名,...}形式的字典&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get_filenames_dict&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(filenamesList=[])&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    filenames_dict = {}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; filename &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; filenamesList:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        filenames_dict[get_root_filename(filename)] = filename&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; filenames_dict&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#上传，根据返回值判断是否成功&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;upload_into_qiniu&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(access_key,secret_key,bucket_name,director_path=sys.path[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;])&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sc = SevenCow(access_key,secret_key)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sc.delete_files(bucket_name,sc.list_file_names(bucket_name)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        print(&lt;span class=&quot;string&quot;&gt;&#39;Delete Successful&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sc.upload_files(bucket_name,get_filenames_dict(get_all_files(director_path)))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;except&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;False&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;True&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;access_key = &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;secret_key = &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bucket_name = &lt;span class=&quot;string&quot;&gt;&#39;hexo-blog&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(upload_into_qiniu(access_key,secret_key,bucket_name, director_path=prefix_dir)):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&lt;span class=&quot;string&quot;&gt;&#39;Bak Successful&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&lt;span class=&quot;string&quot;&gt;&#39;Bak Error&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;easy_qiniu.py:&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;81&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;82&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;83&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;84&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;85&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;86&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;87&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;88&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;89&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;90&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;91&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;92&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;93&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;94&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;95&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;96&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;97&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;98&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;99&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;101&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;102&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;103&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;104&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;105&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;106&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;107&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;108&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;109&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;110&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;111&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;112&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;113&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;114&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;115&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;116&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;117&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;118&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;119&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;120&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;121&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;122&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;123&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;124&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;125&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;126&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;127&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;128&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;129&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;130&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;131&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;132&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;133&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;134&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;135&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;136&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;137&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;138&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;139&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;140&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;141&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;142&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;143&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;144&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;145&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;146&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;147&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;148&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;149&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;150&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;151&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;152&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;153&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;154&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;155&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;156&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;157&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;158&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;159&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;160&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;161&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;162&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;163&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;164&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;165&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;166&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;167&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;168&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;169&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;170&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;171&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;172&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;173&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;174&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;175&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;176&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;177&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;178&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;179&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;180&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt;  Auth&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; put_file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; BucketManager&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; build_batch_stat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; build_batch_copy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; build_batch_move&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; build_batch_delete&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; qiniu &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; etag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; requests&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; mimetypes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#class SevenCowException(Exception):&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#    def __init__(self,status_code,content):&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#        self.url = url&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#        self.status_code = status_code&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#        self.content = content&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#        Exception.__init__(self, content)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;SevenCow&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(object)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self, access_key,secret_key)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        self.__access_key = access_key&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        self.__secret_key = secret_key&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;#使用access_key,secret_key登陆七牛，得到Auth类型返回值，以它作为后续操作凭证&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        self.__auth = Auth(access_key, secret_key)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 上传本地文件(断点续上传、分块并行上传)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;upload_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,bucket_name=&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;,filedict={},&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                     mime_type=&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;,params={&lt;span class=&quot;string&quot;&gt;&#39;x:a&#39;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&#39;a&#39;&lt;/span&gt;})&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket_name:&#39;bucket_name&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        filedict: {&#39;key&#39;:&#39;localfile&#39;,...}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mime_type: mime_type&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        params: eg {&#39;x:var&#39;: &#39;var&#39;} &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        params用法:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        params={&#39;x:price&#39;:&#39;price&#39;,&#39;x:location&#39;:&#39;location&#39;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;# 上传本地文件(断点续上传、分块并行上传)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        rets = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        infos = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; key &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; filedict.keys():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;comment&quot;&gt;#上传策略仅指定空间名和上传后的文件名，其他参数为默认值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            token = self.__auth.upload_token(bucket_name, key)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            progress_handler = &lt;span class=&quot;keyword&quot;&gt;lambda&lt;/span&gt; progress, total: progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(mime_type == &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                ret,info = put_file(token, key, filedict[key], params ,mime_type=mimetypes.guess_type(key)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;], progress_handler=progress_handler)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                ret,info = put_file(token, key, filedict[key], params ,mime_type=mime_type, progress_handler=progress_handler)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;comment&quot;&gt;#assert ret[&#39;key&#39;] == key&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            rets.append(ret)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            infos.append(info)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; rets,infos&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;download_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,url=&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;,filedict={})&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        url: &#39;url&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        filedict: {&#39;key&#39;:&#39;localfile&#39;,...}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(url[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;].upper() != &lt;span class=&quot;string&quot;&gt;&#39;HTTP&#39;&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            url = &lt;span class=&quot;string&quot;&gt;&#39;http://&#39;&lt;/span&gt; + url&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        status_codes = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; fkey &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; filedict.keys():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;with&lt;/span&gt; open(filedict[fkey], &lt;span class=&quot;string&quot;&gt;&quot;wb&quot;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; file:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                r = requests.get(url + &lt;span class=&quot;string&quot;&gt;&#39;/&#39;&lt;/span&gt; + fkey,timeout=&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                status_codes.append(r.status_code)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                file.write(r.content)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; status_codes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 获取文件信息&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get_file_info&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,bucket_name,keys=[])&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket_name:&#39;bucket_name&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        keys:  [&#39;fileName1&#39;,&#39;fileName2&#39;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ops = build_batch_stat(bucket_name, keys)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret, info = bucket.batch(ops)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; ret,info&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 复制文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;copy_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,source_bucket,target_bucket,pathdict={})&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        source_bucket： &#39;source_bucket&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        target_bucket:  &#39;target_bucket&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pathdict: {&#39;source_file_name&#39;:&#39;target_file_name&#39;,...}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ops = build_batch_copy(source_bucket, pathdict, target_bucket)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret, info = bucket.batch(ops)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; ret,info&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 移动文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;move_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,source_bucket,target_bucket,pathdict={})&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        source_bucket： &#39;source_bucket&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        target_bucket:  &#39;target_bucket&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pathdict: {&#39;source_file_name&#39;:&#39;target_file_name&#39;,...}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ops = build_batch_move(source_bucket, pathdict, target_bucket)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret, info = bucket.batch(ops)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; ret,info&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 删除文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;delete_files&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,source_bucket,pathlist=[])&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        source_bucket： &#39;source_bucket&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pathlist: [&#39;source_file_name&#39;,...]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ops = build_batch_delete(source_bucket, pathlist)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret, info = bucket.batch(ops)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; ret,info&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 列出所有文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;list_file_names&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,bucket_name, prefix=None, marker=None, limit=None, delimiter=None)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            bucket:     空间名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            prefix:     列举前缀&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            marker:     列举标识符(首次为None)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            limit:      单次列举个数限制(默认列举全部)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            delimiter:  指定目录分隔符&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Returns:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            pathlist: [&#39;file_name&#39;,...]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        file_name_list = []&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        marker = &lt;span class=&quot;keyword&quot;&gt;None&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        eof = &lt;span class=&quot;keyword&quot;&gt;False&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; eof &lt;span class=&quot;keyword&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;False&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ret, eof, info = bucket.list(bucket_name, prefix=prefix, marker=marker, limit=limit)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            marker = ret.get(&lt;span class=&quot;string&quot;&gt;&#39;marker&#39;&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;None&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; item &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; ret[&lt;span class=&quot;string&quot;&gt;&#39;items&#39;&lt;/span&gt;]:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                file_name_list.append(item[&lt;span class=&quot;string&quot;&gt;&#39;key&#39;&lt;/span&gt;])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; file_name_list,eof&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 抓取资源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;fetch_files_from_net_to_qiniu&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,bucket_name,pathdict={})&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket_name： &#39;bucket_name&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pathdict: {&#39;source_file_name&#39;:&#39;target_file_name&#39;,...}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        rets=[]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        infos=[]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; p &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; pathdict.keys():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ret, info = bucket.fetch(pathdict[p], bucket_name,p)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            rets.append(ret)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            infos.append(info)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; rets,infos&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# 更新镜像资源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;update_image_source&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(self,bucket_name,pathlist=[])&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;Args:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket_name： &#39;bucket_name&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pathlist: [&#39;file_name&#39;,...]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        !需要提前对仓库设置镜像源!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        bucket = BucketManager(self.__auth)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        rets=[]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        infos=[]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; p &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; pathlist:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ret, info = bucket.prefetch(bucket_name, p)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            rets.append(ret)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            infos.append(info)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; rets,infos&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间一不小心看到了七牛支持HTTPS证书导入，就想去试试把博客全线接入CDN(啊，说好的好好读书不折腾博客了呢 ? 😂)，不过七牛这货也是坑，光是证书录入就花了快一个星期，完了以后我改个源站又是好几天，最后改个缓存策略又要等。严重怀疑七牛纯粹是手动来搞这些东西。。。同样的东西，又拍云就分分钟生效完成。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="https://joway.wang/categories/Hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://joway.wang/tags/hexo/"/>
+    
+      <category term="加速" scheme="https://joway.wang/tags/%E5%8A%A0%E9%80%9F/"/>
+    
+      <category term="前端" scheme="https://joway.wang/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="blog" scheme="https://joway.wang/tags/blog/"/>
+    
+      <category term="七牛" scheme="https://joway.wang/tags/%E4%B8%83%E7%89%9B/"/>
+    
+      <category term="CDN" scheme="https://joway.wang/tags/CDN/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo折腾记——通过压缩与内联提升访问速度</title>
@@ -2080,33 +2123,25 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其七</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%83.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其七.html</id>
+    <title>杂记其一</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
     <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:47.000Z</updated>
+    <updated>2016-05-21T02:18:30.000Z</updated>
     
-    <content type="html">&lt;p&gt;崎岖小道&lt;/p&gt;
-&lt;p&gt;树影婆娑&lt;/p&gt;
-&lt;p&gt;树影不知婆娑&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;人知婆娑&lt;/p&gt;
-&lt;p&gt;人走在路上&lt;/p&gt;
-&lt;p&gt;路来决定方向&lt;/p&gt;
-&lt;p&gt;纵然背道而驰&lt;/p&gt;
-&lt;p&gt;前进总胜于坐毙&lt;/p&gt;
-&lt;p&gt;久之&lt;/p&gt;
-&lt;p&gt;便不觉背驰&lt;/p&gt;
-&lt;p&gt;久之&lt;/p&gt;
-&lt;p&gt;路指向了正确的方向&lt;/p&gt;
-&lt;p&gt;2013 秋&lt;/p&gt;
+    <content type="html">&lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;毕加索似的&lt;/p&gt;
+&lt;p&gt;梵高走过&lt;/p&gt;
+&lt;p&gt;摇了摇头&lt;/p&gt;
+&lt;p&gt;2013 春 &lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;崎岖小道&lt;/p&gt;
-&lt;p&gt;树影婆娑&lt;/p&gt;
-&lt;p&gt;树影不知婆娑&lt;/p&gt;
+      &lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
     
     </summary>
     
@@ -2243,41 +2278,6 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其四</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%9B%9B.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其四.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:18:08.000Z</updated>
-    
-    <content type="html">&lt;p&gt;临窗&lt;/p&gt;
-&lt;p&gt;听雨&lt;/p&gt;
-&lt;p&gt;落地无声&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;街上&lt;/p&gt;
-&lt;p&gt;行人往来&lt;/p&gt;
-&lt;p&gt;撑起伞&lt;/p&gt;
-&lt;p&gt;断绝往来&lt;/p&gt;
-&lt;p&gt;雨落击伞&lt;/p&gt;
-&lt;p&gt;声脆&lt;/p&gt;
-&lt;p&gt;2013 夏&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;临窗&lt;/p&gt;
-&lt;p&gt;听雨&lt;/p&gt;
-&lt;p&gt;落地无声&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>灵与肉</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E7%81%B5%E4%B8%8E%E8%82%89.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-灵与肉.html</id>
@@ -2316,6 +2316,41 @@ toc: true
     
       &lt;p&gt;我不再爱她&lt;/p&gt;
 &lt;p&gt;我以为&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>杂记其四</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%9B%9B.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其四.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:18:08.000Z</updated>
+    
+    <content type="html">&lt;p&gt;临窗&lt;/p&gt;
+&lt;p&gt;听雨&lt;/p&gt;
+&lt;p&gt;落地无声&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;街上&lt;/p&gt;
+&lt;p&gt;行人往来&lt;/p&gt;
+&lt;p&gt;撑起伞&lt;/p&gt;
+&lt;p&gt;断绝往来&lt;/p&gt;
+&lt;p&gt;雨落击伞&lt;/p&gt;
+&lt;p&gt;声脆&lt;/p&gt;
+&lt;p&gt;2013 夏&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;临窗&lt;/p&gt;
+&lt;p&gt;听雨&lt;/p&gt;
+&lt;p&gt;落地无声&lt;/p&gt;
     
     </summary>
     
@@ -2395,36 +2430,6 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其一</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:18:30.000Z</updated>
-    
-    <content type="html">&lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;毕加索似的&lt;/p&gt;
-&lt;p&gt;梵高走过&lt;/p&gt;
-&lt;p&gt;摇了摇头&lt;/p&gt;
-&lt;p&gt;2013 春 &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>杂记其六</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
@@ -2445,6 +2450,44 @@ toc: true
     <summary type="html">
     
       &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>杂记其七</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%83.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其七.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:47.000Z</updated>
+    
+    <content type="html">&lt;p&gt;崎岖小道&lt;/p&gt;
+&lt;p&gt;树影婆娑&lt;/p&gt;
+&lt;p&gt;树影不知婆娑&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;人知婆娑&lt;/p&gt;
+&lt;p&gt;人走在路上&lt;/p&gt;
+&lt;p&gt;路来决定方向&lt;/p&gt;
+&lt;p&gt;纵然背道而驰&lt;/p&gt;
+&lt;p&gt;前进总胜于坐毙&lt;/p&gt;
+&lt;p&gt;久之&lt;/p&gt;
+&lt;p&gt;便不觉背驰&lt;/p&gt;
+&lt;p&gt;久之&lt;/p&gt;
+&lt;p&gt;路指向了正确的方向&lt;/p&gt;
+&lt;p&gt;2013 秋&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;崎岖小道&lt;/p&gt;
+&lt;p&gt;树影婆娑&lt;/p&gt;
+&lt;p&gt;树影不知婆娑&lt;/p&gt;
     
     </summary>
     
@@ -2492,6 +2535,50 @@ toc: true
 &lt;p&gt;黄昏与朝霞齐熏&lt;/p&gt;
 &lt;p&gt;路边人来往&lt;/p&gt;
 &lt;p&gt;车声疾驰&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%91%BD.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-命.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:16:58.000Z</updated>
+    
+    <content type="html">&lt;p&gt;未来&lt;/p&gt;
+&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;在命运之中&lt;/p&gt;
+&lt;p&gt;亦在命运之外&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;一点一滴弥漫开来&lt;/p&gt;
+&lt;p&gt;我伫立无声&lt;/p&gt;
+&lt;p&gt;也随之&lt;/p&gt;
+&lt;p&gt;一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;然我知晓&lt;/p&gt;
+&lt;p&gt;在这场雾散之后&lt;/p&gt;
+&lt;p&gt;满地&lt;/p&gt;
+&lt;p&gt;将落满我的空喜&lt;/p&gt;
+&lt;p&gt;空喜过后&lt;/p&gt;
+&lt;p&gt;命运也一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;才发现&lt;/p&gt;
+&lt;p&gt;凡在命运之中&lt;/p&gt;
+&lt;p&gt;必在命运之外&lt;/p&gt;
+&lt;p&gt;2013   冬&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;未来&lt;/p&gt;
+&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;在命运之中&lt;/p&gt;
+&lt;p&gt;亦在命运之外&lt;/p&gt;
     
     </summary>
     
@@ -2570,50 +2657,6 @@ toc: true
 &lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
 &lt;p&gt;是哀悲的被动式&lt;/p&gt;
 &lt;p&gt;落魄的进行时&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>命</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%91%BD.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-命.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:16:58.000Z</updated>
-    
-    <content type="html">&lt;p&gt;未来&lt;/p&gt;
-&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;在命运之中&lt;/p&gt;
-&lt;p&gt;亦在命运之外&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;一点一滴弥漫开来&lt;/p&gt;
-&lt;p&gt;我伫立无声&lt;/p&gt;
-&lt;p&gt;也随之&lt;/p&gt;
-&lt;p&gt;一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;然我知晓&lt;/p&gt;
-&lt;p&gt;在这场雾散之后&lt;/p&gt;
-&lt;p&gt;满地&lt;/p&gt;
-&lt;p&gt;将落满我的空喜&lt;/p&gt;
-&lt;p&gt;空喜过后&lt;/p&gt;
-&lt;p&gt;命运也一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;才发现&lt;/p&gt;
-&lt;p&gt;凡在命运之中&lt;/p&gt;
-&lt;p&gt;必在命运之外&lt;/p&gt;
-&lt;p&gt;2013   冬&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;未来&lt;/p&gt;
-&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;在命运之中&lt;/p&gt;
-&lt;p&gt;亦在命运之外&lt;/p&gt;
     
     </summary>
     
