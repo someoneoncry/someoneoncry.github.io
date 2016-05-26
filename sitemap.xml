@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/photos/output.json</loc>
+    
+    <lastmod>2016-05-26T02:41:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html</loc>
     
     <lastmod>2016-05-21T07:45:29.000Z</lastmod>
@@ -355,13 +362,6 @@
     <loc>https://joway.wang/posts/Hacked/2016-04-08-chaoxing-hacked.html</loc>
     
     <lastmod>2016-05-21T01:49:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://joway.wang/photos/output.json</loc>
-    
-    <lastmod>2016-05-21T01:36:50.000Z</lastmod>
     
   </url>
   
