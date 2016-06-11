@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://joway.wang/"/>
-  <updated>2016-05-21T07:45:29.000Z</updated>
+  <updated>2016-06-11T16:02:07.000Z</updated>
   <id>https://joway.wang/</id>
   
   <author>
@@ -14,6 +14,139 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django &amp;&amp; uWSGI &amp;&amp; Nginx 在Docker中的部署</title>
+    <link href="https://joway.wang/posts/docker/2016-06-11-Django-uWSGI-Nginx%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E9%83%A8%E7%BD%B2.html"/>
+    <id>https://joway.wang/posts/docker/2016-06-11-Django-uWSGI-Nginx在Docker中的部署.html</id>
+    <published>2016-06-11T15:41:13.000Z</published>
+    <updated>2016-06-11T16:02:07.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;基础架构&quot;&gt;&lt;a href=&quot;#基础架构&quot; class=&quot;headerlink&quot; title=&quot;基础架构&quot;&gt;&lt;/a&gt;基础架构&lt;/h3&gt;&lt;p&gt;上一篇讲了 Django &amp;&amp; uWSGI &amp;&amp; Nginx 的基本逻辑和部署，这里我把它移至进docker中。&lt;/p&gt;
+&lt;p&gt;我的应用架构是:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分发器(Nginx) -&gt; docker 容器 (Nginx -&gt; uWSGI -&gt; Django)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;分发器只作如下事情:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;域名配置(http/https)&lt;/li&gt;
+&lt;li&gt;localtion 匹配分发&lt;/li&gt;
+&lt;li&gt;负载均衡&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;针对每个应用的详细配置由 docker 中的 Nginx 来进行(例如开启gzip ，缓存等)。&lt;/p&gt;
+&lt;h3 id=&quot;Django-lt-gt-uWSGI&quot;&gt;&lt;a href=&quot;#Django-lt-gt-uWSGI&quot; class=&quot;headerlink&quot; title=&quot;Django &lt;-&gt; uWSGI&quot;&gt;&lt;/a&gt;Django &lt;-&gt; uWSGI&lt;/-&gt;&lt;/h3&gt;&lt;p&gt;这里使用 supervisord 来进行部署，supervisord.conf 文件如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[program:uwsgi-app]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;command = /usr/local/bin/uwsgi --ini /chirp/.deploy/uwsgi.ini&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[program:nginx-app]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;command = /usr/sbin/nginx&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;uwsgi.ini 文件如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[uwsgi]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ini = :base&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;socket=/chirp/chirp.sock&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;master=True&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;processes= 10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[base]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# chdir to the folder of this config file, plus app/website&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chdir=/chirp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# load the module from wsgi.py, it is a python path from&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# the directory above.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;module=config.wsgi:application&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# allow anyone to connect to the socket. This is very permissive&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chmod-socket=666&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这里说明下，socket=/chirp/chirp.sock 表示我使用了 unix socket 方式进行通信。chmod-socket=666 是为了使得socket 文件进行权限控制。&lt;/p&gt;
+&lt;p&gt;启动命令:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;CMD [&quot;supervisord&quot;, &quot;-n&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;uWSGI-lt-gt-Nginx&quot;&gt;&lt;a href=&quot;#uWSGI-lt-gt-Nginx&quot; class=&quot;headerlink&quot; title=&quot;uWSGI  &lt;-&gt; Nginx&quot;&gt;&lt;/a&gt;uWSGI  &lt;-&gt; Nginx&lt;/-&gt;&lt;/h3&gt;&lt;p&gt;nginx.conf :&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# the upstream component nginx needs to connect to&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;upstream django {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    server unix:/chirp/chirp.sock; # UNIX socket&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # server 127.0.0.1:8001; # TCP port&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# configuration of the server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;server {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # the port your site will be served on&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    listen      80 default_server;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # the domain name it will serve for&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    charset     utf-8;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # max upload size&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    client_max_body_size 75M;   # adjust to taste&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # Django media&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # location /media  {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #    alias /path/to/your/mysite/media;  # your Django project&#39;s media files - amend as required&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # location /static {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #    alias /path/to/your/mysite/static; # your Django project&#39;s static files - amend as required&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # Finally, send all non-media requests to the Django server.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    location / {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        uwsgi_pass  django;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        include     /chirp/.deploy/uwsgi_params; # the uwsgi_params file you installed&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;说明下，nginx 默认是以后端守护进程开启的，而supervisord 只能够针对front end 程序使用，所以一开始这边导致nginx一直在重启。&lt;/p&gt;
+&lt;p&gt;解决方法:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;RUN echo &quot;daemon off;&quot; &gt;&gt; /etc/nginx/nginx.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意! daemon off; 只能通过dockerfile 方式写入原生nginx.conf 中，我自己的conf文件只能够进入到它的http{} 块中，是无效的，它必须定义在根块里。&lt;/p&gt;
+&lt;h3 id=&quot;完成Dockerfile&quot;&gt;&lt;a href=&quot;#完成Dockerfile&quot; class=&quot;headerlink&quot; title=&quot;完成Dockerfile&quot;&gt;&lt;/a&gt;完成Dockerfile&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;FROM python:3.5.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MAINTAINER joway wong &quot;joway.w@gmail.com&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Install packages&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN apt-get update &amp;&amp; apt-get install -y \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    git \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    libmysqlclient-dev \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    mysql-client \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    nginx \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    supervisor&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN mkdir /chirp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;WORKDIR /chirp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# for cache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Configure Nginx and uwsgi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD ./requirements.txt /chirp/requirements.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN rm /etc/nginx/sites-enabled/default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD ./.deploy/nginx.conf /etc/nginx/sites-enabled/chirp.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD ./.deploy/supervisord.conf /etc/supervisor/conf.d/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN pip install --upgrade pip&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN pip install -r requirements.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RUN echo &quot;daemon off;&quot; &gt;&gt; /etc/nginx/nginx.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ADD . /chirp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;EXPOSE 80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CMD [&quot;supervisord&quot;, &quot;-n&quot;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;基础架构&quot;&gt;&lt;a href=&quot;#基础架构&quot; class=&quot;headerlink&quot; title=&quot;基础架构&quot;&gt;&lt;/a&gt;基础架构&lt;/h3&gt;&lt;p&gt;上一篇讲了 Django &amp;&amp; uWSGI &amp;&amp; Nginx 的基本逻辑和部署，这里我把它移至进docker中。&lt;/p&gt;
+&lt;p&gt;我的应用架构是:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分发器(Nginx) -&gt; docker 容器 (Nginx -&gt; uWSGI -&gt; Django)&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="https://joway.wang/categories/docker/"/>
+    
+    
+      <category term="django" scheme="https://joway.wang/tags/django/"/>
+    
+      <category term="docker" scheme="https://joway.wang/tags/docker/"/>
+    
+      <category term="nginx" scheme="https://joway.wang/tags/nginx/"/>
+    
+      <category term="uwsgi" scheme="https://joway.wang/tags/uwsgi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web服务器原理 以及 Django &amp;&amp; uWSGI &amp;&amp; Nginx 部署</title>
+    <link href="https://joway.wang/posts/django/2016-06-11-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8ADjango-uWSGI-Nginx%E9%83%A8%E7%BD%B2.html"/>
+    <id>https://joway.wang/posts/django/2016-06-11-Web服务器原理以及Django-uWSGI-Nginx部署.html</id>
+    <published>2016-06-11T14:05:59.000Z</published>
+    <updated>2016-06-11T16:01:55.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前部署 Django 应用都是通过django自带的一个服务器来进行非常简单的部署 (直接执行 python manage.py runserver ) 。但是后来看一篇文章才知道 runserver 命令唤起的是开发服务器，并不能很好地应用于生产环境。而在生产环境下部署python代码的方式其实有很多种，这里我选择 uWSGI 的方式。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;之前我一直不理解为什么要单独搞这么一套东西来进行部署，在以往的经验里，我以为一个web服务器无非就是把代码运行起来，占用一个端口而已。这里整理下最近的学习体会。&lt;/p&gt;
+&lt;h3 id=&quot;Java-Web-Server&quot;&gt;&lt;a href=&quot;#Java-Web-Server&quot; class=&quot;headerlink&quot; title=&quot;Java Web Server&quot;&gt;&lt;/a&gt;Java Web Server&lt;/h3&gt;&lt;p&gt;在java web 里 ，部署的确是非常之简单，打成一个war包，所有的依赖都封装起来了，之后丢进 tomcat 容器里就能非常简单地运行了。在这种架构里，tomcat 就是 web server , 流程如下:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the web client&lt;br&gt;&lt;-&gt;&lt;br&gt;Server(顶层类元素：一个配置文件中只能有一个&lt;server&gt;元素，可包含多个Service。)&lt;br&gt;&lt;-&gt;&lt;br&gt;Service(顶层类元素：本身不是容器，可包含一个Engine，多个Connector。)&lt;br&gt;&lt;-&gt;&lt;br&gt;Connector（连接器类元素：代表通信接口,连接请求至web application,支持HTTP和AJP协议）&lt;br&gt;&lt;-&gt;&lt;br&gt;Engine( 容器类元素：为特定的Service组件处理所有客户请求，可包含多个Host。)&lt;br&gt;&lt;-&gt;&lt;br&gt;Host（容器类元素：为特定的虚拟主机处理所有客户请求，可包含多个Context）&lt;br&gt;&lt;-&gt;&lt;br&gt;Context (容器类元素：为特定的Web应用处理所有客户请求)&lt;/-&gt;&lt;/-&gt;&lt;/-&gt;&lt;/-&gt;&lt;/-&gt;&lt;/server&gt;&lt;/-&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;简单来说:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;获取连接 /index.html&lt;/li&gt;
+&lt;li&gt;Connector 模块将请求(Request)传递给 Container 模块&lt;/li&gt;
+&lt;li&gt;Container 分析HTPP请求信息，组装成 HttpServletRequest 对象&lt;/li&gt;
+&lt;li&gt;创建新的HttpServletResponse对象&lt;/li&gt;
+&lt;li&gt;根据路由配置，搜索相应的Servlet，并创建一个线程用于处理本次请求。此时线程会将上面Request和Response对象的索引，传递给Servlet&lt;/li&gt;
+&lt;li&gt;新线程中的 Servlet 调用其service方法，进行业务处理&lt;/li&gt;
+&lt;li&gt;线程结束后，通过HttpServletResponse对象的PrintWriter，返回浏览器一个信息&lt;/li&gt;
+&lt;li&gt;关闭连接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一个servlet实现类只会有一个实例对象，多个线程是可能会访问同一个servlet实例对象的， 所以servlet不是线程安全的，故而servlet的全局变量和静态变量必须小心。&lt;/p&gt;
+&lt;p&gt;注意，servlet 只是 java 自己的规范，而在Python中，它也有自己的一套规范 。&lt;/p&gt;
+&lt;h3 id=&quot;Python-Web-Server&quot;&gt;&lt;a href=&quot;#Python-Web-Server&quot; class=&quot;headerlink&quot; title=&quot;Python Web Server&quot;&gt;&lt;/a&gt;Python Web Server&lt;/h3&gt;&lt;p&gt;架构大致如下:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the web client&lt;br&gt;&lt;-&gt; the web server(nginx)&lt;br&gt;&lt;-&gt; the socket&lt;br&gt;&lt;-&gt; uwsgi&lt;br&gt;&lt;-&gt; Django&lt;/-&gt;&lt;/-&gt;&lt;/-&gt;&lt;/-&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中 the socket &lt;-&gt; uwsgi &lt;-&gt; Django 可被 docker 包装进容器，nginx 作为分发器。&lt;/-&gt;&lt;/-&gt;&lt;/p&gt;
+&lt;p&gt;python 中的规范为 WSGI ， 它定义了：web应用（或者web框架）与 web服务器交互接口(WSGI)。而uWSGI就是一个支持WSGI规范的web服务器。把web应用部署到uWSGI中，当 uWSGI 接受到请求时，会按照WSGI定义的接口调用 web 应用处理。(在java里应用部署到Tomcat，然后Tomcat按照servlet规范回调web应用) &lt;/p&gt;
+&lt;p&gt;事实上，任何Web服务器都可以看作如下的函数调用&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;def simple_app(environ, start_response):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      # 业务逻辑处理&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        status = &#39;200 OK&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        response_headers = [(&#39;Content-type&#39;,&#39;text/plain&#39;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        start_response(status, response_headers)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return [&#39;Hello world!\n&#39;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    application = simple_app # 若web应用部署在uWSGI容器中，需要这行代码&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;上面这个函数是 Web服务器 调用 Web应用 的一个示例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;environ 变量中含各种请求头信息(视协议而定)&lt;/li&gt;
+&lt;li&gt;start_response 是一个web服务器传过去的回调接口用来接受HTTP响应码以及HTTP响应头&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;uWSGI会把接收到的请求按照指定协议解析，然后把解析的结果（譬如：HTTP各请求头数据）设置到environ变量中，接着按照WSGI规范回调web应用（uWSGI默认回调application函数，并且传递environ和start_response两个参数），最终web应用开始处理请求（各种数据库查询，各种函数调用…）并把结果返回给uWSGI。&lt;/p&gt;
+&lt;h3 id=&quot;uWSGI-部署&quot;&gt;&lt;a href=&quot;#uWSGI-部署&quot; class=&quot;headerlink&quot; title=&quot;uWSGI 部署&quot;&gt;&lt;/a&gt;uWSGI 部署&lt;/h3&gt;&lt;p&gt;uWSGI 支持多种协议， 所以在架构中，并不一定要加入nginx， 可以直接拿uWSGI来作 http 服务器:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ uwsgi --http 127.0.0.1:8000 \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        --wsgi-file simple_app.py \ &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        --master --processes 2 \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        --daemonize /var/log/uwsgi.log \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        --pidfile /var/log/uwsgi.pid&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;而之所以要采用 nginx + uwsgi 方式部署，是因为 nginx 能够更加高效处理静态资源，同时还可以进行负载均衡，所以要在uwsgi上面再套一层:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# http 启动方式下&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;location / { &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    include uwsgi_params;                                                                                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    uwsgi_pass 127.0.0.1:8000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注意， 这里我们假设我们的 uwsgi 以http 方式开了8000 端口，这个时候事实上，我们直接用8000 端口就是能够访问的，也就是说，即便我们不用 uwsgi_pass , 用 标准的反向代理 : proxy_pass 也是可以转发的。&lt;/p&gt;
+&lt;p&gt;但是因为http协议本身是一个文本协议，解析起来非常耗时，所以在转发之前先把转换成其他协议（通常是二进制协议，譬如这里的uwsgi)。nginx会先把请求按照按照uwsgi协议转换（http -&gt; wsgi），然后再转发给其他服务器处理。&lt;/p&gt;
+&lt;p&gt;有一个值得注意的问题是，uwsgi 本身就是支持了http协议，甚至支持了https协议，而如果你本身就只是提供一个restful API 而已，那么事实上是不需要nginx去参与的，即便Nginx参与了也不会提升性能，相反还多加了一层，uwsgi 服务器本身的性能就是高效的。但是目前网上几乎所有教程都在讲如何把uwsgi和nginx给整合起来，这个其实是很多人没有明白nginx和uwsgi的作用。&lt;/p&gt;
+&lt;p&gt;当然，仅仅只是当你的应用很简单，也没什么静态资源的时候，可以丢掉nginx，直接上uwsgi。但是如果你想要更加灵活配置站点，或者想加入负载均衡，或者有静态文件要部署，那么这个时候 nginx 才该发挥作用了。在 &lt;a href=&quot;http://serverfault.com/questions/590819/why-do-i-need-nginx-when-i-have-uwsgi&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;serverfault&lt;/a&gt; 上一个人就讲了这点，虽然他只有一个wordpress 博客， 但是通过nginx ，他缓存文章内容24小时，缓存首页5分钟，这样即便是在动态网站下，也能高效地提升服务器并发能力。&lt;/p&gt;
+&lt;p&gt;另外一个问题是，uwsgi 在整合 nginx 的时候，支持以TCP port 和 Unix socket 两种协议，例如:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# TCP port: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;upstream django {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    server 127.0.0.1:8001; # for a web port socket&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Unix socket&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;upstream django {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    server unix:/chirp/chirp.sock; # for a file socket&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;使用 Unix socket 时，由于其文件在本机，故而其少了很多check 的步骤，相对来讲要快些，但是它是基于文件形式的，所以并发时候磁盘IO的影响也需要考虑，另外它由于是本地文件，也更加安全。Unix socket结合长链接配置，可以有效提高端口的复用率，明显提升服务器效率。但是长链接在并发时候也会影响到效率。&lt;/p&gt;
+&lt;p&gt;关于在实际应用中如何选择，我喜欢 stackoverflow 上的一个回答，对于这些底层协议选择之间的区别，虽然有，但是微乎其微。即便你底层优化再好————事实上现在的商用底层服务已经优化得很好了————你应用代码稍微乱写就能够把这些细微的效率提升给折腾没了。&lt;/p&gt;
+&lt;h3 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料:&quot;&gt;&lt;/a&gt;参考资料:&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/diaocow/nginx_study/blob/master/Nginx%20%2B%20uWSGI%20%2B%20Webpy%E9%85%8D%E7%BD%AE%26%E5%8E%9F%E7%90%86.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Nginx + uWSGI + Webpy配置&amp;原理&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.jianshu.com/p/e6ff4a28ab5a&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;基于nginx和uWSGI在Ubuntu上部署Django&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前部署 Django 应用都是通过django自带的一个服务器来进行非常简单的部署 (直接执行 python manage.py runserver ) 。但是后来看一篇文章才知道 runserver 命令唤起的是开发服务器，并不能很好地应用于生产环境。而在生产环境下部署python代码的方式其实有很多种，这里我选择 uWSGI 的方式。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="django" scheme="https://joway.wang/categories/django/"/>
+    
+    
+      <category term="django" scheme="https://joway.wang/tags/django/"/>
+    
+      <category term="docker" scheme="https://joway.wang/tags/docker/"/>
+    
+      <category term="nginx" scheme="https://joway.wang/tags/nginx/"/>
+    
+      <category term="uwsgi" scheme="https://joway.wang/tags/uwsgi/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo折腾记——终极加速:全线接入CDN</title>
@@ -2259,42 +2392,6 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其六</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%85%AD.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其六.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:26.000Z</updated>
-    
-    <content type="html">&lt;p&gt;夜&lt;/p&gt;
-&lt;p&gt;灯火觥筹间&lt;/p&gt;
-&lt;p&gt;飘散&lt;/p&gt;
-&lt;p&gt;恍惚&lt;/p&gt;
-&lt;p&gt;把人打碎&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;梦&lt;/p&gt;
-&lt;p&gt;席卷夜色&lt;/p&gt;
-&lt;p&gt;亦真亦幻&lt;/p&gt;
-&lt;p&gt;2013 夏&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;夜&lt;/p&gt;
-&lt;p&gt;灯火觥筹间&lt;/p&gt;
-&lt;p&gt;飘散&lt;/p&gt;
-&lt;p&gt;恍惚&lt;/p&gt;
-&lt;p&gt;把人打碎&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>灵与肉</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E7%81%B5%E4%B8%8E%E8%82%89.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-灵与肉.html</id>
@@ -2379,6 +2476,42 @@ toc: true
   </entry>
   
   <entry>
+    <title>杂记其六</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%85%AD.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其六.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:26.000Z</updated>
+    
+    <content type="html">&lt;p&gt;夜&lt;/p&gt;
+&lt;p&gt;灯火觥筹间&lt;/p&gt;
+&lt;p&gt;飘散&lt;/p&gt;
+&lt;p&gt;恍惚&lt;/p&gt;
+&lt;p&gt;把人打碎&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;梦&lt;/p&gt;
+&lt;p&gt;席卷夜色&lt;/p&gt;
+&lt;p&gt;亦真亦幻&lt;/p&gt;
+&lt;p&gt;2013 夏&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;夜&lt;/p&gt;
+&lt;p&gt;灯火觥筹间&lt;/p&gt;
+&lt;p&gt;飘散&lt;/p&gt;
+&lt;p&gt;恍惚&lt;/p&gt;
+&lt;p&gt;把人打碎&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>杂记其五</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%94.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其五.html</id>
@@ -2404,37 +2537,6 @@ toc: true
 &lt;p&gt;忍住  不声张&lt;/p&gt;
 &lt;p&gt;有一天&lt;/p&gt;
 &lt;p&gt;我透露给了别人&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂记其六</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:35.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2478,6 +2580,37 @@ toc: true
   </entry>
   
   <entry>
+    <title>杂记其六</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>杂记其七</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%83.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其七.html</id>
@@ -2505,36 +2638,6 @@ toc: true
       &lt;p&gt;崎岖小道&lt;/p&gt;
 &lt;p&gt;树影婆娑&lt;/p&gt;
 &lt;p&gt;树影不知婆娑&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂记其一</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:18:30.000Z</updated>
-    
-    <content type="html">&lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;毕加索似的&lt;/p&gt;
-&lt;p&gt;梵高走过&lt;/p&gt;
-&lt;p&gt;摇了摇头&lt;/p&gt;
-&lt;p&gt;2013 春 &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
     
     </summary>
     
@@ -2585,39 +2688,25 @@ toc: true
   </entry>
   
   <entry>
-    <title>命</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%91%BD.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-命.html</id>
+    <title>杂记其一</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
     <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:16:58.000Z</updated>
+    <updated>2016-05-21T02:18:30.000Z</updated>
     
-    <content type="html">&lt;p&gt;未来&lt;/p&gt;
-&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;在命运之中&lt;/p&gt;
-&lt;p&gt;亦在命运之外&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;一点一滴弥漫开来&lt;/p&gt;
-&lt;p&gt;我伫立无声&lt;/p&gt;
-&lt;p&gt;也随之&lt;/p&gt;
-&lt;p&gt;一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;然我知晓&lt;/p&gt;
-&lt;p&gt;在这场雾散之后&lt;/p&gt;
-&lt;p&gt;满地&lt;/p&gt;
-&lt;p&gt;将落满我的空喜&lt;/p&gt;
-&lt;p&gt;空喜过后&lt;/p&gt;
-&lt;p&gt;命运也一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;才发现&lt;/p&gt;
-&lt;p&gt;凡在命运之中&lt;/p&gt;
-&lt;p&gt;必在命运之外&lt;/p&gt;
-&lt;p&gt;2013   冬&lt;/p&gt;
+    <content type="html">&lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;毕加索似的&lt;/p&gt;
+&lt;p&gt;梵高走过&lt;/p&gt;
+&lt;p&gt;摇了摇头&lt;/p&gt;
+&lt;p&gt;2013 春 &lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;未来&lt;/p&gt;
-&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
-&lt;p&gt;在命运之中&lt;/p&gt;
-&lt;p&gt;亦在命运之外&lt;/p&gt;
+      &lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
     
     </summary>
     
@@ -2657,6 +2746,50 @@ toc: true
 &lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
 &lt;p&gt;是哀悲的被动式&lt;/p&gt;
 &lt;p&gt;落魄的进行时&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%91%BD.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-命.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:16:58.000Z</updated>
+    
+    <content type="html">&lt;p&gt;未来&lt;/p&gt;
+&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;在命运之中&lt;/p&gt;
+&lt;p&gt;亦在命运之外&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;一点一滴弥漫开来&lt;/p&gt;
+&lt;p&gt;我伫立无声&lt;/p&gt;
+&lt;p&gt;也随之&lt;/p&gt;
+&lt;p&gt;一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;然我知晓&lt;/p&gt;
+&lt;p&gt;在这场雾散之后&lt;/p&gt;
+&lt;p&gt;满地&lt;/p&gt;
+&lt;p&gt;将落满我的空喜&lt;/p&gt;
+&lt;p&gt;空喜过后&lt;/p&gt;
+&lt;p&gt;命运也一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;才发现&lt;/p&gt;
+&lt;p&gt;凡在命运之中&lt;/p&gt;
+&lt;p&gt;必在命运之外&lt;/p&gt;
+&lt;p&gt;2013   冬&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;未来&lt;/p&gt;
+&lt;p&gt;在一点一滴弥漫&lt;/p&gt;
+&lt;p&gt;在命运之中&lt;/p&gt;
+&lt;p&gt;亦在命运之外&lt;/p&gt;
     
     </summary>
     

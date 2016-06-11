@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/posts/docker/2016-06-11-Django-uWSGI-Nginx%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E9%83%A8%E7%BD%B2.html</loc>
+    
+    <lastmod>2016-06-11T16:02:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://joway.wang/posts/django/2016-06-11-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8ADjango-uWSGI-Nginx%E9%83%A8%E7%BD%B2.html</loc>
+    
+    <lastmod>2016-06-11T16:01:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/photos/output.json</loc>
     
     <lastmod>2016-06-02T10:32:42.000Z</lastmod>
