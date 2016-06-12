@@ -149,6 +149,63 @@
   </entry>
   
   <entry>
+    <title>OpenResty OS X 配置小记</title>
+    <link href="https://joway.wang/posts/docker/2016-06-11-OpenResty%E6%8A%98%E8%85%BE%E5%B0%8F%E8%AE%B0.html"/>
+    <id>https://joway.wang/posts/docker/2016-06-11-OpenResty折腾小记.html</id>
+    <published>2016-06-11T12:58:07.000Z</published>
+    <updated>2016-06-12T03:03:00.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;基本的安装过程在官网上已经有了示例，不过由于 OpenResty 本身就不是一个面向新手的东西，许多地方都没有具体说明步骤以及有可能遇到的坑。再加上这个东西又是编译安装的，所以不同平台，不同环境下可能会遭受了各类问题。这里记录下我学习和配置的过程 。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;为什么要用OpenResty&quot;&gt;&lt;a href=&quot;#为什么要用OpenResty&quot; class=&quot;headerlink&quot; title=&quot;为什么要用OpenResty&quot;&gt;&lt;/a&gt;为什么要用OpenResty&lt;/h3&gt;&lt;p&gt;OpenResty 在企业级应用里有各种各样的用法，这里只是讲下我个人的需求。&lt;/p&gt;
+&lt;p&gt;Nginx 本身是一个性能卓越但是偏向于静态资源的应用服务器，我拿它来做得最多的事情就是「静态文件部署」,「反向代理」和「负载均衡」了，我个人的常见使用过程例如: 用docker打包一个应用进容器(django -&gt; uwsgi -&gt; nginx)，利用 nginx 开放出一个端口(例如32101)，然后再在宿主服务器的 nginx 里作&lt;strong&gt;反向代理&lt;/strong&gt;, 把域名转发到这个端口上，也可以用&lt;strong&gt;负载均衡&lt;/strong&gt;分发到不同的服务器或容器里。这种做法的好处是不管是动态静态的资源，全部可以封装成一个容器，宿主只是作一个转发作用而已。&lt;/p&gt;
+&lt;p&gt;但是单纯的nginx应用的弊端是，我要到最后的应用里才能取得真正的请求，如果我想在一开始就对请求进行一些操作甚至是业务逻辑就显得极为麻烦。OpenRestry 就是一个nginx上的拓展，便于在nginx上直接开发功能，高效地处理请求。甚至可以承担部分业务逻辑的功能。理论上讲，甚至可以直接用户lua在nginx上直接开发高性能应用。&lt;/p&gt;
+&lt;h3 id=&quot;OS-X-下安装-OpenRestry&quot;&gt;&lt;a href=&quot;#OS-X-下安装-OpenRestry&quot; class=&quot;headerlink&quot; title=&quot;OS X 下安装 OpenRestry&quot;&gt;&lt;/a&gt;OS X 下安装 OpenRestry&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;相关库安装:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;brew update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;brew install pcre openssl&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code&gt;openssl 安装完成后，记住其安装目录。之后编译的时候需要得到它的源码地址
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;编译并安装 openrestry :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 下载源码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget https://openresty.org/download/openresty-1.9.15.1.tar.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tar xzvf ngx_openresty-1.9.15.1.tar.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 进入目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd ngx_openresty-1.9.15.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./configure --prefix=/opt/openresty\&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            --with-cc-opt=&quot;-I/usr/local/include&quot;\&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            --with-luajit\&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            --without-http_redis2_module \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            --with-ld-opt=&quot;-L/usr/local/lib&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  # 这一步的时候，如果报错了, 就在最后加上:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  --with-openssl=/usr/local/Cellar/openssl/1.0.2h&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  #这个目录根据你的openssl 版本而定，注意，这里的是源码目录，不是openssl安装目录!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 	如果设置了openssl 目录仍旧无效，可尝试:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;brew uninstall openssl --force&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;brew install openssl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   # 然后开始make and install, 可能需要sudo权限:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   make&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   make install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Nginx-配置&quot;&gt;&lt;a href=&quot;#Nginx-配置&quot; class=&quot;headerlink&quot; title=&quot;Nginx 配置:&quot;&gt;&lt;/a&gt;Nginx 配置:&lt;/h3&gt;&lt;p&gt;官网文档里说把nginx的配置目录从安装目录和工作目录分开的一个办法就是: &lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir ~/openresty-test ~/openresty-test/logs/ ~/openresty-test/conf/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# add my_nginx.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nginx -p ~/openresty-test&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;之后nginx就按这个文件夹里的配置来操作，日志也进入这边。&lt;/p&gt;
+&lt;p&gt;但是这边有一个小问题就是,如果设定了 -p 参数，相当于把nginx的默目录从默认的/opt/openresty/nginx/ 转到了 ~/openresty-test 下，注意，这种转移只对这条命令本身是有效的，再一次运行nginx的时候，仍旧会回到原本的目录下。所以使用这种方式的时候，要注意之后的reload 等命令下的nginx都要加上这个-p的参数。&lt;/p&gt;
+&lt;p&gt;文档里的思想是每个项目都配置自己独立的conf和log目录，启动一个独立的nginx进程，但是在本地测试环境的时候，可能并不需要这么高的独立性，我为了方便，设置了一个&lt;strong&gt;主工作目录&lt;/strong&gt;, 在这个目录里可以配置多个conf文件，便于学习和测试时的使用。&lt;/p&gt;
+&lt;p&gt;首先 ，我们按照上面的步骤建立一个openresty目录:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/Users/joway/openresty
+├── conf
+└── logs
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以通过修改目录下的 nginx.conf, 把在 conf.d 下的配置文件导入进nginx.conf来进行多conf管理 ，在自带的nginx.conf 加上一句:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  include conf.d/*.conf;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后在conf目录下新建一个conf.d目录， 之后把我的自定义的配置文件都加在这里，以 .conf 结尾&lt;/p&gt;
+&lt;p&gt;之后就能够使用 sudo nginx -p ~/openresty -s reload 来调用了，为了方便我设置了一个alias:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;alias resty=&#39;sudo nginx -p ~/OpenResty
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;之后要添加新的conf，就在conf/conf.d/目录下放入新的xxx.conf 文件。&lt;/p&gt;
+&lt;p&gt;如果要单独对某个conf文件生效，可使用:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;resty -c path/xxx.conf
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;基本的安装过程在官网上已经有了示例，不过由于 OpenResty 本身就不是一个面向新手的东西，许多地方都没有具体说明步骤以及有可能遇到的坑。再加上这个东西又是编译安装的，所以不同平台，不同环境下可能会遭受了各类问题。这里记录下我学习和配置的过程 。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="https://joway.wang/categories/docker/"/>
+    
+    
+      <category term="nginx" scheme="https://joway.wang/tags/nginx/"/>
+    
+      <category term="openresty" scheme="https://joway.wang/tags/openresty/"/>
+    
+      <category term="osx" scheme="https://joway.wang/tags/osx/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo折腾记——终极加速:全线接入CDN</title>
     <link href="https://joway.wang/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html"/>
     <id>https://joway.wang/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html</id>
@@ -2548,6 +2605,37 @@ toc: true
   </entry>
   
   <entry>
+    <title>杂记其六</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>杂记其三</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%89.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其三.html</id>
@@ -2569,37 +2657,6 @@ toc: true
     
       &lt;p&gt;午后&lt;/p&gt;
 &lt;p&gt;白纸黑字&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂记其六</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:35.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2649,6 +2706,36 @@ toc: true
   </entry>
   
   <entry>
+    <title>杂记其一</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:18:30.000Z</updated>
+    
+    <content type="html">&lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;毕加索似的&lt;/p&gt;
+&lt;p&gt;梵高走过&lt;/p&gt;
+&lt;p&gt;摇了摇头&lt;/p&gt;
+&lt;p&gt;2013 春 &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现实&lt;/p&gt;
+&lt;p&gt;撕裂状&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>暧昧</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9A%A7%E6%98%A7.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-暧昧.html</id>
@@ -2677,36 +2764,6 @@ toc: true
 &lt;p&gt;&lt;strong&gt;梦里却只剩我的彷徨&lt;/strong&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;我的爱意淡淡&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;你的笑声潺潺&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂记其一</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%80.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:18:30.000Z</updated>
-    
-    <content type="html">&lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;毕加索似的&lt;/p&gt;
-&lt;p&gt;梵高走过&lt;/p&gt;
-&lt;p&gt;摇了摇头&lt;/p&gt;
-&lt;p&gt;2013 春 &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;现实&lt;/p&gt;
-&lt;p&gt;撕裂状&lt;/p&gt;
     
     </summary>
     

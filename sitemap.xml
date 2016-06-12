@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joway.wang/posts/docker/2016-06-11-OpenResty%E6%8A%98%E8%85%BE%E5%B0%8F%E8%AE%B0.html</loc>
+    
+    <lastmod>2016-06-12T03:03:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://joway.wang/posts/docker/2016-06-11-Django-uWSGI-Nginx%E5%9C%A8Docker%E4%B8%AD%E7%9A%84%E9%83%A8%E7%BD%B2.html</loc>
     
     <lastmod>2016-06-11T16:02:07.000Z</lastmod>
