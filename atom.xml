@@ -356,16 +356,16 @@
     <link href="https://joway.wang/posts/Toy/2016-05-14-%E7%94%A8%E5%BE%AE%E4%BF%A1%E4%B8%8EGithub%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BE%AE%E5%8D%9A.html"/>
     <id>https://joway.wang/posts/Toy/2016-05-14-用微信与Github搭建一个属于自己的微博.html</id>
     <published>2016-05-14T02:40:09.000Z</published>
-    <updated>2016-05-14T03:20:02.000Z</updated>
+    <updated>2016-06-21T04:26:16.000Z</updated>
     
     <content type="html">&lt;p&gt;最近给博客加了一个&lt;a href=&quot;https://joway.wang/words/&quot;&gt;闲扯&lt;/a&gt;的功能, 类似于一个个人的微博吧。 起初是因为看到了 Github 的 API ，然后觉得 Github 真的是把能开放的API都开放了，围绕这套API其实可以做相当多的东西，这里仅仅只是用了一个发布issues和获取issues的API，目的只是把Github作为了一个小型数据库，然后在前端直接调用API获取issues 就能渲染出issues信息了。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;但是这样的话，每次要发表信息就必须通过Github，这个显然有点麻烦，所以又写了一个微信公众号的服务端，通过发送到微信公众号的信息，通过服务器端写入Github。当然，我现在的话，是用微信的Openid限定了只有我发送内容才会被写进Issues里，事实上，稍微改下代码就能让别人也可以来参与发布内容。&lt;/p&gt;
 &lt;p&gt;服务端使用了Django，其实没必要用那么重的东西，web.py 就能够很好实现这个功能了。代码放在了服务端 : &lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/joway/wechat-issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;wechat-issues&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/joway/wechat-post&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;wechat-post&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在前端，主要就一个渲染json的工作, 下面这段代码是获取issues 的:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/joway/5117654ab5a1f58a158ae887b6419a50&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://gist.github.com/joway/5117654ab5a1f58a158ae887b6419a50&lt;/a&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;github_issues&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;github_account&lt;/span&gt;) &lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; url = &lt;span class=&quot;string&quot;&gt;&#39;https://api.github.com/users/&#39;&lt;/span&gt; + github_account+&lt;span class=&quot;string&quot;&gt;&#39;/repos?sort=updated&amp;type=owner&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    $.get(url, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;result&lt;/span&gt;) &lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &lt; result.length; ++i) {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; avatar = result[i].owner.avatar_url;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; username = result[i].owner.login;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; description = result[i].description;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; updated_at = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Date&lt;/span&gt;(result[i].updated_at).toLocaleString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;comment&quot;&gt;// do some things&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    });&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;.onload = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   github_issues(&lt;span class=&quot;string&quot;&gt;&#39;joway&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;Utopia&#39;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;};&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;github_issues&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;github_account, repo, issues_id&lt;/span&gt;) &lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; url = &lt;span class=&quot;string&quot;&gt;&#39;https://api.github.com/repos/&#39;&lt;/span&gt; + github_account + &lt;span class=&quot;string&quot;&gt;&#39;/&#39;&lt;/span&gt; + repo + &lt;span class=&quot;string&quot;&gt;&#39;/issues/&#39;&lt;/span&gt; + issues_id;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; url_comments = url + &lt;span class=&quot;string&quot;&gt;&#39;/comments&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&lt;!--$.get(url, function (result) {--&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;&lt;!--$(&#39;#comments-title&#39;).html(&#39;&lt;a target=&quot;_blank&quot; href=&quot;&#39; + &#39;https://github.com/joway/&#39; + repo +--&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                        &lt;span class=&quot;comment&quot;&gt;&lt;!--&#39;/issues/&#39; + issues_id + &#39;&quot;&gt;&#39; + result.title + &#39;&lt;/a&gt;&#39;);--&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;&lt;!--});--&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    $.get(url_comments, function (result) {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (var i = 0; i &lt;span class=&quot;tag&quot;&gt;&lt; &lt;span class=&quot;attr&quot;&gt;result.length&lt;/span&gt;; ++&lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt;) {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;avatar&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;result[i].user.avatar_url;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;username&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;result[i].user.login;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;comment&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;result[i].body;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;attr&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;created_at&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;Date&lt;/span&gt;(&lt;span class=&quot;attr&quot;&gt;result&lt;/span&gt;[&lt;span class=&quot;attr&quot;&gt;i&lt;/span&gt;]&lt;span class=&quot;attr&quot;&gt;.created_at&lt;/span&gt;)&lt;span class=&quot;attr&quot;&gt;.toLocaleString&lt;/span&gt;()	;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            # &lt;span class=&quot;attr&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;something&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    });&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;}&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;window.onload&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;function()&lt;/span&gt; {&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;span class=&quot;attr&quot;&gt;github_issues&lt;/span&gt;(&#39;&lt;span class=&quot;attr&quot;&gt;joway&lt;/span&gt;&#39;, &#39;&lt;span class=&quot;attr&quot;&gt;Utopia&lt;/span&gt;&#39;, &lt;span class=&quot;attr&quot;&gt;3&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;};&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;现在终于可以愉快得发干净体面的”微博”了 :)&lt;/p&gt;
 </content>
     
@@ -2313,6 +2313,44 @@ toc: true
   </entry>
   
   <entry>
+    <title>路</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E8%B7%AF.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-路.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:04.000Z</updated>
+    
+    <content type="html">&lt;p&gt;崎岖小道&lt;/p&gt;
+&lt;p&gt;树影婆娑&lt;/p&gt;
+&lt;p&gt;树影不知婆娑&lt;/p&gt;
+&lt;p&gt;人知婆娑&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;人走在路上&lt;/p&gt;
+&lt;p&gt;路来决定方向&lt;/p&gt;
+&lt;p&gt;纵然背道而驰&lt;/p&gt;
+&lt;p&gt;前进总胜于坐毙&lt;/p&gt;
+&lt;p&gt;久之&lt;/p&gt;
+&lt;p&gt;便不觉背驰&lt;/p&gt;
+&lt;p&gt;久之&lt;/p&gt;
+&lt;p&gt;路指向了正确的方向&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;崎岖小道&lt;/p&gt;
+&lt;p&gt;树影婆娑&lt;/p&gt;
+&lt;p&gt;树影不知婆娑&lt;/p&gt;
+&lt;p&gt;人知婆娑&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>逃</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E9%80%83.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-逃.html</id>
@@ -2349,44 +2387,6 @@ toc: true
 &lt;p&gt;黄昏与朝霞齐熏&lt;/p&gt;
 &lt;p&gt;路边人来往&lt;/p&gt;
 &lt;p&gt;车声疾驰&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>路</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E8%B7%AF.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-路.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:04.000Z</updated>
-    
-    <content type="html">&lt;p&gt;崎岖小道&lt;/p&gt;
-&lt;p&gt;树影婆娑&lt;/p&gt;
-&lt;p&gt;树影不知婆娑&lt;/p&gt;
-&lt;p&gt;人知婆娑&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;人走在路上&lt;/p&gt;
-&lt;p&gt;路来决定方向&lt;/p&gt;
-&lt;p&gt;纵然背道而驰&lt;/p&gt;
-&lt;p&gt;前进总胜于坐毙&lt;/p&gt;
-&lt;p&gt;久之&lt;/p&gt;
-&lt;p&gt;便不觉背驰&lt;/p&gt;
-&lt;p&gt;久之&lt;/p&gt;
-&lt;p&gt;路指向了正确的方向&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;崎岖小道&lt;/p&gt;
-&lt;p&gt;树影婆娑&lt;/p&gt;
-&lt;p&gt;树影不知婆娑&lt;/p&gt;
-&lt;p&gt;人知婆娑&lt;/p&gt;
     
     </summary>
     
@@ -2449,6 +2449,116 @@ toc: true
   </entry>
   
   <entry>
+    <title>杂记其六</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%85%AD.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其六.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:26.000Z</updated>
+    
+    <content type="html">&lt;p&gt;夜&lt;/p&gt;
+&lt;p&gt;灯火觥筹间&lt;/p&gt;
+&lt;p&gt;飘散&lt;/p&gt;
+&lt;p&gt;恍惚&lt;/p&gt;
+&lt;p&gt;把人打碎&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;梦&lt;/p&gt;
+&lt;p&gt;席卷夜色&lt;/p&gt;
+&lt;p&gt;亦真亦幻&lt;/p&gt;
+&lt;p&gt;2013 夏&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;夜&lt;/p&gt;
+&lt;p&gt;灯火觥筹间&lt;/p&gt;
+&lt;p&gt;飘散&lt;/p&gt;
+&lt;p&gt;恍惚&lt;/p&gt;
+&lt;p&gt;把人打碎&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>杂记其四</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%9B%9B.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其四.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:18:08.000Z</updated>
+    
+    <content type="html">&lt;p&gt;临窗&lt;/p&gt;
+&lt;p&gt;听雨&lt;/p&gt;
+&lt;p&gt;落地无声&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;街上&lt;/p&gt;
+&lt;p&gt;行人往来&lt;/p&gt;
+&lt;p&gt;撑起伞&lt;/p&gt;
+&lt;p&gt;断绝往来&lt;/p&gt;
+&lt;p&gt;雨落击伞&lt;/p&gt;
+&lt;p&gt;声脆&lt;/p&gt;
+&lt;p&gt;2013 夏&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;临窗&lt;/p&gt;
+&lt;p&gt;听雨&lt;/p&gt;
+&lt;p&gt;落地无声&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哀悲</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%93%80%E6%82%B2.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-哀悲.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:16:33.000Z</updated>
+    
+    <content type="html">&lt;p&gt;我之哀悲&lt;/p&gt;
+&lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
+&lt;p&gt;是哀悲的被动式&lt;/p&gt;
+&lt;p&gt;落魄的进行时&lt;/p&gt;
+ &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;岁月的车轮&lt;/p&gt;
+&lt;p&gt;一朝朝碾过&lt;/p&gt;
+&lt;p&gt;我从反抗走向挣扎&lt;/p&gt;
+&lt;p&gt;趋于无声&lt;/p&gt;
+&lt;p&gt;若在一片妥协中&lt;/p&gt;
+&lt;p&gt;又终将失败&lt;/p&gt;
+&lt;p&gt;那么翻脸&lt;/p&gt;
+&lt;p&gt;不再&lt;/p&gt;
+&lt;p&gt;2013  冬&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我之哀悲&lt;/p&gt;
+&lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
+&lt;p&gt;是哀悲的被动式&lt;/p&gt;
+&lt;p&gt;落魄的进行时&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>灵与肉</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E7%81%B5%E4%B8%8E%E8%82%89.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-灵与肉.html</id>
@@ -2498,77 +2608,6 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其四</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%9B%9B.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其四.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:18:08.000Z</updated>
-    
-    <content type="html">&lt;p&gt;临窗&lt;/p&gt;
-&lt;p&gt;听雨&lt;/p&gt;
-&lt;p&gt;落地无声&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;街上&lt;/p&gt;
-&lt;p&gt;行人往来&lt;/p&gt;
-&lt;p&gt;撑起伞&lt;/p&gt;
-&lt;p&gt;断绝往来&lt;/p&gt;
-&lt;p&gt;雨落击伞&lt;/p&gt;
-&lt;p&gt;声脆&lt;/p&gt;
-&lt;p&gt;2013 夏&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;临窗&lt;/p&gt;
-&lt;p&gt;听雨&lt;/p&gt;
-&lt;p&gt;落地无声&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂记其六</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E5%85%AD.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其六.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:26.000Z</updated>
-    
-    <content type="html">&lt;p&gt;夜&lt;/p&gt;
-&lt;p&gt;灯火觥筹间&lt;/p&gt;
-&lt;p&gt;飘散&lt;/p&gt;
-&lt;p&gt;恍惚&lt;/p&gt;
-&lt;p&gt;把人打碎&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;梦&lt;/p&gt;
-&lt;p&gt;席卷夜色&lt;/p&gt;
-&lt;p&gt;亦真亦幻&lt;/p&gt;
-&lt;p&gt;2013 夏&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;夜&lt;/p&gt;
-&lt;p&gt;灯火觥筹间&lt;/p&gt;
-&lt;p&gt;飘散&lt;/p&gt;
-&lt;p&gt;恍惚&lt;/p&gt;
-&lt;p&gt;把人打碎&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>杂记其五</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%94.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其五.html</id>
@@ -2605,37 +2644,6 @@ toc: true
   </entry>
   
   <entry>
-    <title>杂记其六</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:17:35.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
     <title>杂记其三</title>
     <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%B8%89.html"/>
     <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其三.html</id>
@@ -2657,6 +2665,37 @@ toc: true
     
       &lt;p&gt;午后&lt;/p&gt;
 &lt;p&gt;白纸黑字&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
+    
+    
+      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>杂记其六</title>
+    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E6%9D%82%E8%AE%B0%E5%85%B6%E4%BA%8C.html"/>
+    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html</id>
+    <published>2014-01-22T16:00:00.000Z</published>
+    <updated>2016-05-21T02:17:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;strong&gt;整个城市&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都在回家&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;斑马线，烧烤摊&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;阴谋和诡计&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;也都回家了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2013年 春&lt;/strong&gt;  &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;小学生回家了&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2764,45 +2803,6 @@ toc: true
 &lt;p&gt;&lt;strong&gt;梦里却只剩我的彷徨&lt;/strong&gt;  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;我的爱意淡淡&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;你的笑声潺潺&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="诗歌" scheme="https://joway.wang/categories/%E8%AF%97%E6%AD%8C/"/>
-    
-    
-      <category term="为赋新词强说愁" scheme="https://joway.wang/tags/%E4%B8%BA%E8%B5%8B%E6%96%B0%E8%AF%8D%E5%BC%BA%E8%AF%B4%E6%84%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>哀悲</title>
-    <link href="https://joway.wang/posts/%E8%AF%97%E6%AD%8C/2014-01-23-2014-01-23-%E5%93%80%E6%82%B2.html"/>
-    <id>https://joway.wang/posts/诗歌/2014-01-23-2014-01-23-哀悲.html</id>
-    <published>2014-01-22T16:00:00.000Z</published>
-    <updated>2016-05-21T02:16:33.000Z</updated>
-    
-    <content type="html">&lt;p&gt;我之哀悲&lt;/p&gt;
-&lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
-&lt;p&gt;是哀悲的被动式&lt;/p&gt;
-&lt;p&gt;落魄的进行时&lt;/p&gt;
- &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;岁月的车轮&lt;/p&gt;
-&lt;p&gt;一朝朝碾过&lt;/p&gt;
-&lt;p&gt;我从反抗走向挣扎&lt;/p&gt;
-&lt;p&gt;趋于无声&lt;/p&gt;
-&lt;p&gt;若在一片妥协中&lt;/p&gt;
-&lt;p&gt;又终将失败&lt;/p&gt;
-&lt;p&gt;那么翻脸&lt;/p&gt;
-&lt;p&gt;不再&lt;/p&gt;
-&lt;p&gt;2013  冬&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我之哀悲&lt;/p&gt;
-&lt;p&gt;已不再一如既往哀悲&lt;/p&gt;
-&lt;p&gt;是哀悲的被动式&lt;/p&gt;
-&lt;p&gt;落魄的进行时&lt;/p&gt;
     
     </summary>
     
