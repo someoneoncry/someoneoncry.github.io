@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    if (window.location.protocol != 'https:') { 
+        window.location.protocol = 'https:';
+    }
+  </script>
+  
+  <title>用编程思想学摄影 | 城西笔谈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我所理解的编程的思想就是从一件事物的本身定义声明出发，找到其具体实现原理，然后就可以随心所欲调用。半年前开始捣鼓摄影，开始还有点新鲜感，但是后来越玩越觉得枯燥，一些书籍和教程只是对于不同的应用场景，告诉你不同的参数，然后说中央已经决定了，这种场景就该设这些参数，然后你只能傻傻背诵”苟利国家生死以，岂因祸福避趋之”了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用编程思想学摄影">
+<meta property="og:url" content="https://joway.wang/posts/摄影/2016-04-10-摄影技巧.html">
+<meta property="og:site_name" content="城西笔谈">
+<meta property="og:description" content="我所理解的编程的思想就是从一件事物的本身定义声明出发，找到其具体实现原理，然后就可以随心所欲调用。半年前开始捣鼓摄影，开始还有点新鲜感，但是后来越玩越觉得枯燥，一些书籍和教程只是对于不同的应用场景，告诉你不同的参数，然后说中央已经决定了，这种场景就该设这些参数，然后你只能傻傻背诵”苟利国家生死以，岂因祸福避趋之”了。">
+<meta property="og:updated_time" content="2016-04-10T11:50:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用编程思想学摄影">
+<meta name="twitter:description" content="我所理解的编程的思想就是从一件事物的本身定义声明出发，找到其具体实现原理，然后就可以随心所欲调用。半年前开始捣鼓摄影，开始还有点新鲜感，但是后来越玩越觉得枯燥，一些书籍和教程只是对于不同的应用场景，告诉你不同的参数，然后说中央已经决定了，这种场景就该设这些参数，然后你只能傻傻背诵”苟利国家生死以，岂因祸福避趋之”了。">
+  
+    <link rel="alternative" href="/atom.xml" title="城西笔谈" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  <link rel="stylesheet" href="/css/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/assets/img/logo.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Joway</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">以物喜，以己悲 .</p>
+        
+        
+            <form action="/search/index.html" method="get">
+                <input type="text" class="st-default-search-input search" id="search"
+                       placeholder=" Search..." name="query">
+                <div id="search_content"></div>
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives">流水</a></li>
+                        
+                            <li><a href="/photos">光影</a></li>
+                        
+                            <li><a href="/life">聊生</a></li>
+                        
+                            <li><a href="/words">闲扯</a></li>
+                        
+                            <li><a href="/lab">实验</a></li>
+                        
+                            <li><a href="/about">关于</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/joway" title="github">github</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/670425438" title="weibo">weibo</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/Joway" title="zhihu">zhihu</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/JowayW" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/18岁/" style="font-size: 10px;">18岁</a> <a href="/tags/Analytics/" style="font-size: 10px;">Analytics</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/Cryptography/" style="font-size: 11.11px;">Cryptography</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Google/" style="font-size: 10px;">Google</a> <a href="/tags/Hacked/" style="font-size: 10px;">Hacked</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/JPBC/" style="font-size: 11.11px;">JPBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Toy/" style="font-size: 10px;">Toy</a> <a href="/tags/blog/" style="font-size: 15.56px;">blog</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/django/" style="font-size: 11.11px;">django</a> <a href="/tags/docker/" style="font-size: 11.11px;">docker</a> <a href="/tags/github/" style="font-size: 14.44px;">github</a> <a href="/tags/hexo/" style="font-size: 17.78px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nginx/" style="font-size: 12.22px;">nginx</a> <a href="/tags/openresty/" style="font-size: 10px;">openresty</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/uwsgi/" style="font-size: 11.11px;">uwsgi</a> <a href="/tags/一步之遥/" style="font-size: 10px;">一步之遥</a> <a href="/tags/七牛/" style="font-size: 10px;">七牛</a> <a href="/tags/为赋新词强说愁/" style="font-size: 20px;">为赋新词强说愁</a> <a href="/tags/书评/" style="font-size: 13.33px;">书评</a> <a href="/tags/优化/" style="font-size: 11.11px;">优化</a> <a href="/tags/修电脑/" style="font-size: 10px;">修电脑</a> <a href="/tags/内联/" style="font-size: 10px;">内联</a> <a href="/tags/前端/" style="font-size: 15.56px;">前端</a> <a href="/tags/加速/" style="font-size: 12.22px;">加速</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/压缩/" style="font-size: 10px;">压缩</a> <a href="/tags/姜文/" style="font-size: 10px;">姜文</a> <a href="/tags/密码学/" style="font-size: 11.11px;">密码学</a> <a href="/tags/小记/" style="font-size: 10px;">小记</a> <a href="/tags/小说/" style="font-size: 16.67px;">小说</a> <a href="/tags/影评/" style="font-size: 11.11px;">影评</a> <a href="/tags/微信/" style="font-size: 10px;">微信</a> <a href="/tags/微博/" style="font-size: 10px;">微博</a> <a href="/tags/性能/" style="font-size: 12.22px;">性能</a> <a href="/tags/摄影/" style="font-size: 10px;">摄影</a> <a href="/tags/杨绛/" style="font-size: 10px;">杨绛</a> <a href="/tags/笔记/" style="font-size: 10px;">笔记</a> <a href="/tags/编程思想/" style="font-size: 10px;">编程思想</a> <a href="/tags/诗歌/" style="font-size: 10px;">诗歌</a> <a href="/tags/超星/" style="font-size: 10px;">超星</a> <a href="/tags/软件工程/" style="font-size: 10px;">软件工程</a> <a href="/tags/随感/" style="font-size: 18.89px;">随感</a> <a href="/tags/静态文件/" style="font-size: 10px;">静态文件</a> <a href="/tags/音乐/" style="font-size: 10px;">音乐</a> <a href="/tags/黄金时代/" style="font-size: 10px;">黄金时代</a>
+                    </div>
+                </section>
+                
+
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">折腾爱好者 &amp;&amp; 伪文艺青年 &amp;&amp; 中二病患者 &amp;&amp; 代码搬运工、胶水匠 &amp;&amp; 单身汪</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Joway</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/assets/img/logo.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Joway</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">以物喜，以己悲 .</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives">流水</a></li>
+                
+                    <li><a href="/photos">光影</a></li>
+                
+                    <li><a href="/life">聊生</a></li>
+                
+                    <li><a href="/words">闲扯</a></li>
+                
+                    <li><a href="/lab">实验</a></li>
+                
+                    <li><a href="/about">关于</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/joway" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/670425438" title="weibo">weibo</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Joway" title="zhihu">zhihu</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/JowayW" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-摄影技巧" class="article article-type-post" itemscope
+         itemprop="blogPost">
+    
+    <div class="article-meta">
+        <a href="/posts/摄影/2016-04-10-摄影技巧.html" class="article-date">
+      <time datetime="2016-04-10T10:07:30.000Z" itemprop="datePublished">2016-04-10</time>
+</a>
+    </div>
+    
+    <div class="article-inner">
+        
+        <input type="hidden" class="isFancy"/>
+        
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      用编程思想学摄影
+    </h1>
+  
+
+        </header>
+        
+        <div class="article-info article-info-post">
+            
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/摄影/">摄影</a>
+    </div>
+
+
+            
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/摄影/">摄影</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程思想/">编程思想</a></li></ul>
+    </div>
+
+            <div class="clearfix"></div>
+        </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+            
+            <p>我所理解的编程的思想就是从一件事物的本身定义声明出发，找到其具体实现原理，然后就可以随心所欲调用。半年前开始捣鼓摄影，开始还有点新鲜感，但是后来越玩越觉得枯燥，一些书籍和教程只是对于不同的应用场景，告诉你不同的参数，然后说中央已经决定了，这种场景就该设这些参数，然后你只能傻傻背诵”苟利国家生死以，岂因祸福避趋之”了。</p>
+<a id="more"></a>
+<p>我向来不觉得摄影有多玄乎，本身的成像技术已经摆在那里，几乎就是初中的物理常识，要说参数，也无非就是那么四五个基本参数，辅以图像学的进阶知识进行后期。与软件行业的芜杂约定和限制比起来，简直不值得一提。(当然，纯粹是从入门级角度来看，并不是针对高阶的像素级别的摄影层次)</p>
+<p>终于，我实在是受不了部分摄影圈子的盲目崇拜，故弄玄虚的氛围了，抽了点时间，按照学编程的思路，对每个参数背景挖了一遍，当挖完以后，我才开始明白过来，照像机本身就只是一个工具，知其然与所以然之后，根本不需要去想面对的这幅画按照规范的做法，应该调多大光圈，设多少感光度。事实上，你只需要管自己的视觉判断，觉得想保留多少光亮，想突出哪个部分，然后依照已知晓的原理，具体落实到每个参数中去。</p>
+<p>当明白了这点以后，我才懂得为何摄影与其它都是艺术一样，都是一门可以表达自身思想的载物。接下来，只有一门钢琴是我还不明白究竟为何靠着机械的弹奏竟然能够表达思想的了。</p>
+<h2 id="术语与对应作用及原理"><a href="#术语与对应作用及原理" class="headerlink" title="术语与对应作用及原理:"></a>术语与对应作用及原理:</h2><h3 id="ISO-感光度"><a href="#ISO-感光度" class="headerlink" title="ISO 感光度:"></a>ISO 感光度:</h3><h5 id="名词含义"><a href="#名词含义" class="headerlink" title="名词含义:"></a>名词含义:</h5><p>ISO感光度是CCD/CMOS（或胶卷）对光线的敏感程度(即对光线的化学反应速度)。</p>
+<h5 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理 :"></a>实现原理 :</h5><p>数码相机通过改变感光芯片里讯号放大器的放大倍数来改变iso值，但当提升iso值时，放大器也会<br>感光器件都有一个反应能力，这个反应能力是固定不变的，提升数码相机的ISO通过以下方法:</p>
+<p>在软件层面是通过两种方式实现的：</p>
+<ol>
+<li>强行提高每个像素点的亮度和对比度；</li>
+<li>使用多个像素点共同完成原来只要一个像素点来完成的任务。</li>
+</ol>
+<p>例如: 标准的ISO100是对感光元件的每个像素点感光，要提高到ISO200的感光度，只需要把2个像素点当成1个点来感光，就能获得原本2倍的感光速度，如果要提高到ISO400的水平，以此类推只要把4个像素点当成1个点来感光，便能获得4倍的感光速度。这种方法对高分辨率机器有优势。</p>
+<p>在硬件层面，通过</p>
+<ol>
+<li>电子信号放大增益技术.把传感器中讯号中的噪声放大，从而在提升亮度的同时，产生粗微粒的影像。</li>
+</ol>
+<h5 id="副作用-噪点"><a href="#副作用-噪点" class="headerlink" title="副作用: 噪点:"></a>副作用: 噪点:</h5><p>噪点原因: 内部的影像传感器在工作中一定受到不同程度的来周边电路和本身像素间的光电磁干扰，从而形成噪点。而电子信号强行增大后，其自身携带的噪点信号也会被同样增大。而对于才用像素点合并的方法来提升iso的方式，由于像素成倍减少了，所以为了保证原有的像素大小尺寸，会将原有信息扩大，导致噪点信息部分像素也被扩大了。</p>
+<p>当然，目前主流单反性能已经提升了很快了，在硬件软件上都有很大优化，所以一般的iso不会产生太大的噪点。</p>
+<p>所以，提升ISO以后对画质的损失是很大的。在像素相等的情况下，CCD/CMOS面积越大，高ISO的成像质量越好。也就是说：在CCD/CMOS面积一定的情况下，里面增加更多的像素反而会造成图像质量的下降。所以现在的数码相机不应该在1000万像素以上再简单增加几百万像素，而应该在提高CCD/CMOS质量上下功夫。</p>
+<h5 id="实践检验"><a href="#实践检验" class="headerlink" title="实践检验:"></a>实践检验:</h5><p>在弱光场合比如昏暗的室内，午夜的街头，ISO100时即使光圈开到最大，快门速度也需1/4秒甚至更慢才能正确曝光，这时手一晃照片就糊。</p>
+<hr>
+<h3 id="快门"><a href="#快门" class="headerlink" title="快门"></a>快门</h3><h4 id="名词含义-1"><a href="#名词含义-1" class="headerlink" title="名词含义:"></a>名词含义:</h4><p>快门就是相机里控制曝光时间的装置。 </p>
+<h4 id="实践检验-1"><a href="#实践检验-1" class="headerlink" title="实践检验:"></a>实践检验:</h4><p>手持相机拍摄的安全速度原则：安全速度是焦距的倒数.</p>
+<h3 id="光圈"><a href="#光圈" class="headerlink" title="光圈"></a>光圈</h3><h4 id="名词含义-2"><a href="#名词含义-2" class="headerlink" title="名词含义:"></a>名词含义:</h4><p>镜头里调节进光孔大小的装置。</p>
+<h5 id="实现原理-1"><a href="#实现原理-1" class="headerlink" title="实现原理 :"></a>实现原理 :</h5><p>所有相机都基于小孔成像原理：拿一个密封箱子，在任何一面钻个小圆孔，然后把有孔的这面对着窗外，窗外的景象比如一棵树什么的，就会在圆孔对面的箱内壁生成此树的倒影。假如我们在内壁涂上感光材料（装上胶卷或CCD/CMOS），这个有孔的箱子就是一台完整的照相机了。这就是针孔相机。 </p>
+<p>但是如果拿小孔来作为光圈的话，入光量又太小了，曝光一次就要几个小时甚至几天。所以单反相机都采用了凸镜的聚光功能。今天数码相机的各种镜头都是几块凹凸镜的排列组合。为了应付不同的光线强度，我们还需要给镜头装上能够调节这个洞的大小的装置，以便在强光时缩小为针孔，弱光时开成大洞。这个装置就是光圈。如今相机通过在镜头内部加入多边形或者圆形，并且面积可变的孔状光栅来达到控制镜头通光量。</p>
+<h4 id="参数细节"><a href="#参数细节" class="headerlink" title="参数细节:"></a>参数细节:</h4><p>光圈F值=镜头的焦距/镜头光圈的直径。 (所以长焦才会那么贵吧)</p>
+<p>常见的光圈值如下： F1， F1.4， F2， F2.8， F4， F5.6， F8， F11， F16， F22， F32， F44， F64。</p>
+<p>光圈的档位设计是:</p>
+<ul>
+<li>相邻的两档的数值相差1.4倍（2的平方根1.414的近似值）</li>
+<li>透光孔直径相差根号2倍，</li>
+<li>透光孔的面积相差一倍， </li>
+<li>底片上形成的影像的亮度相差一倍，</li>
+<li>维持相同曝光量所需要的时间相差一倍。</li>
+</ul>
+<p>例如光圈从F4调整到F2.8，进光量便多一倍；</p>
+<p>光圈值和光圈实际大小是相反的.最小光圈F22时光圈跟针孔差不多.</p>
+<p>镜头在中等光圈的时候成像最好（图片最清晰）。 成像最好的那档光圈为最佳光圈。</p>
+<p>光圈大一级，镜片就大很多，加工难度大。价格也就增加一个数量级。</p>
+<h4 id="实践检验-2"><a href="#实践检验-2" class="headerlink" title="实践检验:"></a>实践检验:</h4><ol>
+<li>控制进光量，这直接影响到图片是否能正确曝光，是拍摄成功与否的关键；</li>
+<li>控制景深，光圈越小，景深越大。虽然焦距和拍摄远近都影响景深，但焦距和被摄物远近的改变同时也会影响构图，如果构图确定，我们能控制景深的武器就只剩下光圈了；</li>
+<li>光圈影响图片的清晰度，任何一个镜头都是在中等光圈的时候成像最好（图片最清晰），在最大光圈和最小光圈的时候解像度差。</li>
+</ol>
+<hr>
+<h3 id="曝光"><a href="#曝光" class="headerlink" title="曝光"></a>曝光</h3><h4 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释:"></a>名词解释:</h4><p>照像机的成像模型:</p>
+<p>假设一个黑乎乎的密闭房间，一面墙壁上开了个小圆窗户，窗对面的内壁上安上感光材料（白沥青，大型胶卷或CCD/CMOS）。这就是一台大型房式照相机。在没有打开小窗之前，房间里是黑乎乎的。<br>我们打开小窗，光线从小孔而入，射到对面墙壁的胶卷上，产生光化反应（或光电反应，如果是CCD/CMOS），照片就诞生了。此过程就叫做曝光。要得正确曝光的图片，必须精确决定曝光量。所谓曝光量就是让多少光进入这个密闭房间里。如果进光量太大，照片就会白花花一片，晚上变成了白天。如果进光量太小，照片就会黑乎乎的，白人变成黑人。</p>
+<p>曝光量就是进入光的量， 光圈和快门两样工具可以一起来控制曝光量。光圈（值）大小其实就是那个小圆窗户开多大，快门（速度）就是窗户打开多久。</p>
+<p>所以 得出如下公式:</p>
+<blockquote>
+<p>曝光量 = 光圈大小(非光圈F值) * 快门速度(单位 s)</p>
+</blockquote>
+<p>假若一个镜头光圈全开为F4，光圈F4快门速度1秒为正确曝光值，那F5.6和2秒以及F8和4秒也同样能得到准确曝光的图片。</p>
+<p>一张正确曝光的图片可以有N种不同的光圈和快门速度组合。</p>
+<h4 id="光圈，快门速度，ISO-总结"><a href="#光圈，快门速度，ISO-总结" class="headerlink" title="光圈，快门速度，ISO 总结"></a>光圈，快门速度，ISO 总结</h4><p>光圈和速度联合决定进光量，ISO决定CCD/CMOS的感光速度。如果进光量不够，我们可以开大光圈或者降低快门速度，还是不够的话就提高ISO。大光圈的缺点是解像度不如中等光圈，快门速度降低则图片可能会糊，提高ISO后图片质量也会下降 。</p>
+<hr>
+<h3 id="测光与测光模式"><a href="#测光与测光模式" class="headerlink" title="测光与测光模式"></a>测光与测光模式</h3><h4 id="名词解释-1"><a href="#名词解释-1" class="headerlink" title="名词解释:"></a>名词解释:</h4><p>测量光线的强度，自动给出能正确曝光的光圈和快门速度</p>
+<h4 id="实现原理-2"><a href="#实现原理-2" class="headerlink" title="实现原理"></a>实现原理</h4><p>每个数码相机里都有一个光敏电阻（不同强度的光线照射时电阻值发生变化），相机内的电脑根据电阻值的变化确定光线强度，进而确定曝光值（光圈，快门）。</p>
+<p>测光模式主要有点测光，中央重点测光，区域（平均）测光三种。点测光只测取景框内一个小点的光线强度（此小点大约为取景框面积的10%到1%，看不同机型）。区域（平均）测光则把取景框分为5到63块（看机型不同），分别对每块测光然后再加权平均得到光照强度。中央重点测光是简化的区域（平均）测光，只把取景框分为中央圆圈和四周两块，分别测光，然后加权平均（中央圆圈的权重为70%左右）。</p>
+<h4 id="实践检验-3"><a href="#实践检验-3" class="headerlink" title="实践检验:"></a>实践检验:</h4><p>大多数情况下用区域测光即可。在光线明暗反差很大时应该采用点测光。用区域（平均）测光或中央重点也可以，你可根据自己的艺术创意进行曝光补偿。</p>
+<hr>
+<h3 id="曝光补偿"><a href="#曝光补偿" class="headerlink" title="曝光补偿"></a>曝光补偿</h3><h4 id="名词解释-2"><a href="#名词解释-2" class="headerlink" title="名词解释"></a>名词解释</h4><p>我们之所以能看见东西，不外乎两种情况：一是物体本身可以发光，比如太阳或灯泡；大多数情况是物体能反射外来光线。反射的光线越多，物体就越亮，反之则越暗。假设两个极端，纯黑色物体不会反射光线，反射率为零，而纯白的物体反射率是100%。在这两个极端之间取中间值就是不黑也不白的灰色，称为柯达灰，也称为18%中间灰。</p>
+<p>以一张客厅照片为例，客厅墙壁又白又亮，而电视机的大屏幕又黑又暗，窗帘和家具等亮度居中。要以谁的亮度来确定曝光？相机自动测光就是取平均数，最后给出一个让图片达到中间灰的曝光值。</p>
+<p>所以会导致本来应该雪白刺眼的场景拍出来却是一片灰色；再比如对着一堆煤球拍，本来是纯黑，拍出来却是灰煤。</p>
+<h4 id="实践检验-4"><a href="#实践检验-4" class="headerlink" title="实践检验"></a>实践检验</h4><p>在明暗反差很大时自动曝光往往不准，需要手动暴光补偿。</p>
+<p>曝光补偿的原则：白加黑减。如果构图中有大片白色物体或者有灯等特别明亮的物体，就要相应增加曝光量（增大光圈or/and减低快门速度）；如果取景框中有大片黑色的物体，则要减少曝光量。</p>
+<p>对于raw格式图片，进行曝光补偿调整是几乎不太会影响质量的，所以夜景推荐使用raw格式</p>
+<hr>
+<h3 id="焦距"><a href="#焦距" class="headerlink" title="焦距"></a>焦距</h3><h4 id="名词解释-3"><a href="#名词解释-3" class="headerlink" title="名词解释:"></a>名词解释:</h4><p>光线经过透镜就会聚成一点（焦点） ，镜头的焦距就是从镜片（或镜片组）的中心到焦点的距离，单位是毫米</p>
+<h4 id="镜头知识"><a href="#镜头知识" class="headerlink" title="镜头知识:"></a>镜头知识:</h4><ul>
+<li><p>标准镜头: 焦距50mm的镜头，简称标头.拍出来的照片类似肉眼平视的感觉（视角为45°左右）。</p>
+</li>
+<li><p>广角镜头:（焦距小于35mm）能够让照相机“看得更宽阔”，因为它视角大.</p>
+</li>
+<li><p>长焦镜头:（焦距大于70mm）能让照相机“看得更远”，但视角窄。</p>
+</li>
+<li><p>定焦镜头: 焦距固定</p>
+</li>
+</ul>
+<h4 id="光学变焦与数码变焦"><a href="#光学变焦与数码变焦" class="headerlink" title="光学变焦与数码变焦"></a>光学变焦与数码变焦</h4><blockquote>
+<p>变焦倍数＝最大焦距值/最小焦距值</p>
+</blockquote>
+<p>光学变焦: 依靠镜片的位移来实现焦距的改变。光学变焦倍数越大，里面的镜片就越多，镜头体积相应较大，画质相对较低，光圈相对较小。</p>
+<p>数码变焦: 只是软件层面的电子放大。</p>
+<hr>
+<h3 id="色温与白平衡"><a href="#色温与白平衡" class="headerlink" title="色温与白平衡"></a>色温与白平衡</h3><h4 id="名词解释-4"><a href="#名词解释-4" class="headerlink" title="名词解释:"></a>名词解释:</h4><p>色温: 以开尔文温度表示光线的色彩，单位是K。当物体被加热到一定的温度时就会发出光线，此光线不仅含有亮度的成份，更含有颜色的成份。温度越高，蓝色的成份越多，图像就会偏蓝；相反，温度越低，红色的成份就越多，图像就会偏红。</p>
+<pre><code>光线的色温
+光源                                色温（Ｋ）
+蜡烛                                  2000
+钨丝灯                                 2500-3200
+荧光灯                               4500-6500
+日光（平均）                           5400
+有云天气下的日光                         6500-7000
+</code></pre><p>物体在不同色温的光源照射下会呈现不同的色调，在日光灯下整体偏白，在普通钨丝白炽灯下整体偏黄。白平衡就是照相机对白色的还原准确性。大多数情况下数码相机能准确判断光源的类型，拍出的照片颜色准确，但也有时候相机的电脑对色温做出了错误的判断。</p>
+<h4 id="实践检验-5"><a href="#实践检验-5" class="headerlink" title="实践检验:"></a>实践检验:</h4><p>选择raw可完美实现后期设置白平衡</p>
+<hr>
+<h2 id="实践场景"><a href="#实践场景" class="headerlink" title="实践场景"></a>实践场景</h2><h3 id="实践准则"><a href="#实践准则" class="headerlink" title="实践准则:"></a>实践准则:</h3><ol>
+<li>光圈越大，景深越小；</li>
+<li>焦距越长，景深越小；</li>
+<li>离被摄物体越近，景深越小。</li>
+</ol>
+<h3 id="夜景"><a href="#夜景" class="headerlink" title="夜景"></a>夜景</h3><ol>
+<li>在夜景拍摄中，绝大多数场景推荐使用A挡光圈优先，因为可以随意控制景深。拍风光车流什么的就小光圈，低iso</li>
+<li>测光: 如果拍摄场景中只有主体一部分是亮的，就对它进行点测光。要是场景中有好多都是亮的，就用平均测光和中央重点测光就好。</li>
+<li>曝光: 原则上，白加黑减。对于夜晚，调整曝光补偿略微减0.3到0.7档曝光。</li>
+<li>用raw格式，为了后期调白平衡。对于夜景，白平衡是灵魂。</li>
+</ol>
+<blockquote>
+<p>未完</p>
+</blockquote>
+<hr>
+<p>参考资料:</p>
+<p><a href="http://iphoto.blog.163.com/blog/static/174404124200832982358951/" target="_blank" rel="external">几个必要的摄影名词解释</a></p>
+<p>百度百科</p>
+<p>维基百科</p>
+
+            
+        </div>
+        
+    </div>
+    
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/posts/摄影/2016-04-10-摄影技巧.html">用编程思想学摄影</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Joway 的个人博客">Joway</a></p>
+        <p><span>发布时间:</span>2016年04月10日 - 18时07分</p>
+        <p><span>最后更新:</span>2016年04月10日 - 19时50分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/posts/摄影/2016-04-10-摄影技巧.html" title="用编程思想学摄影">https://joway.wang/posts/摄影/2016-04-10-摄影技巧.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://joway.wang/posts/摄影/2016-04-10-摄影技巧.html　　作者: Joway" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span>
+                        <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0/cn/"><img alt="知识共享许可协议" style="border-width:0" height='20px' src="https://dn-joway.qbox.me/1463021510328_88x31.png" /></a>
+            本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0/cn/">知识共享署名-非商业性使用-禁止演绎 3.0</a>进行许可。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/posts/Hexo/2016-04-23-hexo-search.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hexo折腾记——静态站点搜索
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/Hacked/2016-04-08-chaoxing-hacked.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">超星慕课视频系统破解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+    
+</article>
+
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语与对应作用及原理"><span class="toc-number">1.</span> <span class="toc-text">术语与对应作用及原理:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ISO-感光度"><span class="toc-number">1.1.</span> <span class="toc-text">ISO 感光度:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#名词含义"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">名词含义:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实现原理"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">实现原理 :</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#副作用-噪点"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">副作用: 噪点:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实践检验"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">实践检验:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快门"><span class="toc-number">1.2.</span> <span class="toc-text">快门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词含义-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">名词含义:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践检验-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">实践检验:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#光圈"><span class="toc-number">1.3.</span> <span class="toc-text">光圈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词含义-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">名词含义:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实现原理-1"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">实现原理 :</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数细节"><span class="toc-number">1.3.2.</span> <span class="toc-text">参数细节:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践检验-2"><span class="toc-number">1.3.3.</span> <span class="toc-text">实践检验:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#曝光"><span class="toc-number">1.4.</span> <span class="toc-text">曝光</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释"><span class="toc-number">1.4.1.</span> <span class="toc-text">名词解释:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#光圈，快门速度，ISO-总结"><span class="toc-number">1.4.2.</span> <span class="toc-text">光圈，快门速度，ISO 总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测光与测光模式"><span class="toc-number">1.5.</span> <span class="toc-text">测光与测光模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释-1"><span class="toc-number">1.5.1.</span> <span class="toc-text">名词解释:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现原理-2"><span class="toc-number">1.5.2.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践检验-3"><span class="toc-number">1.5.3.</span> <span class="toc-text">实践检验:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#曝光补偿"><span class="toc-number">1.6.</span> <span class="toc-text">曝光补偿</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释-2"><span class="toc-number">1.6.1.</span> <span class="toc-text">名词解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践检验-4"><span class="toc-number">1.6.2.</span> <span class="toc-text">实践检验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#焦距"><span class="toc-number">1.7.</span> <span class="toc-text">焦距</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释-3"><span class="toc-number">1.7.1.</span> <span class="toc-text">名词解释:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#镜头知识"><span class="toc-number">1.7.2.</span> <span class="toc-text">镜头知识:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#光学变焦与数码变焦"><span class="toc-number">1.7.3.</span> <span class="toc-text">光学变焦与数码变焦</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#色温与白平衡"><span class="toc-number">1.8.</span> <span class="toc-text">色温与白平衡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#名词解释-4"><span class="toc-number">1.8.1.</span> <span class="toc-text">名词解释:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践检验-5"><span class="toc-number">1.8.2.</span> <span class="toc-text">实践检验:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实践场景"><span class="toc-number">2.</span> <span class="toc-text">实践场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实践准则"><span class="toc-number">2.1.</span> <span class="toc-text">实践准则:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#夜景"><span class="toc-number">2.2.</span> <span class="toc-text">夜景</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+
+
+
+<section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'joway'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+        var el = document.getElementById('disqus_thread')
+        window.addEventListener('scroll', checkPosition)
+        window.addEventListener('load', checkPosition)
+        function checkPosition () {
+            var rect = el.getBoundingClientRect()
+            if (rect.top < (window.innerHeight*5)) {
+                window.removeEventListener('scroll', checkPosition)
+                window.removeEventListener('load', checkPosition)
+                loadDisqus()
+            }
+        }
+        function loadDisqus () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }
+        })();
+        
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/posts/Hexo/2016-04-23-hexo-search.html" title="上一篇: Hexo折腾记——静态站点搜索">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/posts/Hacked/2016-04-08-chaoxing-hacked.html" title="下一篇: 超星慕课视频系统破解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/posts/docker/2016-06-11-Django-uWSGI-Nginx在Docker中的部署.html">Django && uWSGI && Nginx 在Docker中的部署</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/django/2016-06-11-Web服务器原理以及Django-uWSGI-Nginx部署.html">Web服务器原理 以及 Django && uWSGI && Nginx 部署</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/docker/2016-06-11-OpenResty折腾小记.html">OpenResty OS X 配置小记</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-05-21-hexo-qiniu-cdn.html">Hexo折腾记——终极加速:全线接入CDN</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-05-17-hexo-compress-inline-static.html">Hexo折腾记——通过压缩与内联提升访问速度</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-05-15-Google-Analytics.html">谷歌分析(Google Analytics) 加速实现秒加载页面</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Toy/2016-05-14-用微信与Github搭建一个属于自己的微博.html">用微信与Github搭建一个属于自己的微博</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-04-23-hexo-search.html">Hexo折腾记——静态站点搜索</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/摄影/2016-04-10-摄影技巧.html">用编程思想学摄影</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hacked/2016-04-08-chaoxing-hacked.html">超星慕课视频系统破解</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Java/2016-04-02-jpbc-show-me-the-code.html">JPBC(Java Pairing Based Cryptography) 库 实例详解</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Java/2016-04-02-jpbc-base.html">JPBC(Java Pairing Based Cryptography) 库 使用</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Java/2016-04-01-java-io-optimize.html">Java IO 性能优化一个小实例</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Mac/2016-03-28-记一次解决Mac扬声器破音问题的神奇经历.html">记一次解决Mac扬声器破音问题的神奇经历</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-03-25-hexo-analysis.html">Hexo折腾记——统计与交互篇</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-03-19-Hexo-deploy.html">Hexo 折腾记——自动部署篇</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-03-19-Hexo-optimize.html">Hexo折腾记——性能优化篇</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/Hexo/2016-03-18-hexo-base.html">Hexo折腾记——基本配置篇</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2016-02-01-我的滑板鞋-艺术-其它.html">我的滑板鞋-艺术-其它</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2016-01-16-医生与工程师.html">医生与工程师</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-12-07-2015-11-14-高级傻逼.html">高级傻逼</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2015-11-22-2015-11-22-王戈壁与苏清河(四).html">王戈壁与苏清河(四)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2015-11-17-2015-11-17-王戈壁与苏清河(三).html">王戈壁与苏清河(三)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2015-11-16-2015-11-17-王戈壁与苏清河(二).html">王戈壁与苏清河(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2015-11-06-2015-11-6-王戈壁与苏清河(一).html">王戈壁与苏清河(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-09-19-2015-9-19-对环境和孤独的几点看法.html">对环境和孤独的几点看法</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-08-31-2015-8-31-斗胆谈谈同性恋的问题.html">斗胆谈谈同性恋的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/书评/2015-08-12-2015-8-12-muxin-zaitan.html">再谈木心</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2015-08-01-2015-8-1-我的朋友王戈壁(一).html">我的朋友王戈壁(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-07-19-2015-07-19-从段首空两格开始说起.html">从段首空两格开始说起</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-06-13-2015-06-13-对大一生活的总结.html">风吹过大一的时候雨下了一整夜</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-06-04-2015-06-04-高校集体主义杂谈.html">高校集体主义杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-05-23-2015-05-23-高墙与鸡蛋.html">高墙与鸡蛋</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2015-04-28-2015-04-28-乌鸦之死.html">乌鸦之死</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-04-22-2015-04-22-近期的一个有趣的试验.html">近期的一个有趣的实验</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2015-03-21-2015-03-21-傲慢与偏见.html">傲慢与偏见</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/书评/2015-02-17-2015-02-17-走到人生边上.html">从杨绛的《走到人生边上》看言论的自我解释和自我审查</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/书评/2015-01-29-2015-01-29-送你一匹马.html">关于三毛《送你一匹马》的闲言碎语</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/影评/2014-12-27-2014-12-27-一步之遥.html">个人主义的狂欢——《一步之遥》</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/影评/2014-12-15-2014-12-15-消失的女孩.html">致我们终将消失的女孩——《Gone girl》</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2014-10-27-2014-10-27-对于暑期“放牛班”学生的心理探讨.html">对于暑期“放牛班”学生的心理探讨</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/影评/2014-10-23-2014-10-23-评《黄金时代》.html">评《黄金时代》</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/游记/2014-10-08-2014-10-08-论乌镇与西塘的差异与商业的艺术化.html">论乌镇与西塘的差异与商业的艺术化</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2014-03-22-2015-03-22-女权主义.html">我所认为的优秀女性和真正女权</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2014-02-02-2014-02-02-追.html">追</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其一.html">杂记其一</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-玉兰.html">玉兰</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-灵与肉.html">灵与肉</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其六.html">杂记其六</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-逃.html">逃</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其五.html">杂记其五</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其二.html">杂记其六</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其三.html">杂记其三</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其七.html">杂记其七</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-路.html">路</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-暧昧.html">暧昧</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-哀悲.html">哀悲</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-命.html">命</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-23-2014-01-23-杂记其四.html">杂记其四</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2014-01-02-2014-01-02-Tide.html">Tide</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/年记/2013-12-30-2013-12-30-年方十八.html">年方十八</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2013-11-24-2013-11-24-我纷纷的性欲.html">我纷纷的性欲</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2013-09-28-2013-09-28-风沙.html">风沙</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2013-08-26-2013-08-26-两点一个.html">两点一个</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2013-08-24-2013-08-24-幻之所遇，亦如诸事.html">幻之所遇，亦如诸事</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/小说/2013-07-29-2013-07-29-爱在日落黄昏时.html">爱在日落黄昏时</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2013-07-10-2013-07-10-娱乐至死背后的人性至上.html">娱乐至死背后的人性至上</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/诗歌/2013-03-21-2013-03-21-那些年.html">那些年</a></li><li class="post-list-item"><a class="post-list-link" href="/posts/随感/2013-02-20-2013-02-20-白天我是奴隶，晚上我是王子.html">白天我是奴隶，晚上我是王子</a></li></ul>
+    <script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+<script>
+    
+</script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Joway
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a
+                        href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 4;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//o4jiepyc4.qnssl.com/analytics.js','ga');
+ga('create', 'UA-53624533-5', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+
+<script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+<!--&lt;!&ndash;<link href="//cdn.bootcss.com/semantic-ui/2.1.8/components/search.css" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<!--&lt;!&ndash;var content = [];&ndash;&gt;-->
+<!--&lt;!&ndash;$.get("search.json", function (result) {&ndash;&gt;-->
+<!--&lt;!&ndash;for (var i = 0; i < result.length; ++i) {&ndash;&gt;-->
+<!--&lt;!&ndash;content[i] = {title: result[i].title};&ndash;&gt;-->
+<!--&lt;!&ndash;console.log(content[i]);&ndash;&gt;-->
+
+<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;$('.ui.search')&ndash;&gt;-->
+<!--&lt;!&ndash;.search({&ndash;&gt;-->
+<!--&lt;!&ndash;source: content&ndash;&gt;-->
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+
+<!--<script>-->
+    <!--var levenshtein = new Levenshtein();-->
+    <!--var query;-->
+
+<!--//    window.onload = function () {-->
+<!--//        var list = new Array();-->
+<!--//        $.get("../search.json", function (result) {-->
+<!--//            for (var i = 0; i < result.length; ++i) {-->
+<!--//                list[result[i].title] = new Levenshtein(query, result[i].content).valueOf();-->
+<!--//            }-->
+<!--//            var sorted_list = new Array();-->
+<!--//            var cur = 0;-->
+<!--//            for (var key  in list) {-->
+<!--//                for (var t = 0; t <= cur; ++t) {-->
+<!--//                    if(list[key])-->
+<!--//                }-->
+<!--//-->
+<!--//                alert(key);-->
+<!--//            }-->
+<!--//-->
+<!--//        });-->
+<!--//    }-->
+
+<!--//    需要建立一个数据结构, 把json数据排序后展现出来-->
+<!--</script>-->
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
