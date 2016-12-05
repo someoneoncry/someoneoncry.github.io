@@ -1,1 +1,93 @@
-function uptoken(n,e){var i=new qiniu.rs.PutPolicy(n+":"+e);return i.token()}function uploadFile(n,e,i){var o=new qiniu.io.PutExtra;qiniu.io.putFile(n,e,i,o,function(n,e){n?console.log(n):console.log("upload success : ",e.hash,e.key)})}function getFilenameSuffix(n){if(".DS_Store"==n)return".DS_Store";if(null==n||0==n.length)return null;var e=/\.[^\.]+/.exec(n);return null==e?null:(e+"").toLowerCase()}const fs=require("fs"),path="../../dist/images";var qiniu=require("qiniu");qiniu.conf.ACCESS_KEY="zeDw8a27RIDTr9PLkYZeqDZuB0Ruw4WqJ5uiAsz8",qiniu.conf.SECRET_KEY="WpqSk-iE5gVh_nwxrEzJW0EGqY2n9r67774KXRwH",bucket="hexo",fs.readdir(path,function(n,e){if(n)return void console.log(n);var i=[];!function o(n){return n==e.length?(fs.unlink("./output.json",function(n){n&&console.log(n)}),void fs.writeFile("./output.json",JSON.stringify(i,null,"	"))):void fs.stat(path+"/"+e[n],function(u,t){if(!u){if(t.isFile()){var l=getFilenameSuffix(e[n]);".js"!=l&&".DS_Store"!=l&&(filePath=path+"/"+e[n],console.log("抓取到文件: "+e[n]),key=e[n],token=uptoken(bucket,key),uploadFile(token,key,filePath),i.push(e[n]))}o(n+1)}})}(0)});
+const fs = require("fs");
+const path = "../../dist/images";
+var qiniu = require("qiniu");
+
+
+//需要填写你的 Access Key 和 Secret Key
+qiniu.conf.ACCESS_KEY = 'zeDw8a27RIDTr9PLkYZeqDZuB0Ruw4WqJ5uiAsz8';
+qiniu.conf.SECRET_KEY = 'WpqSk-iE5gVh_nwxrEzJW0EGqY2n9r67774KXRwH';
+
+//要上传的空间
+bucket = 'hexo';
+
+
+//构建上传策略函数
+function uptoken(bucket, key) {
+  var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
+  return putPolicy.token();
+}
+
+
+//构造上传函数
+function uploadFile(uptoken, key, localFile) {
+    var extra = new qiniu.io.PutExtra();
+    qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
+      if(!err) {
+        // 上传成功， 处理返回值
+        console.log('upload success : ',ret.hash, ret.key);
+      } else {
+        // 上传失败， 处理返回代码
+        console.log(err);
+      }
+  });
+}
+
+/**
+ * 读取文件后缀名称，并转化成小写
+ * @param file_name
+ * @returns
+ */
+function getFilenameSuffix(file_name) {
+  if(file_name=='.DS_Store'){
+    return '.DS_Store';
+  }
+    if (file_name == null || file_name.length == 0)
+        return null;
+    var result = /\.[^\.]+/.exec(file_name);
+    return result == null ? null : (result + "").toLowerCase();
+}
+
+
+fs.readdir(path, function (err, files) {
+    if (err) {
+        console.log(err)
+        return;
+    }
+    var arr = [];
+    (function iterator(index) {
+        if (index == files.length) {
+
+            fs.unlink('./output.json', function(err){
+                if(err)
+                {
+                    console.log(err);
+                }
+            })
+            fs.writeFile("./output.json", JSON.stringify(arr, null, "\t"));
+            return;
+        }
+
+        fs.stat(path + "/" + files[index], function (err, stats) {
+            if (err) {
+                return;
+            }
+            if (stats.isFile()) {
+              var suffix = getFilenameSuffix(files[index]);
+              if(!(suffix=='.js'|| suffix == '.DS_Store')){
+                //要上传文件的本地路径
+                filePath = path+'/'+files[index];
+                console.log('抓取到文件: '+files[index]);
+                //上传到七牛后保存的文件名
+                key = files[index];
+                //生成上传 Token
+                token = uptoken(bucket, key);
+                // 异步执行
+                uploadFile(token, key, filePath);
+                arr.push(files[index]);
+            }
+
+                      }
+            iterator(index + 1);
+        })
+    }(0));
+});
