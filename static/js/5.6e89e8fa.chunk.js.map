@@ -1,1 +1,0 @@
-{"version":3,"sources":["mod/home/Home.js"],"names":["Home"],"mappings":"wHAAA,kCAOeA,UAJf,WACE,OAAO","file":"static/js/5.6e89e8fa.chunk.js","sourcesContent":["import React from 'react';\nimport './Home.css';\n\nfunction Home() {\n  return <div>Home</div>;\n}\n\nexport default Home;\n"],"sourceRoot":""}
