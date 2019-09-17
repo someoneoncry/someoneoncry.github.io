@@ -1,0 +1,1 @@
+{"version":3,"sources":["mod/nomatch/Nomatch.js"],"names":["Nomatch"],"mappings":"wHAAA,kCAOeA,UAJf,WACE,OAAO","file":"static/js/6.a9444fb1.chunk.js","sourcesContent":["import React from 'react';\nimport './Nomatch.css';\n\nfunction Nomatch() {\n  return <>404</>;\n}\n\nexport default Nomatch;\n"],"sourceRoot":""}
